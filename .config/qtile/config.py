@@ -47,8 +47,9 @@ keys = [
     
     # Apps
       
-    Key([mod], "grave", lazy.spawn("rofi -modi drun,window,run,'clipboard:greenclip print' -show")), # grave=backtick
     Key([mod], "Return", lazy.spawn("termite")),
+    Key([mod], "grave", lazy.spawn("rofi -modi drun,window,run,'clipboard:greenclip print' -show")), # grave=backtick
+    Key(["control", "shift"], "p", lazy.spawn("flameshot gui")),
 
 ]
 
@@ -235,26 +236,22 @@ screens = [
                         border_color=cols['fg_inactive'],
                         line_width=2
                 ),
-               widget.Systray(
-                        padding = 10
-                        ),
-                widget.Spacer(
-                        length=10
-                ),
-               widget.TextBox(
-                        font="font-awesome",
-                        text="",
-                        padding = 5,
-                        fontsize=17,
-                        ),
+               widget.Spacer(length=30),
+               widget.Spacer(length=30),
+               widget.BatteryIcon(
+			padding = 0,
+			margin = 0
+	       ),
                widget.Battery(
+			padding = 0,
                         charge_char = "↑ ",
                         discharge_char = "↓ ",
+			unknown_char = '',
                         format = '{char}{percent:2.0%}',
                         ),
                widget.Sep(
                        linewidth=1,
-                       padding=10
+                       padding=20
                ),
                widget.TextBox(
                         font="font-awesome",
@@ -289,10 +286,6 @@ screens = [
                         fontsize=14
                         ),
                widget.Volume(),
-               widget.Sep(
-                        linewidth=1,
-                        padding=10
-               ),
          #      widget.TextBox(
          #               font="font-awesome",
          #               text="",
@@ -302,12 +295,19 @@ screens = [
          #      widget.DF(
          #               visible_on_warn=False
          #               ),
-               widget.Spacer(
-                        length=10
+               widget.Sep(
+                        linewidth=1,
+                        padding=10
+               ),
+               widget.Systray(padding = 10),
+               widget.Spacer(length=30),
+               widget.Sep(
+                        linewidth=1,
+                        padding=10
                ),
                widget.Clock(
                         fontsize=14,
-                        format="%A, %B %d"
+                        format="%a, %b %d"
                         ),
                widget.Sep(
                         linewidth=1,

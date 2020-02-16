@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # yay -S flat-remix rofi-greenclip
-# pacman -S nm-applet blueman nitrogen pacman-contrib lxappearance pcmanfm-gtk3
+# pacman -S nm-applet blueman nitrogen pacman-contrib lxappearance pcmanfm-gtk3 python-pip gcc ttf-font-awesome 
 
 xinput set-prop 11 "libinput Tapping Enabled" 1 &
 nm-applet &  

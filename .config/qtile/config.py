@@ -88,7 +88,7 @@ layouts = [
 ]
 
 class GroupConfig:
-  def __init__(self, name, label, matches, spawn=None, group_layouts=layouts):
+  def __init__(self, name, label, matches=None, spawn=None, group_layouts=layouts):
     self.name = name
     self.label = label
     self.matches = matches
@@ -122,7 +122,7 @@ groups_config = [
         group_layouts=[
            layout.Max(), 
            layout.TreeTab(**treetab_theme, **layout_theme)
-]
+        ]
    ),
    GroupConfig(
         'f', 
@@ -138,6 +138,15 @@ groups_config = [
         'i', 
         '', 
         [ Match(wm_class=[ "spotify", "Spotify" ]) ],
+   ),
+   GroupConfig(
+        'o', 
+        '', 
+        group_layouts=[
+           layout.Max(),
+	   layout.Floating(),
+           layout.TreeTab(**treetab_theme, **layout_theme)
+        ]
    ),
 ]
 

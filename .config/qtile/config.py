@@ -47,7 +47,7 @@ keys = [
     
     # Apps
       
-    Key([mod], "Return", lazy.spawn("termite")),
+    Key([mod], "Return", lazy.spawn("alacritty")),
     Key([mod], "grave", lazy.spawn("rofi -modi drun,window,run,'clipboard:greenclip print' -show")), # grave=backtick
     Key(["control", "shift"], "p", lazy.spawn("flameshot gui")),
 
@@ -111,8 +111,8 @@ groups_config = [
    GroupConfig(
         's', 
         '', 
-        [ Match(wm_class=["UXTerm", "URxvt", "Urxvt-tabbed", "Urxvt", "XTerm", "Termite", "termite", "Lxterminal"]) ],
-        spawn='termite',
+        [ Match(wm_class=["UXTerm", "URxvt", "Urxvt-tabbed", "Urxvt", "XTerm", "Termite", "alacritty", "Lxterminal"]) ],
+        spawn='alacritty',
         group_layouts=[layout.MonadTall(**layout_theme)]
    ),
    GroupConfig(
@@ -271,6 +271,7 @@ screens = [
                widget.Backlight(
                         brightness_file='/sys/class/backlight/intel_backlight/brightness',
                         max_brightness_file='/sys/class/backlight/intel_backlight/max_brightness',
+			change_command='light -S {0}'
                         ),
                widget.Sep(
                         linewidth=1,
@@ -282,7 +283,7 @@ screens = [
                         fontsize=20,
                         ),
                widget.Pacman(
-                        command='termite',
+                        command='alacritty',
                         ),
                widget.Sep(
                         linewidth=1,

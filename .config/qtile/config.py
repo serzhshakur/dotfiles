@@ -1,4 +1,4 @@
-from libqtile.config import Key, Screen, Group, Drag, Click, Match
+from libqtile.config import Key, ScratchPad, DropDown, Screen, Group, Drag, Click, Match
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 
@@ -144,7 +144,6 @@ groups_config = [
         '', 
         group_layouts=[
            layout.Max(),
-	   layout.Floating(),
            layout.TreeTab(**treetab_theme, **layout_theme)
         ]
    ),
@@ -161,6 +160,12 @@ groups = [
     for config in groups_config 
    ]
 
+groups.append(
+    ScratchPad("x", [
+        DropDown("term", "alacritty", height=0.7, width=1, x=0) 
+    ])
+)
+
 for i in groups:
     keys.extend([
         # mod1 + letter of group = switch to group
@@ -170,6 +175,10 @@ for i in groups:
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
     ])
 
+# Key bindings for scratchpads
+keys.append(
+    Key([], 'F1', lazy.group["x"].dropdown_toggle("term")),
+)
 
 widget_defaults = dict(
     font='Ubuntu Mono',
@@ -354,7 +363,7 @@ main = None
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating(float_rules=[
+floating_layout = layout.Floating(border_width=0, float_rules=[
     {'wmclass': 'confirm'},
     {'wmclass': 'dialog'},
     {'wmclass': 'download'},

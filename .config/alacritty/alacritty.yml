@@ -1,0 +1,105 @@
+env:
+  LANG: en_GB.UTF-8
+  TERM: xterm-256color
+
+dynamic_padding: true 
+
+font:
+  normal:
+    family: Fantasque Sans Mono
+  bold:
+    family: Fantasque Sans Mono
+    style: Bold
+  italic:
+    family: Fantasque Sans Mono
+    style: Italic 
+  size: 10
+ 
+## Theme: tomorrow.dark
+colors:
+  # Default colors
+  primary:
+    background: '0x1d1f21'
+    foreground: '0xc5c8c6'
+
+  # Normal colors
+  normal:
+    black:   '0x1d1f21'
+    red:     '0xcc6666'
+    green:   '0xb5bd68'
+    yellow:  '0xf0c674'
+    blue:    '0x81a2be'
+    magenta: '0xb294bb'
+    cyan:    '0x8abeb7'
+    white:   '0xc5c8c6'
+
+  # Bright colors
+  bright:
+    black:   '0x969896'
+    red:     '0xcc6666'
+    green:   '0xb5bd68'
+    yellow:  '0xf0c674'
+    blue:    '0x81a2be'
+    magenta: '0xb294bb'
+    cyan:    '0x8abeb7'
+    white:   '0xffffff'
+
+
+# Theme: twilight.dark
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x1e1e1e'
+#     foreground: '0xa7a7a7'
+
+#   # Normal colors
+#   normal:
+#     black:   '0x1e1e1e'
+#     red:     '0xcf6a4c'
+#     green:   '0x8f9d6a'
+#     yellow:  '0xf9ee98'
+#     blue:    '0x7587a6'
+#     magenta: '0x9b859d'
+#     cyan:    '0xafc4db'
+#     white:   '0xa7a7a7'
+
+#   # Bright colors
+#   bright:
+#     black:   '0x5f5a60'
+#     red:     '0xcf6a4c'
+#     green:   '0x8f9d6a'
+#     yellow:  '0xf9ee98'
+#     blue:    '0x7587a6'
+#     magenta: '0x9b859d'
+#     cyan:    '0xafc4db'
+#     white:   '0xffffff'
+
+# # ashes.dark
+# colors:
+#   # Default colors
+#   primary:
+#     background: '0x1c2023'
+#     foreground: '0xc7ccd1'
+# 
+#   # Normal colors
+#   normal:
+#     black:   '0x1c2023'
+#     red:     '0xc7ae95'
+#     green:   '0x95c7ae'
+#     yellow:  '0xaec795'
+#     blue:    '0xae95c7'
+#     magenta: '0xc795ae'
+#     cyan:    '0x95aec7'
+#     white:   '0xc7ccd1'
+# 
+#   # Bright colors
+#   bright:
+#     black:   '0x747c84'
+#     red:     '0xc7ae95'
+#     green:   '0x95c7ae'
+#     yellow:  '0xaec795'
+#     blue:    '0xae95c7'
+#     magenta: '0xc795ae'
+#     cyan:    '0x95aec7'
+#     white:   '0xf3f4f5'
+# 

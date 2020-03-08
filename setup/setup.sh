@@ -46,7 +46,7 @@ install_pkg gvim alacritty \
 	    rambox-bin \ 
 
 # Some python libraries requred for qtile
-sudo pip install psutil dateutil iwlib
+sudo pip install -U --upgrade-strategy=only-if-needed psutil python-dateutil
 
 # The very last step: removing orphaned packages
 sudo pacman -Rns $(pacman -Qtdq)

@@ -1,41 +1,33 @@
 #!/bin/bash
 
-function enable_services {
-  for service in "$@"; do
-    sudo systemctl enable --now $service
-    sudo systemctl start $service
-  done
-}
+source ./functions.sh
 
-function install_aur_pkg {
-  pkg=$1
-  if !(pacman -Q $pkg > /dev/null 2>&1)
-  then
-    git clone https://aur.archlinux.org/$pkg.git /tmp/packages/$pkg
-    cd /tmp/packages/$pkg
-    makepkg -si --noconfirm
-    rm -rf /tmp/packages/$pkg
-  fi
-}
+user=`whoami`
 
-function install_pkg {
-  sudo yay -S --needed --noconfirm $@
-}
+# Timezone 
+timedatectl set-ntp true
+timedatectl set-timezone Europe/Riga
 
-# Install yay
-sudo pacman -S --needed --noconfirm git binutils make gcc fakeroot
-install_aur_pkg yay
+# Locale
+locale-gen en_GB.UTF-8
+echo LANG=en_GB.UTF-8 > /etc/locale.conf
+export LANG=en_GB.UTF-8
+source /etc/profile.d/locale.sh
 
-# Get faster mirrors
+# Setup faster mirrors
 install_pkg reflector
 sudo reflector -f 15 --save /etc/pacman.d/mirrorlist
 
+# Installing yay
+install_pkg git binutils make gcc fakeroot
+install_aur_pkg yay
+
 # Installing necessary packages
 install_pkg gvim alacritty \
-            zsh oh-my-zsh-git \
 	    xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm} light \
 	    mesa mesa-libgl \
 	    xf86-video-vesa \
+            zsh oh-my-zsh-git \
 	    lightdm lightdm-gtk-greeter \
 	    pulseaudio pulseaudio-alsa \
 	    bluez bluez-utils pulseaudio-bluetooth blueman \
@@ -47,11 +39,11 @@ install_pkg gvim alacritty \
 	    ttf-font-awesome ttf-fantasque-sans-mono ttf-jetbrains-mono noto-fonts \
 	    qtile python-pip gcc pacman-contrib \
 	    picom \
-	    reflector \
 	    docker \
 	    jdk-openjdk openjdk-doc openjdk-src \
 	    jetbrains-toolbox code \
 	    postman \
+	    rambox-bin \ 
 
 # Some python libraries requred for qtile
 sudo pip install psutil dateutil iwlib
@@ -60,5 +52,14 @@ sudo pip install psutil dateutil iwlib
 sudo pacman -Rns $(pacman -Qtdq)
 
 # Systemd
-enable_services lightdm bluetooth docker
+enable_services lightdm bluetooth docker picom
+
+# Adding user to necessary groups
+sudo usermod -aG docker $user
+
+# Move config files
+cp $PWD/../.config/* ~/.config/
+
+# Setup desktop notifications
+sudo cp ./org.freedesktop.Notifications.service /usr/share/dbus-1/services/org.freedesktop.Notifications.service
 

@@ -35,8 +35,9 @@ install_pkg gvim alacritty \
 	    arc-gtk-theme flat-remix lxappearance \
 	    flameshot \
 	    rofi rofi-greenclip \
+	    evince-no-gnome \
 	    networkmanager network-manager-applet openvpn networkmanager-openvpn \
-	    ttf-font-awesome ttf-fantasque-sans-mono ttf-jetbrains-mono noto-fonts \
+	    ttf-font-awesome ttf-fantasque-sans-mono ttf-jetbrains-mono noto-fonts ttf-droid \
 	    qtile python-pip gcc pacman-contrib \
 	    picom \
 	    docker \
@@ -44,6 +45,7 @@ install_pkg gvim alacritty \
 	    jetbrains-toolbox code \
 	    postman \
 	    rambox-bin \ 
+	    spotify \
 
 # Some python libraries requred for qtile
 sudo pip install -U --upgrade-strategy=only-if-needed psutil python-dateutil
@@ -57,9 +59,18 @@ enable_services lightdm bluetooth docker picom
 # Adding user to necessary groups
 sudo usermod -aG docker $user
 
+# Wallpaper
+cp ./nature.jpg /usr/share/pictures/
+
 # Move config files
 cp $PWD/../.config/* ~/.config/
 
 # Setup desktop notifications
 sudo cp ./org.freedesktop.Notifications.service /usr/share/dbus-1/services/org.freedesktop.Notifications.service
+
+# Xorg settings
+sudo cp ./setup/system/xorg/99-libinput-custom-config.conf /etc/X11/xorg.conf.d/99-libinput-custom-config.conf
+
+# Lightdm settings
+sudo cp ./system/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/lightdm-gtk-greeter.conf
 

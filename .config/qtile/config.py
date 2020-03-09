@@ -181,7 +181,7 @@ keys.append(
 )
 
 widget_defaults = dict(
-    font='Ubuntu Mono',
+    font='Droid Sans',
     fontsize=14,
     padding=3,
 )
@@ -239,22 +239,31 @@ screens = [
                         display_metadata=['xesam:title', 'xesam:artist'],
                         objname="org.mpris.MediaPlayer2.spotify",
 			padding=10
-                ),    
+                        ),
+               widget.TextBox(
+                        text="cpu:",
+                        padding = 5,
+                        fontsize=12
+                        ),
                 widget.CPUGraph(
                         type="box",
                         margin_y = 2,
                         border_width=1,
                         border_color=cols['fg_inactive'],
                         line_width=2
-                    ),
+                        ),
+               widget.TextBox(
+                        text="mem:",
+                        padding = 5,
+                        fontsize=12
+                        ),
                 widget.MemoryGraph(
                         type="box",
                         margin_y = 2,
                         border_width=1,
                         border_color=cols['fg_inactive'],
                         line_width=2
-                ),
-               widget.Spacer(length=30),
+                        ),
                widget.Spacer(length=30),
                widget.BatteryIcon(
 			padding = 0,

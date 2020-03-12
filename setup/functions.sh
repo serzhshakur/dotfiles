@@ -7,7 +7,14 @@ function enable_services {
   done
 }
 
-function install_aur_pkg {
+function enable_user_services {
+  for service in "$@"; do
+    sudo systemctl --user enable --now $service
+    sudo systemctl --user start $service
+  done
+}
+
+function install_aur_pkg 
   pkg=$1
   if !(pacman -Q $pkg > /dev/null 2>&1)
   then
@@ -19,6 +26,6 @@ function install_aur_pkg {
 }
 
 function install_pkg {
-  yay -S --needed --noconfirm $@ 
+  yay -S --needed --noconfirm --removemake --nocleanmenu --nodiffmenu --noeditmenu $@ 
 }
 

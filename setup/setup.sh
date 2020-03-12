@@ -24,11 +24,11 @@ install_aur_pkg yay
 
 # Installing necessary packages
 install_pkg gvim alacritty \
-	    xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm} light \
+	    xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb} light \
 	    mesa mesa-libgl \
 	    xf86-video-vesa \
             zsh oh-my-zsh-git \
-	    lightdm lightdm-gtk-greeter \
+	    lightdm lightdm-gtk-greeter light-locker \
 	    pulseaudio pulseaudio-alsa \
 	    bluez bluez-utils pulseaudio-bluetooth blueman \
 	    notification-daemon \
@@ -55,6 +55,7 @@ sudo pacman -Rns $(pacman -Qtdq)
 
 # Systemd
 enable_services lightdm bluetooth docker picom
+enable_user_services greenclip
 
 # Adding user to necessary groups
 sudo usermod -aG docker $user

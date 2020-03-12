@@ -51,6 +51,17 @@ keys = [
     Key([mod], "grave", lazy.spawn("rofi -modi drun,window,run,'clipboard:greenclip print' -show")), # grave=backtick
     Key(["control", "shift"], "p", lazy.spawn("flameshot gui")),
 
+    # Light locker
+    Key([mod], "l", lazy.spawn("light-locker-command -l")),
+
+    # Brightness
+    Key([], 'XF86MonBrightnessUp',   lazy.spawn("light -A 10")),
+    Key([], 'XF86MonBrightnessDown', lazy.spawn("light -U 10")),
+
+    # Audio
+    Key([], 'XF86AudioRaiseVolume', lazy.spawn('pactl -- set-sink-volume 0 +5%')),
+    Key([], 'XF86AudioLowerVolume', lazy.spawn('pactl -- set-sink-volume 0 -5%')),
+
 ]
 
 cols = {
@@ -182,10 +193,14 @@ keys.append(
 
 widget_defaults = dict(
     font='Droid Sans',
-    fontsize=14,
+    fontsize=16,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
+
+def get_kb_layout():
+    output = subprocess.run(['xkblayout-state', 'print', '%s'], capture_output=True, encoding="utf-8").stdout
+    return output
 
 screens = [
     Screen(
@@ -333,8 +348,19 @@ screens = [
                         linewidth=1,
                         padding=10
                ),
+	       widget.GenPollText(
+	                func=get_kb_layout,
+			update_interval=0.5,
+                        font='Droid Sans, Bold',
+			width=30,
+			padding=10
+			),
+               widget.Sep(
+                        linewidth=1,
+                        padding=10
+               ),
                widget.Clock(
-                        fontsize=14,
+                        fontsize=15,
                         format="%a, %b %d"
                         ),
                widget.Sep(
@@ -342,7 +368,7 @@ screens = [
                         padding=10
                ),
                widget.Clock(
-                        fontsize=15,
+                        fontsize=17,
                         format="%H:%M"
                         ),
                widget.Sep(

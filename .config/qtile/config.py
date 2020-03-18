@@ -48,7 +48,7 @@ keys = [
     # Apps
       
     Key([mod], "Return", lazy.spawn("alacritty")),
-    Key([mod], "grave", lazy.spawn("rofi -modi drun,window,run,'clipboard:greenclip print' -show")), # grave=backtick
+    Key([mod], "grave", lazy.spawn("rofi -show")), # grave=backtick
     Key(["control", "shift"], "p", lazy.spawn("flameshot gui")),
 
     # Light locker
@@ -116,8 +116,7 @@ groups_config = [
         group_layouts=[
            layout.Max(), 
            layout.TreeTab(**layout_theme, **treetab_theme)
-]
-        
+        ]
    ),
    GroupConfig(
         's', 
@@ -213,9 +212,9 @@ screens = [
                widget.GroupBox(
                         font="font-awesome",
                         margin_y = 0,
-                        margin_x = 2,
-                        padding_y = 5,
-                        padding_x = 5,
+                        margin_x = 0,
+                        padding_y = 7,
+                        padding_x = 7,
                         borderwidth = 3,
                         active = cols['fg'],
                         inactive = cols['fg_inactive'],
@@ -249,10 +248,10 @@ screens = [
                         ),
                 widget.Mpris2(
                         name='spotify',
-                        stop_pause_text='',
                         scroll_chars=None,
                         display_metadata=['xesam:title', 'xesam:artist'],
                         objname="org.mpris.MediaPlayer2.spotify",
+			stop_pause_text='',
 			padding=10
                         ),
                widget.TextBox(
@@ -291,10 +290,7 @@ screens = [
 			unknown_char = '',
                         format = '{char}{percent:2.0%}',
                         ),
-               widget.Sep(
-                       linewidth=1,
-                       padding=20
-               ),
+               widget.Spacer(length=15),
                widget.TextBox(
                         font="font-awesome",
                         text="",
@@ -306,10 +302,7 @@ screens = [
                         max_brightness_file='/sys/class/backlight/intel_backlight/max_brightness',
 			change_command='light -S {0}'
                         ),
-               widget.Sep(
-                        linewidth=1,
-                        padding=10
-               ),
+               widget.Spacer(length=15),
                widget.TextBox(
                         font="font-awesome",
                         text="⟳",
@@ -318,14 +311,11 @@ screens = [
                widget.Pacman(
                         command='alacritty',
                         ),
-               widget.Sep(
-                        linewidth=1,
-                        padding=10
-               ),
+               widget.Spacer(length=15),
                widget.TextBox(
                         font="font-awesome",
-                        text="",
-                        padding = 5,
+                        text=" ",
+                        padding = 0,
                         fontsize=14
                         ),
                widget.Volume(),
@@ -336,31 +326,31 @@ screens = [
          #               padding=3,
          #      ),
          #      widget.DF(
-         #               visible_on_warn=False
+         #               visible_on_warn=True
          #               ),
                widget.Sep(
                         linewidth=1,
-                        padding=10
+			padding=20
                ),
-               widget.Systray(padding = 10),
-               widget.Spacer(length=30),
+               widget.Systray(
+	                padding = 10,
+			icon_size = 23,
+			),
                widget.Sep(
-                        linewidth=1,
-                        padding=10
+                        linewidth = 1,
+                        padding = 30
                ),
 	       widget.GenPollText(
 	                func=get_kb_layout,
 			update_interval=0.5,
                         font='Droid Sans, Bold',
-			width=30,
-			padding=10
+			width=25
 			),
                widget.Sep(
                         linewidth=1,
                         padding=10
                ),
                widget.Clock(
-                        fontsize=15,
                         format="%a, %b %d"
                         ),
                widget.Sep(
@@ -376,7 +366,7 @@ screens = [
                         padding = 5,
                         ),
             ],
-            26,
+            size=30,
             background = cols['bg'],
             foreground = cols['fg'],
         ),

@@ -24,7 +24,8 @@ install_aur_pkg yay
 
 # Installing necessary packages
 install_pkg gvim alacritty \
-	    xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb} light \
+	    xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb}
+	    xkblayout-state light \
 	    mesa mesa-libgl \
 	    xf86-video-vesa \
             zsh oh-my-zsh-git \
@@ -49,9 +50,6 @@ install_pkg gvim alacritty \
 
 # Some python libraries requred for qtile
 sudo pip install -U --upgrade-strategy=only-if-needed psutil python-dateutil
-
-# The very last step: removing orphaned packages
-sudo pacman -Rns $(pacman -Qtdq)
 
 # Systemd
 enable_services lightdm bluetooth docker picom

@@ -14,7 +14,7 @@ function enable_user_services {
   done
 }
 
-function install_aur_pkg 
+function install_aur_pkg { 
   pkg=$1
   if !(pacman -Q $pkg > /dev/null 2>&1)
   then
@@ -26,6 +26,15 @@ function install_aur_pkg
 }
 
 function install_pkg {
-  yay -S --needed --noconfirm --removemake --nocleanmenu --nodiffmenu --noeditmenu $@ 
+  yay -S \
+      --needed \
+      --noconfirm \
+      --removemake \
+      --nodiffmenu \
+      --nocleanmenu \
+      --noeditmenu  \
+      $@
+  # removing orphans
+  yay -Rns $(yay -Qtdq) &> /dev/null
 }
 

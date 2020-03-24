@@ -302,7 +302,7 @@ screens = [
                         max_brightness_file='/sys/class/backlight/intel_backlight/max_brightness',
 			change_command='light -S {0}'
                         ),
-               widget.Spacer(length=15),
+               widget.Spacer(length=12),
                widget.TextBox(
                         font="font-awesome",
                         text="⟳",
@@ -311,14 +311,14 @@ screens = [
                widget.Pacman(
                         command='alacritty',
                         ),
-               widget.Spacer(length=15),
-               widget.TextBox(
-                        font="font-awesome",
-                        text=" ",
-                        padding = 0,
-                        fontsize=14
-                        ),
-               widget.Volume(),
+         #      widget.Spacer(length=15),
+         #      widget.TextBox(
+         #               font="font-awesome",
+         #               text=" ",
+         #               padding = 0,
+         #               fontsize=14
+         #               ),
+         #      widget.Volume(),
          #      widget.TextBox(
          #               font="font-awesome",
          #               text="",
@@ -359,6 +359,7 @@ screens = [
                ),
                widget.Clock(
                         fontsize=17,
+                        font='Droid Sans, Bold',
                         format="%H:%M"
                         ),
                widget.Sep(

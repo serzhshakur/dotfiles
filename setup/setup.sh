@@ -30,7 +30,7 @@ install_pkg gvim alacritty \
 	    xf86-video-vesa \
             zsh oh-my-zsh-git \
 	    lightdm lightdm-gtk-greeter light-locker \
-	    pulseaudio pulseaudio-alsa \
+	    pulseaudio pulseaudio-alsa pavucontrol pasystray \
 	    bluez bluez-utils pulseaudio-bluetooth blueman \
 	    notification-daemon \
 	    arc-gtk-theme flat-remix lxappearance \
@@ -47,6 +47,7 @@ install_pkg gvim alacritty \
 	    postman \
 	    rambox-bin \ 
 	    spotify \
+	    qalculate-gtk libreoffice-still \
 
 # Some python libraries requred for qtile
 sudo pip install -U --upgrade-strategy=only-if-needed psutil python-dateutil

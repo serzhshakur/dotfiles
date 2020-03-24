@@ -18,3 +18,5 @@ picom -b &
 # Light locker
 light-locker &
 
+# PulseAudio System Tray
+pasystray --notify=none &

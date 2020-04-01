@@ -30,16 +30,17 @@ install_pkg gvim alacritty \
 	    xf86-video-vesa \
             zsh oh-my-zsh-git \
 	    lightdm lightdm-gtk-greeter light-locker \
+	    qtile python-pip gcc pacman-contrib \
 	    pulseaudio pulseaudio-alsa pavucontrol pasystray \
 	    bluez bluez-utils pulseaudio-bluetooth blueman \
 	    notification-daemon \
 	    arc-gtk-theme flat-remix lxappearance \
-	    flameshot \
 	    rofi rofi-greenclip \
-	    evince-no-gnome \
+	    llpp \ # pdf viewer
+	    viewnior \ # image viewer
+	    flameshot \ #screenshot taking app
 	    networkmanager network-manager-applet openvpn networkmanager-openvpn \
 	    ttf-font-awesome ttf-fantasque-sans-mono ttf-jetbrains-mono noto-fonts ttf-droid \
-	    qtile python-pip gcc pacman-contrib \
 	    picom \
 	    docker \
 	    jdk-openjdk openjdk-doc openjdk-src \
@@ -47,6 +48,7 @@ install_pkg gvim alacritty \
 	    postman \
 	    rambox-bin \ 
 	    spotify \
+	    transmission-gtk \
 	    qalculate-gtk libreoffice-still \
 
 # Some python libraries requred for qtile

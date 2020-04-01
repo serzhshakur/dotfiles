@@ -1,4 +1,4 @@
-rofi.theme: /usr/share/rofi/themes/gruvbox-dark-soft.rasi
-rofi.font: JetBrains Mono 14
+rofi.font: Noto 14
 rofi.modi: drun,window,run,clipboard:greenclip print
 
+rofi.theme: /usr/share/rofi/themes/android_notification.rasi

@@ -142,7 +142,7 @@ groups_config = [
    GroupConfig(
         'u', 
         '', 
-        [ Match(wm_class=[ "rambox", "Rambox" ]) ],
+        [ Match(wm_class=[ "rambox", "Rambox", "station", "Station" ]) ],
    ),
    GroupConfig(
         'i', 
@@ -319,15 +319,12 @@ screens = [
          #               fontsize=14
          #               ),
          #      widget.Volume(),
-         #      widget.TextBox(
-         #               font="font-awesome",
-         #               text="",
-         #               fontsize=15,
-         #               padding=3,
-         #      ),
-         #      widget.DF(
-         #               visible_on_warn=True
-         #               ),
+               widget.DF(
+                        visible_on_warn=True,
+			warn_space=5,
+			update_interval=1200,
+			format='Disk: {p} ({uf}{m}|{r:.0f}%)'
+                        ),
                widget.Sep(
                         linewidth=1,
 			padding=20

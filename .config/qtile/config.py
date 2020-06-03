@@ -74,13 +74,13 @@ cols = {
 layout_theme = {
     "border_width": 3,
     "margin": 3,
-    "border_focus": "a8a897",
+    "border_focus": "#a8a897",
     "border_normal": "#555555"
 }
 
 treetab_theme = {
     "fontsize": 12,
-    "panel_width": 220,
+    "panel_width": 200,
     "bg_color": "#3B4349",
     "active_bg": cols["bg_dark"],
     "active_fg": cols["fg"],
@@ -115,7 +115,8 @@ groups_config = [
         spawn='vivaldi-stable',
         group_layouts=[
            layout.Max(), 
-           layout.TreeTab(**layout_theme, **treetab_theme)
+           layout.TreeTab(**layout_theme, **treetab_theme),
+	       layout.MonadWide(**layout_theme),
         ]
    ),
    GroupConfig(
@@ -143,6 +144,10 @@ groups_config = [
         'u', 
         '', 
         [ Match(wm_class=[ "rambox", "Rambox", "station", "Station" ]) ],
+        group_layouts=[
+           layout.Max(),
+           layout.TreeTab(**treetab_theme, **layout_theme),
+        ],
    ),
    GroupConfig(
         'i', 
@@ -401,6 +406,12 @@ floating_layout = layout.Floating(border_width=0, float_rules=[
     {'wname': 'branchdialog'},  # gitk
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
+    {'wmclass': 'Qalculate-gtk'},  
+    {'wmclass': 'llpp'},  # llpp pdf viewer
+    {'wmclass': 'Viewnior'},  # image viewer
+    {'wmclass': 'nm-connection-editor'},
+    {'wmclass': 'pavucontrol'},
+    {'wmclass': 'blueman-manager'},
 ])
 
 # Autostart

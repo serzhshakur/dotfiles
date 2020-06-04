@@ -41,7 +41,6 @@ rank_and_update_mirrors
 install_pkg gvim alacritty \
 	    xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb} \
 	    lightdm lightdm-gtk-greeter light-locker \
-	    qt5ct qt5-styleplugins \
 	    xkblayout-state light \
 	    mesa mesa-libgl \
 	    xf86-video-vesa \
@@ -53,7 +52,7 @@ install_pkg gvim alacritty \
 	    bluez bluez-utils pulseaudio-bluetooth blueman \
 	    fzf tree pcmanfm-gtk3 file-roller \
 	    notification-daemon \
-	    arc-gtk-theme flat-remix lxappearance \
+	    arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins \
 	    rofi rofi-greenclip \
 	    llpp viewnior \
 	    cbatticon \
@@ -63,7 +62,7 @@ install_pkg gvim alacritty \
 	    firefox vivaldi chromium \
 	    syncthing keepassxc \
 	    picom redshift flameshot joplin-appimg \
-	    docker kubectl kubectx \
+	    docker docker-compose kubectl kubectx \
 	    jetbrains-toolbox code \
 	    postman \
 	    rambox-bin slack-desktop \

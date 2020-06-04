@@ -124,7 +124,10 @@ groups_config = [
         '', 
         [ Match(wm_class=["UXTerm", "URxvt", "Urxvt-tabbed", "Urxvt", "XTerm", "Termite", "alacritty", "Lxterminal"]) ],
         spawn='alacritty',
-        group_layouts=[layout.MonadTall(**layout_theme)]
+        group_layouts=[
+	   layout.MonadTall(**layout_theme),
+           layout.MonadWide(**layout_theme)
+	],
    ),
    GroupConfig(
         'd', 

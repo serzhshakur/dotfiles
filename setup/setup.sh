@@ -52,7 +52,7 @@ install_pkg gvim alacritty \
 	    bluez bluez-utils pulseaudio-bluetooth blueman \
 	    fzf tree pcmanfm-gtk3 file-roller \
 	    notification-daemon \
-	    arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins \
+	    arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins nitrogen \
 	    rofi rofi-greenclip \
 	    llpp viewnior \
 	    cbatticon \

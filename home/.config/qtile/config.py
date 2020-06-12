@@ -1,4 +1,4 @@
-from libqtile.config import Key, ScratchPad, DropDown, Screen, Group, Drag, Click, Match
+from libqtile.config import Key, EzKey, ScratchPad, DropDown, Screen, Group, Drag, Click, Match
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 
@@ -6,36 +6,51 @@ from typing import List  # noqa: F401
 import os
 import subprocess
 
-
 mod = "mod4"
 
 keys = [
     # Switch between windows in current stack pane
-    Key([mod], "k", lazy.layout.down()),
-    Key([mod], "j", lazy.layout.up()),
+    Key([mod], "j", lazy.layout.down()),
+    Key([mod], "k", lazy.layout.up()),
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
-    Key([mod], "Up", lazy.layout.increase_ratio(), lazy.layout.grow(),),
-    Key([mod], "Down", lazy.layout.decrease_ratio(), lazy.layout.shrink(),),
-    Key([mod], "n", lazy.layout.normalize(),),      # in Monadtall mode
-    Key([mod], "Right", lazy.layout.grow_main(),),  # in Monadtall mode
-    Key([mod], "Left", lazy.layout.shrink_main(),), # in Monadtall mode
+
+    Key([mod], "Up", lazy.layout.grow_main()),
+    Key([mod], "Down", lazy.layout.shrink_main()),
+
+    # Monadtall additions
+    Key([mod], "Right", lazy.layout.increase_ratio()),
+    Key([mod], "Left", lazy.layout.decrease_ratio()),
 
     # Move windows up or down in current stack
-    Key([mod, "control"], "k", lazy.layout.shuffle_down()),
-    Key([mod, "control"], "j", lazy.layout.shuffle_up()),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
 
     # Swap panes of split stack
-    Key([mod, "shift"], "space", lazy.layout.rotate(), lazy.layout.flip(),),
+    Key([mod, "shift"], "space", lazy.layout.rotate(), lazy.layout.flip(), ),
 
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
+    # Applicable for 'Bsp' and 'Columns' layouts
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
+
+    # Put the focused window to/from floating mode
+    Key([mod, "shift"], "m", lazy.window.toggle_floating()),
+
+    # Resizing windows
+    Key([mod, "control"], "k", lazy.layout.grow_up(), lazy.layout.grow()),
+    Key([mod, "control"], "j", lazy.layout.grow_down(), lazy.layout.shrink()),
+    Key([mod, "control"], "h", lazy.layout.grow_left()),
+    Key([mod, "control"], "l", lazy.layout.grow_right()),
+
+    Key([mod], "n", lazy.layout.normalize()),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
@@ -44,18 +59,20 @@ keys = [
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
     Key([mod], "r", lazy.spawncmd()),
-    
-    # Apps
-      
+
+    #####################################################
+    ################### APPS ############################
+    #####################################################
+
     Key([mod], "Return", lazy.spawn("alacritty")),
-    Key([mod], "grave", lazy.spawn("rofi -show")), # grave=backtick
+    Key([mod], "grave", lazy.spawn("rofi -show")),  # grave=backtick
     Key(["control", "shift"], "p", lazy.spawn("flameshot gui")),
 
     # Light locker
-    Key([mod], "l", lazy.spawn("light-locker-command -l")),
+    Key([mod, "mod1"], "l", lazy.spawn("light-locker-command -l")),
 
     # Brightness
-    Key([], 'XF86MonBrightnessUp',   lazy.spawn("light -A 10")),
+    Key([], 'XF86MonBrightnessUp', lazy.spawn("light -A 10")),
     Key([], 'XF86MonBrightnessDown', lazy.spawn("light -U 10")),
 
     # Audio
@@ -74,8 +91,8 @@ cols = {
 layout_theme = {
     "border_width": 3,
     "margin": 3,
-    "border_focus": "#a8a897",
-    "border_normal": "#555555"
+    "border_focus": "#b6bdcb",
+    # "border_normal": "#555555"
 }
 
 treetab_theme = {
@@ -89,7 +106,7 @@ treetab_theme = {
     "padding_x": 5,
     "padding_y": 10,
     "margin_left": 0,
-    "margin_y": 5,    
+    "margin_y": 5,
 }
 
 layouts = [
@@ -98,89 +115,95 @@ layouts = [
     layout.Tile(shift_windows=True, **layout_theme)
 ]
 
-class GroupConfig:
-  def __init__(self, name, label, matches=None, spawn=None, group_layouts=layouts):
-    self.name = name
-    self.label = label
-    self.matches = matches
-    self.spawn = spawn
-    self.group_layouts = group_layouts
 
-# use xprop to detect WM_CLASS for a window
+class GroupConfig:
+    def __init__(self, name, label, matches=None, spawn=None, group_layouts=layouts):
+        self.name = name
+        self.label = label
+        self.matches = matches
+        self.spawn = spawn
+        self.group_layouts = group_layouts
+
+
 groups_config = [
-   GroupConfig(
-        'a', 
-        '', 
-        [ Match(wm_class=["Firefox", "Google-chrome", "Chromium", "Vivaldi-stable", "Brave"], role=["browser"]) ],
+    GroupConfig(
+        'a',
+        '',
+        [Match(wm_class=["Firefox", "Google-chrome", "Chromium", "Vivaldi-stable", "Brave"], role=["browser"])],
         spawn='vivaldi-stable',
         group_layouts=[
-           layout.Max(), 
-           layout.TreeTab(**layout_theme, **treetab_theme),
-	       layout.MonadWide(**layout_theme),
+            layout.Max(),
+            layout.TreeTab(**layout_theme, **treetab_theme),
+            layout.MonadWide(**layout_theme),
         ]
-   ),
-   GroupConfig(
-        's', 
-        '', 
-        [ Match(wm_class=["UXTerm", "URxvt", "Urxvt-tabbed", "Urxvt", "XTerm", "Termite", "alacritty", "Lxterminal"]) ],
+    ),
+    GroupConfig(
+        's',
+        '',
+        [Match(wm_class=["UXTerm", "URxvt", "Urxvt-tabbed", "Urxvt", "XTerm", "Termite", "alacritty", "Lxterminal"])],
         spawn='alacritty',
         group_layouts=[
-	   layout.MonadTall(**layout_theme),
-           layout.MonadWide(**layout_theme)
-	],
-   ),
-   GroupConfig(
-        'd', 
-        '',
-        [ Match(wm_class=["jetbrains-idea", "code", "Code"]) ],
-        group_layouts=[
-           layout.Max(), 
-           layout.TreeTab(**treetab_theme, **layout_theme)
-        ]
-   ),
-   GroupConfig(
-        'f', 
-        '', 
-        [ Match(wm_class=[ "Pcmanfm", "Thunar", "dolphin" ]) ],
-   ),
-   GroupConfig(
-        'u', 
-        '', 
-        [ Match(wm_class=[ "rambox", "Rambox", "station", "Station" ]) ],
-        group_layouts=[
-           layout.Max(),
-           layout.TreeTab(**treetab_theme, **layout_theme),
+            layout.MonadWide(**layout_theme),
+            layout.Columns(
+                **layout_theme,
+                insert_position=1,
+            ),
+            layout.MonadTall(**layout_theme),
         ],
-   ),
-   GroupConfig(
-        'i', 
-        '', 
-        [ Match(wm_class=[ "spotify", "Spotify" ]) ],
-   ),
-   GroupConfig(
-        'o', 
-        '', 
+    ),
+    GroupConfig(
+        'd',
+        '',
+        [Match(wm_class=["jetbrains-idea", "code", "Code"])],
         group_layouts=[
-           layout.Max(),
-           layout.TreeTab(**treetab_theme, **layout_theme)
+            layout.Max(),
+            layout.TreeTab(**treetab_theme, **layout_theme)
         ]
-   ),
+    ),
+    GroupConfig(
+        'f',
+        '',
+        [Match(wm_class=["Pcmanfm", "Thunar", "dolphin"])],
+    ),
+    GroupConfig(
+        'u',
+        '',
+        [Match(wm_class=["rambox", "Rambox", "station", "Station"])],
+        group_layouts=[
+            layout.Max(),
+            layout.TreeTab(**treetab_theme, **layout_theme),
+        ],
+    ),
+    GroupConfig(
+        'i',
+        '',
+        [Match(wm_class=["spotify", "Spotify"])],
+    ),
+    GroupConfig(
+        'o',
+        '',
+        group_layouts=[
+            layout.Max(),
+            layout.TreeTab(**treetab_theme, **layout_theme)
+        ]
+    ),
 ]
+# use xprop to detect WM_CLASS for a window
 
-groups = [ 
+groups = [
     Group(
-         name=config.name,
-         label=config.label,
-         matches=config.matches,
-         spawn=config.spawn,
-         layouts=config.group_layouts
-    ) 
-    for config in groups_config 
-   ]
+        name=config.name,
+        label=config.label,
+        matches=config.matches,
+        spawn=config.spawn,
+        layouts=config.group_layouts
+    )
+    for config in groups_config
+]
 
 groups.append(
     ScratchPad("x", [
-        DropDown("term", "alacritty", height=0.7, width=1, x=0) 
+        DropDown("term", "alacritty", height=0.7, width=1, x=0)
     ])
 )
 
@@ -203,178 +226,189 @@ widget_defaults = dict(
     fontsize=16,
     padding=3,
 )
+
 extension_defaults = widget_defaults.copy()
+
 
 def get_kb_layout():
     output = subprocess.run(['xkblayout-state', 'print', '%s'], capture_output=True, encoding="utf-8").stdout
     return output
 
+
 screens = [
     Screen(
         top=bar.Bar(
             [
-              widget.Sep(
-                        linewidth = 0,
-                        padding = 6,
-                        ),
-               widget.GroupBox(
-                        font="font-awesome",
-                        margin_y = 0,
-                        margin_x = 0,
-                        padding_y = 7,
-                        padding_x = 7,
-                        borderwidth = 3,
-                        active = cols['fg'],
-                        inactive = cols['fg_inactive'],
-                        rounded = False,
-                        highlight_method = "block",
-                        this_current_screen_border = cols['bg_dark'],
-                        ),
-              widget.Sep(
-                        linewidth = 0,
-                        padding = 10,
-                        ),
-               widget.CurrentLayoutIcon(
-                        scale=0.9
-                        ),
-               widget.CurrentLayout(
-                        padding = 5
-                        ),
-               widget.Sep(
-                        linewidth = 0,
-                        padding = 10,
-                        ),
-               widget.WindowName(
-                        font="Ubuntu",
-                        padding = 7,
-                        fontsize = 12,
-                        foreground = cols['fg_inactive'],
-                        ),
-               widget.Sep(
-                        linewidth = 0,
-                        padding = 10,
-                        ),
+                widget.Sep(
+                    linewidth=0,
+                    padding=6,
+                ),
+                widget.GroupBox(
+                    font="font-awesome",
+                    margin_y=3,
+                    margin_x=0,
+                    padding_y=13,
+                    padding_x=7,
+                    borderwidth=3,
+                    active=cols['fg'],
+                    inactive=cols['fg_inactive'],
+                    rounded=False,
+                    highlight_method="block",
+                    this_current_screen_border=cols['bg_dark'],
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    padding=10,
+                ),
+                widget.CurrentLayoutIcon(
+                    scale=0.9
+                ),
+                widget.CurrentLayout(
+                    padding=5
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    padding=10,
+                ),
+                widget.WindowName(
+                    font="Ubuntu",
+                    padding=7,
+                    fontsize=12,
+                    foreground=cols['fg_inactive'],
+                ),
+                widget.Sep(
+                    linewidth=0,
+                    padding=10,
+                ),
                 widget.Mpris2(
-                        name='spotify',
-                        scroll_chars=None,
-                        display_metadata=['xesam:title', 'xesam:artist'],
-                        objname="org.mpris.MediaPlayer2.spotify",
-			stop_pause_text='',
-			padding=10
-                        ),
-               widget.TextBox(
-                        text="cpu:",
-                        padding = 5,
-                        fontsize=12
-                        ),
+                    name='spotify',
+                    scroll_chars=None,
+                    display_metadata=['xesam:title', 'xesam:artist'],
+                    objname="org.mpris.MediaPlayer2.spotify",
+                    stop_pause_text='',
+                    padding=10
+                ),
+                widget.TextBox(
+                    text="cpu:",
+                    padding=5,
+                    fontsize=12
+                ),
                 widget.CPUGraph(
-                        type="box",
-                        margin_y = 2,
-                        border_width=1,
-                        border_color=cols['fg_inactive'],
-                        line_width=2
-                        ),
-               widget.TextBox(
-                        text="mem:",
-                        padding = 5,
-                        fontsize=12
-                        ),
+                    type="box",
+                    margin_y=2,
+                    border_width=1,
+                    border_color=cols['fg_inactive'],
+                    line_width=2
+                ),
+                widget.TextBox(
+                    text="mem:",
+                    padding=5,
+                    fontsize=12
+                ),
                 widget.MemoryGraph(
-                        type="box",
-                        margin_y = 2,
-                        border_width=1,
-                        border_color=cols['fg_inactive'],
-                        line_width=2
-                        ),
-               widget.Spacer(length=30),
-               widget.BatteryIcon(
-			padding = 0,
-			margin = 0
-	       ),
-               widget.Battery(
-			padding = 0,
-                        charge_char = "↑ ",
-                        discharge_char = "↓ ",
-			unknown_char = '',
-                        format = '{char}{percent:2.0%}',
-                        ),
-               widget.Spacer(length=15),
-               widget.TextBox(
-                        font="font-awesome",
-                        text="",
-                        padding = 0,
-                        fontsize=15,
-                        ),
-               widget.Backlight(
-                        brightness_file='/sys/class/backlight/intel_backlight/brightness',
-                        max_brightness_file='/sys/class/backlight/intel_backlight/max_brightness',
-			change_command='light -S {0}'
-                        ),
-               widget.Spacer(length=12),
-               widget.TextBox(
-                        font="font-awesome",
-                        text="⟳",
-                        fontsize=20,
-                        ),
-               widget.Pacman(
-                        command='alacritty',
-                        ),
-         #      widget.Spacer(length=15),
-         #      widget.TextBox(
-         #               font="font-awesome",
-         #               text=" ",
-         #               padding = 0,
-         #               fontsize=14
-         #               ),
-         #      widget.Volume(),
-               widget.DF(
-                        visible_on_warn=True,
-			warn_space=5,
-			update_interval=1200,
-			format='Disk: {p} ({uf}{m}|{r:.0f}%)'
-                        ),
-               widget.Sep(
-                        linewidth=1,
-			padding=20
-               ),
-               widget.Systray(
-	                padding = 10,
-			icon_size = 23,
-			),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 30
-               ),
-	       widget.GenPollText(
-	                func=get_kb_layout,
-			update_interval=0.5,
-                        font='Droid Sans, Bold',
-			width=25
-			),
-               widget.Sep(
-                        linewidth=1,
-                        padding=10
-               ),
-               widget.Clock(
-                        format="%a, %b %d"
-                        ),
-               widget.Sep(
-                        linewidth=1,
-                        padding=10
-               ),
-               widget.Clock(
-                        fontsize=17,
-                        font='Droid Sans, Bold',
-                        format="%H:%M"
-                        ),
-               widget.Sep(
-                        linewidth = 1,
-                        padding = 5,
-                        ),
+                    type="box",
+                    margin_y=2,
+                    border_width=1,
+                    border_color=cols['fg_inactive'],
+                    line_width=2
+                ),
+                widget.Spacer(length=30),
+                widget.BatteryIcon(
+                    padding=0,
+                    margin=0
+                ),
+                widget.Battery(
+                    padding=0,
+                    charge_char="↑ ",
+                    discharge_char="↓ ",
+                    unknown_char='',
+                    format='{char}{percent:2.0%}',
+                ),
+                widget.Spacer(length=15),
+                widget.TextBox(
+                    font="font-awesome",
+                    text="",
+                    padding=0,
+                    fontsize=15,
+                ),
+                widget.Backlight(
+                    brightness_file='/sys/class/backlight/intel_backlight/brightness',
+                    max_brightness_file='/sys/class/backlight/intel_backlight/max_brightness',
+                    change_command='light -S {0}'
+                ),
+                widget.Spacer(length=12),
+                widget.TextBox(
+                    font="font-awesome",
+                    text="⟳",
+                    fontsize=20,
+                ),
+                widget.Pacman(
+                    command='alacritty',
+                ),
+                #      widget.Spacer(length=15),
+                #      widget.TextBox(
+                #               font="font-awesome",
+                #               text=" ",
+                #               padding = 0,
+                #               fontsize=14
+                #               ),
+                #      widget.Volume(),
+                widget.DF(
+                    visible_on_warn=True,
+                    warn_space=5,
+                    update_interval=1200,
+                    format='Disk: {p} ({uf}{m}|{r:.0f}%)'
+                ),
+                widget.Sep(
+                    linewidth=1,
+                    padding=20
+                ),
+                widget.Systray(
+                    padding=10,
+                    icon_size=23,
+                ),
+                widget.Sep(
+                    linewidth=1,
+                    padding=30
+                ),
+                widget.GenPollText(
+                    func=get_kb_layout,
+                    update_interval=0.5,
+                    font='Droid Sans, Bold',
+                    width=25
+                ),
+                # widget.KeyboardLayout(
+                #     configured_keyboards=['lv', 'ru phonetic_winkeys'],
+                #     display_map={
+                #         'lv': 'lv ',
+                #         'ru phonetic_winkeys': 'ru ',
+                #     },
+                #     options='grp:lalt_lshift_toggle',
+                # ),
+                widget.Sep(
+                    linewidth=1,
+                    padding=10
+                ),
+                widget.Clock(
+                    format="%a, %b %d"
+                ),
+                widget.Sep(
+                    linewidth=1,
+                    padding=10
+                ),
+                widget.Clock(
+                    fontsize=17,
+                    font='Droid Sans, Bold',
+                    format="%H:%M"
+                ),
+                widget.Sep(
+                    linewidth=1,
+                    padding=5,
+                ),
             ],
             size=30,
-            background = cols['bg'],
-            foreground = cols['fg'],
+            background=cols['bg'],
+            foreground=cols['fg'],
         ),
     ),
 ]
@@ -409,7 +443,7 @@ floating_layout = layout.Floating(border_width=0, float_rules=[
     {'wname': 'branchdialog'},  # gitk
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
-    {'wmclass': 'Qalculate-gtk'},  
+    {'wmclass': 'Qalculate-gtk'},
     {'wmclass': 'llpp'},  # llpp pdf viewer
     {'wmclass': 'Viewnior'},  # image viewer
     {'wmclass': 'nm-connection-editor'},
@@ -417,12 +451,14 @@ floating_layout = layout.Floating(border_width=0, float_rules=[
     {'wmclass': 'blueman-manager'},
 ])
 
+
 # Autostart
 
 @hook.subscribe.startup_once
 def autostart():
     home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
+
 
 auto_fullscreen = True
 focus_on_window_activation = "smart"

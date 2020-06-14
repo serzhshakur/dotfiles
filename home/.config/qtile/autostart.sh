@@ -9,6 +9,10 @@ blueman-applet &
 # 'lv' and 'ru' keyboard layouts, set keyboard shorcut to Shift+Alt
 setxkbmap -layout lv,ru -variant ",phonetic_winkeys" -option "grp:lalt_lshift_toggle" &
 
+# Automount volumes
+
+udiskie &
+
 # Restore wallpaper
 nitrogen --restore &
 

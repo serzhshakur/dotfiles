@@ -3,7 +3,7 @@ set -e
 
 source ./functions.sh
 
-user=$(whoami)
+USER=$(whoami)
 
 # Installing some packages for makepkg to work
 sudo pacman -S --needed git binutils make gcc fakeroot patch
@@ -40,6 +40,7 @@ rank_and_update_mirrors
 # Installing necessary packages
 install_pkg gvim alacritty \
 	    xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb} \
+	    udisks2 udiskie \
 	    lightdm lightdm-gtk-greeter light-locker \
 	    xkblayout-state light \
 	    mesa mesa-libgl \
@@ -47,7 +48,7 @@ install_pkg gvim alacritty \
 	    networkmanager network-manager-applet openvpn networkmanager-openvpn \
 	    cups cups-pdf cups-pk-helper system-config-printer \
       zsh oh-my-zsh-git \
-	    qtile python-pip gcc pacman-contrib \
+	    qtile-git python-pip gcc pacman-contrib \
 	    pulseaudio pulseaudio-alsa pavucontrol pasystray \
 	    bluez bluez-utils pulseaudio-bluetooth blueman \
 	    fzf tree pcmanfm-gtk3 file-roller \
@@ -56,7 +57,7 @@ install_pkg gvim alacritty \
 	    rofi rofi-greenclip \
 	    llpp viewnior \
 	    cbatticon \
-	    ttf-font-awesome ttf-fantasque-sans-mono ttf-jetbrains-mono noto-fonts ttf-droid ttf-hack \
+	    noto-fonts ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \
 	    jdk-openjdk openjdk-doc openjdk-src \
 	    go \
 	    firefox vivaldi chromium \
@@ -78,12 +79,11 @@ enable_services lightdm NetworkManager bluetooth docker
 enable_user_services greenclip redshift-gtk
 
 # Syncthing
-sudo systemctl enable syncthing@$user.service
-sudo systemctl start syncthing@$user.service
+sudo systemctl enable syncthing@$USER.service
+sudo systemctl start syncthing@$USER.service
 
 # Adding user to necessary groups
-sudo usermod -aG docker $user
-sudo usermod -aG video $user
+add_user_to_groups docker video storage
 
 # Wallpaper
 sudo mkdir -p /usr/share/pictures
@@ -96,10 +96,13 @@ cp -r $PWD/../.config/* ~/.config/
 sudo cp ./org.freedesktop.Notifications.service /usr/share/dbus-1/services/org.freedesktop.Notifications.service
 
 # Xorg settings
-sudo cp ./system/xorg/99-libinput-custom-config.conf /etc/X11/xorg.conf.d/99-libinput-custom-config.conf
+sudo cp ./etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
 
 # Lightdm settings
-sudo cp ./system/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/lightdm-gtk-greeter.conf
+sudo cp ./system/etc/lightdm/* /etc/lightdm/
+
+# Pollkit
+sudo cp ./etc/polkit-1/rules.d/* /etc/polkit-1/rules.d/
 
 # ZSH syntax highlighting 
 git clone https://github.com/zdharma/fast-syntax-highlighting.git \

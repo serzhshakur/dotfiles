@@ -61,7 +61,7 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
 
     #####################################################
-    ################### APPS ############################
+    ################### CUSTOM ##########################
     #####################################################
 
     Key([mod], "Return", lazy.spawn("alacritty")),
@@ -168,7 +168,7 @@ groups_config = [
     GroupConfig(
         'u',
         '',
-        [Match(wm_class=["rambox", "Rambox", "station", "Station"])],
+        [Match(wm_class=["rambox", "Rambox", "slack"])],
         group_layouts=[
             layout.Max(),
             layout.TreeTab(**treetab_theme, **layout_theme),
@@ -231,7 +231,11 @@ extension_defaults = widget_defaults.copy()
 
 
 def get_kb_layout():
-    output = subprocess.run(['xkblayout-state', 'print', '%s'], capture_output=True, encoding="utf-8").stdout
+    output = subprocess.run(
+        ['xkblayout-state', 'print', '%s'],
+        capture_output=True,
+        encoding="utf-8"
+    ).stdout
     return output
 
 
@@ -377,14 +381,6 @@ screens = [
                     font='Droid Sans, Bold',
                     width=25
                 ),
-                # widget.KeyboardLayout(
-                #     configured_keyboards=['lv', 'ru phonetic_winkeys'],
-                #     display_map={
-                #         'lv': 'lv ',
-                #         'ru phonetic_winkeys': 'ru ',
-                #     },
-                #     options='grp:lalt_lshift_toggle',
-                # ),
                 widget.Sep(
                     linewidth=1,
                     padding=10

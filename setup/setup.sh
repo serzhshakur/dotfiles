@@ -24,7 +24,7 @@ function install_pkg {
   #yay -Rns $(yay -Qtdq) &> /dev/null
 }
 
-# Timezone 
+# Timezone
 sudo timedatectl set-ntp true
 sudo timedatectl set-timezone Europe/Riga
 
@@ -65,8 +65,9 @@ install_pkg gvim alacritty \
 	    syncthing keepassxc \
 	    picom redshift flameshot joplin-appimg \
 	    docker docker-compose kubectl kubectx \
+	    postgresql-libs \
 	    jetbrains-toolbox code \
-	    postman \
+	    postman-bin \
 	    rambox-bin slack-desktop \
 	    spotify vlc \
 	    transmission-gtk \
@@ -75,9 +76,12 @@ install_pkg gvim alacritty \
 # Some python libraries requred for qtile
 sudo pip install -U --upgrade-strategy=only-if-needed psutil python-dateutil
 
+# Move config files
+cp -r $PWD/../.config/* ~/.config/
+
 # Systemd
 enable_services lightdm NetworkManager bluetooth docker
-enable_user_services greenclip redshift-gtk
+enable_user_services greenclip redshift-gtk mpris-proxy
 
 # Syncthing
 sudo systemctl enable syncthing@$USER.service
@@ -89,9 +93,6 @@ add_user_to_groups docker video storage
 # Wallpaper
 sudo mkdir -p /usr/share/pictures
 sudo cp -r ./nature.jpg /usr/share/pictures/
-
-# Move config files
-cp -r $PWD/../.config/* ~/.config/
 
 # Setup desktop notifications
 sudo cp ./org.freedesktop.Notifications.service /usr/share/dbus-1/services/org.freedesktop.Notifications.service
@@ -105,7 +106,7 @@ sudo cp ./system/etc/lightdm/* /etc/lightdm/
 # Pollkit
 sudo cp ./etc/polkit-1/rules.d/* /etc/polkit-1/rules.d/
 
-# ZSH syntax highlighting 
+# ZSH syntax highlighting
 git clone https://github.com/zdharma/fast-syntax-highlighting.git \
   ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
 

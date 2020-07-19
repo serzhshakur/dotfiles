@@ -424,28 +424,32 @@ main = None
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating(border_width=0, float_rules=[
-    {'wmclass': 'confirm'},
-    {'wmclass': 'dialog'},
-    {'wmclass': 'download'},
-    {'wmclass': 'error'},
-    {'wmclass': 'file_progress'},
-    {'wmclass': 'notification'},
-    {'wmclass': 'splash'},
-    {'wmclass': 'toolbar'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
-    {'wname': 'pinentry'},  # GPG key password entry
-    {'wmclass': 'ssh-askpass'},  # ssh-askpass
-    {'wmclass': 'Qalculate-gtk'},
-    {'wmclass': 'llpp'},  # llpp pdf viewer
-    {'wmclass': 'Viewnior'},  # image viewer
-    {'wmclass': 'nm-connection-editor'},
-    {'wmclass': 'pavucontrol'},
-    {'wmclass': 'blueman-manager'},
-])
+floating_layout = layout.Floating(
+    border_width=2,
+    border_normal='#111315',
+    border_focus='#8996a1',
+    float_rules=[
+        {'wmclass': 'confirm'},
+        {'wmclass': 'dialog'},
+        {'wmclass': 'download'},
+        {'wmclass': 'error'},
+        {'wmclass': 'file_progress'},
+        {'wmclass': 'notification'},
+        {'wmclass': 'splash'},
+        {'wmclass': 'toolbar'},
+        {'wmclass': 'confirmreset'},  # gitk
+        {'wmclass': 'makebranch'},  # gitk
+        {'wmclass': 'maketag'},  # gitk
+        {'wname': 'branchdialog'},  # gitk
+        {'wname': 'pinentry'},  # GPG key password entry
+        {'wmclass': 'ssh-askpass'},  # ssh-askpass
+        {'wmclass': 'Qalculate-gtk'},
+        {'wmclass': 'llpp'},  # llpp pdf viewer
+        {'wmclass': 'Viewnior'},  # image viewer
+        {'wmclass': 'nm-connection-editor'},
+        {'wmclass': 'pavucontrol'},
+        {'wmclass': 'blueman-manager'},
+    ])
 
 
 # Autostart

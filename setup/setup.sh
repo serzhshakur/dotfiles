@@ -51,19 +51,19 @@ install_pkg gvim alacritty \
 	    qtile-git python-pip gcc pacman-contrib \
 	    pulseaudio pulseaudio-alsa pavucontrol pasystray \
 	    bluez bluez-utils pulseaudio-bluetooth blueman \
-	    fzf tree pcmanfm-gtk3 file-roller \
-	    bat exa \
 	    notification-daemon \
+	    fzf tree pcmanfm-gtk3 file-roller cbatticon \
+	    bat exa \
+	    llpp viewnior \
 	    arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins nitrogen \
 	    rofi rofi-greenclip \
-	    llpp viewnior \
-	    cbatticon \
-	    noto-fonts ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \
-	    jdk-openjdk openjdk-doc openjdk-src \
-	    go \
-	    firefox vivaldi chromium \
 	    syncthing keepassxc \
 	    picom redshift flameshot joplin-appimg \
+	    noto-fonts ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \
+	    firefox vivaldi chromium \
+	    jdk-openjdk openjdk-doc openjdk-src \
+	    nodejs npm \
+	    go \
 	    docker docker-compose kubectl kubectx \
 	    postgresql-libs \
 	    jetbrains-toolbox code \

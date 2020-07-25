@@ -92,7 +92,7 @@ layout_theme = {
     "border_width": 3,
     "margin": 3,
     "border_focus": "#b6bdcb",
-    # "border_normal": "#555555"
+    "border_normal": "#555555"
 }
 
 treetab_theme = {
@@ -222,7 +222,7 @@ keys.append(
 )
 
 widget_defaults = dict(
-    font='Droid Sans',
+    font='Noto Sans',
     fontsize=16,
     padding=3,
 )
@@ -275,9 +275,8 @@ screens = [
                     padding=10,
                 ),
                 widget.WindowName(
-                    font="Ubuntu",
                     padding=7,
-                    fontsize=12,
+                    fontsize=14,
                     foreground=cols['fg_inactive'],
                 ),
                 widget.Sep(
@@ -317,17 +316,17 @@ screens = [
                     line_width=2
                 ),
                 widget.Spacer(length=30),
-                widget.BatteryIcon(
-                    padding=0,
-                    margin=0
-                ),
-                widget.Battery(
-                    padding=0,
-                    charge_char="↑ ",
-                    discharge_char="↓ ",
-                    unknown_char='',
-                    format='{char}{percent:2.0%}',
-                ),
+                # widget.BatteryIcon(
+                #     padding=0,
+                #     margin=0
+                # ),
+                # widget.Battery(
+                #     padding=0,
+                #     charge_char="↑ ",
+                #     discharge_char="↓ ",
+                #     unknown_char='',
+                #     format='{char}{percent:2.0%}',
+                # ),
                 widget.Spacer(length=15),
                 widget.TextBox(
                     font="font-awesome",
@@ -378,7 +377,7 @@ screens = [
                 widget.GenPollText(
                     func=get_kb_layout,
                     update_interval=0.5,
-                    font='Droid Sans, Bold',
+                    font='Noto Sans, Bold',
                     width=25
                 ),
                 widget.Sep(
@@ -394,7 +393,7 @@ screens = [
                 ),
                 widget.Clock(
                     fontsize=17,
-                    font='Droid Sans, Bold',
+                    font='Noto Sans, Bold',
                     format="%H:%M"
                 ),
                 widget.Sep(
@@ -425,8 +424,8 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
-    border_width=2,
-    border_normal='#111315',
+    border_width=1,
+    border_normal='#2c3238',
     border_focus='#8996a1',
     float_rules=[
         {'wmclass': 'confirm'},

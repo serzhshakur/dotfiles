@@ -65,11 +65,11 @@ keys = [
     #####################################################
 
     Key([mod], "Return", lazy.spawn("alacritty")),
-    Key([mod], "grave", lazy.spawn("rofi -show")),  # grave=backtick
+    Key([mod], "grave", lazy.spawn("rofi -theme nord -show")),  # 'grave' is a backtick
     Key(["control", "shift"], "p", lazy.spawn("flameshot gui")),
 
-    # Light locker
-    Key([mod, "mod1"], "l", lazy.spawn("light-locker-command -l")),
+    # Power menu
+    Key([mod], "p", lazy.spawn('./.config/qtile/power.sh')),
 
     # Brightness
     Key([], 'XF86MonBrightnessUp', lazy.spawn("light -A 10")),

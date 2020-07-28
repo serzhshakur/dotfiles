@@ -56,7 +56,7 @@ install_pkg gvim alacritty \
 	    bat exa \
 	    llpp viewnior \
 	    arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins nitrogen \
-	    rofi rofi-greenclip \
+	    rofi dmenu rofi-greenclip \
 	    syncthing keepassxc \
 	    picom redshift flameshot joplin-appimg \
 	    noto-fonts ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \

@@ -345,8 +345,10 @@ screens = [
                     text="⟳",
                     fontsize=20,
                 ),
-                widget.Pacman(
-                    command='alacritty',
+                widget.CheckUpdates(
+                    distro="Arch_yay",
+                    display_format="{updates}",
+                    update_interval=900
                 ),
                 #      widget.Spacer(length=15),
                 #      widget.TextBox(
@@ -357,8 +359,18 @@ screens = [
                 #               ),
                 #      widget.Volume(),
                 widget.DF(
+                    partition="/",
                     visible_on_warn=True,
-                    warn_space=5,
+                    warn_space=10,
+                    warn_color="#fc4437",
+                    update_interval=1200,
+                    format='Disk: {p} ({uf}{m}|{r:.0f}%)'
+                ),
+                widget.DF(
+                    partition="/home",
+                    visible_on_warn=True,
+                    warn_space=20,
+                    warn_color="#fc4437",
                     update_interval=1200,
                     format='Disk: {p} ({uf}{m}|{r:.0f}%)'
                 ),
@@ -448,6 +460,7 @@ floating_layout = layout.Floating(
         {'wmclass': 'nm-connection-editor'},
         {'wmclass': 'pavucontrol'},
         {'wmclass': 'blueman-manager'},
+        {'wmclass': 'system-config-printer'},
     ])
 
 

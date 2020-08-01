@@ -7,6 +7,7 @@ import os
 import subprocess
 
 mod = "mod4"
+myTerm = "alacritty"
 
 keys = [
     # Switch between windows in current stack pane
@@ -64,7 +65,7 @@ keys = [
     ################### CUSTOM ##########################
     #####################################################
 
-    Key([mod], "Return", lazy.spawn("alacritty")),
+    Key([mod], "Return", lazy.spawn(myTerm)),
     Key([mod], "grave", lazy.spawn("rofi -theme nord -show")),  # 'grave' is a backtick
     Key(["control", "shift"], "p", lazy.spawn("flameshot gui")),
 
@@ -141,7 +142,7 @@ groups_config = [
         's',
         '',
         [Match(wm_class=["UXTerm", "URxvt", "Urxvt-tabbed", "Urxvt", "XTerm", "Termite", "alacritty", "Lxterminal"])],
-        spawn='alacritty',
+        spawn=myTerm,
         group_layouts=[
             layout.MonadWide(**layout_theme),
             layout.Columns(
@@ -203,7 +204,7 @@ groups = [
 
 groups.append(
     ScratchPad("x", [
-        DropDown("term", "alacritty", height=0.7, width=1, x=0)
+        DropDown("term", myTerm, height=0.7, width=1, x=0)
     ])
 )
 
@@ -237,6 +238,10 @@ def get_kb_layout():
         encoding="utf-8"
     ).stdout
     return output
+
+
+def refresh_package_db(qtile):
+    qtile.cmd_spawn(myTerm + " -e sudo yay -Syy")
 
 
 screens = [
@@ -344,6 +349,7 @@ screens = [
                     font="font-awesome",
                     text="⟳",
                     fontsize=20,
+                    mouse_callbacks={'Button1': refresh_package_db}
                 ),
                 widget.CheckUpdates(
                     distro="Arch_yay",
@@ -397,7 +403,8 @@ screens = [
                     padding=10
                 ),
                 widget.Clock(
-                    format="%a, %b %d"
+                    format="%a, %b %d",
+                    mouse_callbacks={'Button1': lambda qtile: qtile.cmd_spawn('gsimplecal')},
                 ),
                 widget.Sep(
                     linewidth=1,
@@ -461,6 +468,7 @@ floating_layout = layout.Floating(
         {'wmclass': 'pavucontrol'},
         {'wmclass': 'blueman-manager'},
         {'wmclass': 'system-config-printer'},
+        {'wmclass': 'gsimplecal'},
     ])
 
 

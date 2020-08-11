@@ -52,9 +52,9 @@ install_pkg gvim alacritty \
 	    pulseaudio pulseaudio-alsa pavucontrol pasystray \
 	    bluez bluez-utils pulseaudio-bluetooth blueman \
 	    notification-daemon \
-	    fzf tree pcmanfm-gtk3 file-roller cbatticon gsimplecal \
-	    bat exa \
-	    llpp viewnior \
+	    pcmanfm-gtk3 file-roller \
+	    htop bat exa fzf tree \
+	    llpp viewnior cbatticon gsimplecal \
 	    arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins nitrogen \
 	    rofi dmenu rofi-greenclip \
 	    syncthing keepassxc \

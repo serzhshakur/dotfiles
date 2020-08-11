@@ -1,10 +1,9 @@
-from libqtile.config import Key, EzKey, ScratchPad, DropDown, Screen, Group, Drag, Click, Match
-from libqtile.command import lazy
-from libqtile import layout, bar, widget, hook
-
-from typing import List  # noqa: F401
 import os
 import subprocess
+from libqtile import layout, bar, widget, hook
+from libqtile.command import lazy
+from libqtile.config import Key, ScratchPad, DropDown, Screen, Group, Drag, Click, Match
+from typing import List  # noqa: F401
 
 mod = "mod4"
 myTerm = "alacritty"
@@ -149,7 +148,7 @@ groups_config = [
                 **layout_theme,
                 insert_position=1,
             ),
-            layout.MonadTall(**layout_theme),
+            layout.Max(),
         ],
     ),
     GroupConfig(
@@ -240,8 +239,12 @@ def get_kb_layout():
     return output
 
 
+def run_in_terminal(qtile, command):
+    qtile.cmd_spawn(myTerm + " -e " + command)
+
+
 def refresh_package_db(qtile):
-    qtile.cmd_spawn(myTerm + " -e sudo yay -Syy")
+    run_in_terminal(qtile, "sudo yay -Syy")
 
 
 screens = [
@@ -306,7 +309,8 @@ screens = [
                     margin_y=2,
                     border_width=1,
                     border_color=cols['fg_inactive'],
-                    line_width=2
+                    line_width=2,
+                    mouse_callbacks={'Button1': lambda q: run_in_terminal(q, "htop -s PERCENT_CPU")},
                 ),
                 widget.TextBox(
                     text="mem:",
@@ -318,7 +322,8 @@ screens = [
                     margin_y=2,
                     border_width=1,
                     border_color=cols['fg_inactive'],
-                    line_width=2
+                    line_width=2,
+                    mouse_callbacks={'Button1': lambda q: run_in_terminal(q, "htop -s PERCENT_MEM")},
                 ),
                 widget.Spacer(length=30),
                 # widget.BatteryIcon(

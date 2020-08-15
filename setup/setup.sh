@@ -55,12 +55,9 @@ install_pkg gvim alacritty \
 	    pcmanfm-gtk3 file-roller \
 	    htop bat exa fzf tree \
 	    llpp viewnior cbatticon gsimplecal \
-	    arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins nitrogen \
-	    rofi dmenu rofi-greenclip \
+	    dmenu rofi rofi-greenclip \
 	    syncthing keepassxc \
 	    picom redshift flameshot joplin-appimg \
-	    noto-fonts ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \
-	    firefox vivaldi chromium \
 	    jdk-openjdk openjdk-doc openjdk-src \
 	    nodejs npm \
 	    go \
@@ -70,8 +67,14 @@ install_pkg gvim alacritty \
 	    postman-bin \
 	    rambox-bin slack-desktop \
 	    spotify vlc \
-	    transmission-gtk \
 	    qalculate-gtk libreoffice-still gnome-font-viewer \
+# Internet
+install_pkg firefox vivaldi chromium transmission-gtk \
+# Themes, fonts etc.
+install_pkg noto-fonts nerd-fonts-noto-sans-mono \
+      ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \
+      arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins nitrogen \
+
 
 # Some python libraries requred for qtile
 sudo pip install -U --upgrade-strategy=only-if-needed psutil python-dateutil

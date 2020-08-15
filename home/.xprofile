@@ -28,3 +28,6 @@ pasystray --notify=none &
 
 # Battery tray icon
 cbatticon &
+
+# Notifications service
+dunst &

@@ -1,12 +1,15 @@
-import os
 import subprocess
-from libqtile import layout, bar, widget, hook
+from libqtile import layout, bar, widget
 from libqtile.command import lazy
 from libqtile.config import Key, ScratchPad, DropDown, Screen, Group, Drag, Click, Match
-from typing import List  # noqa: F401
+from typing import List
 
 mod = "mod4"
 myTerm = "alacritty"
+mainFont = "Noto Sans"
+mainFontBold = "Noto Sans,Bold"
+iconsFont = "NotoSansMono Nerd Font"
+# iconsFont = "Font Awesome 5 Free"
 
 keys = [
     # Switch between windows in current stack pane
@@ -78,6 +81,7 @@ keys = [
     # Audio
     Key([], 'XF86AudioRaiseVolume', lazy.spawn('pactl -- set-sink-volume 0 +5%')),
     Key([], 'XF86AudioLowerVolume', lazy.spawn('pactl -- set-sink-volume 0 -5%')),
+    # Key([], 'XF86AudioLowerVolume', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause')),
 
 ]
 
@@ -128,7 +132,7 @@ class GroupConfig:
 groups_config = [
     GroupConfig(
         'a',
-        '',
+        '',
         [Match(wm_class=["Firefox", "Google-chrome", "Chromium", "Vivaldi-stable", "Brave"], role=["browser"])],
         spawn='vivaldi-stable',
         group_layouts=[
@@ -222,7 +226,7 @@ keys.append(
 )
 
 widget_defaults = dict(
-    font='Noto Sans',
+    font=mainFont,
     fontsize=16,
     padding=3,
 )
@@ -256,11 +260,12 @@ screens = [
                     padding=6,
                 ),
                 widget.GroupBox(
-                    font="font-awesome",
+                    font=iconsFont,
+                    fontsize=19,
                     margin_y=3,
                     margin_x=0,
                     padding_y=13,
-                    padding_x=7,
+                    padding_x=3,
                     borderwidth=3,
                     active=cols['fg'],
                     inactive=cols['fg_inactive'],
@@ -270,7 +275,7 @@ screens = [
                 ),
                 widget.Sep(
                     linewidth=0,
-                    padding=10,
+                    padding=20,
                 ),
                 widget.CurrentLayoutIcon(
                     scale=0.9
@@ -400,7 +405,7 @@ screens = [
                 widget.GenPollText(
                     func=get_kb_layout,
                     update_interval=0.5,
-                    font='Noto Sans, Bold',
+                    font=mainFontBold,
                     width=25
                 ),
                 widget.Sep(
@@ -417,7 +422,7 @@ screens = [
                 ),
                 widget.Clock(
                     fontsize=17,
-                    font='Noto Sans, Bold',
+                    font=mainFontBold,
                     format="%H:%M"
                 ),
                 widget.Sep(
@@ -476,13 +481,12 @@ floating_layout = layout.Floating(
         {'wmclass': 'gsimplecal'},
     ])
 
-
 # Autostart
 
-@hook.subscribe.startup_once
-def autostart():
-    home = os.path.expanduser('~')
-    subprocess.call([home + '/.config/qtile/autostart.sh'])
+# @hook.subscribe.startup_once
+# def autostart():
+#     home = os.path.expanduser('~')
+#     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 
 auto_fullscreen = True

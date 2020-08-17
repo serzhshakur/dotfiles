@@ -43,7 +43,7 @@ font-3 = NotoSansMono Nerd Font:size=14;3
 
 modules-left = ewmh
 modules-center = xwindow
-modules-right = cpu memory backlight xkeyboard wlan battery date powermenu
+modules-right = cpu memory backlight xkeyboard wlan battery date power
 
 tray-position = right
 tray-padding = 2
@@ -375,6 +375,12 @@ ramp-0 = 
 ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
+
+[module/power]
+type = custom/text
+content = 
+content-foreground = ${colors.background-alt}
+click-left = ~/scripts/power.sh
 
 [module/powermenu]
 type = custom/menu

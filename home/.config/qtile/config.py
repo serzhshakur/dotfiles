@@ -72,7 +72,7 @@ keys = [
     Key(["control", "shift"], "p", lazy.spawn("flameshot gui")),
 
     # Power menu
-    Key([mod], "p", lazy.spawn('./.config/qtile/power.sh')),
+    Key([mod], "p", lazy.spawn('~/scripts/power.sh')),
 
     # Brightness
     Key([], 'XF86MonBrightnessUp', lazy.spawn("light -A 10")),

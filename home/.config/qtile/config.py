@@ -68,7 +68,7 @@ keys = [
     #####################################################
 
     Key([mod], "Return", lazy.spawn(myTerm)),
-    Key([mod], "grave", lazy.spawn("rofi -theme nord -show")),  # 'grave' is a backtick
+    Key([mod], "grave", lazy.spawn("rofi -theme nord -font 'Noto 16' -show")),  # 'grave' is a backtick
     Key(["control", "shift"], "p", lazy.spawn("flameshot gui")),
 
     # Power menu

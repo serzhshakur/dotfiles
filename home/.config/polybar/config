@@ -12,7 +12,7 @@ foreground-urgent = #e26d5c
 
 
 [bar/main]
-;monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 32
 padding = 0

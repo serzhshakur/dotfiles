@@ -21,7 +21,7 @@ hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-w close
 hc keybind $Mod-Return spawn $myTerm
-hc keybind $Mod-grave spawn rofi -theme nord -show
+hc keybind $Mod-grave spawn rofi -theme nord -font "Noto 16" -show
 
 # basic movement in tiling and floating mode
 # focusing clients
@@ -112,12 +112,18 @@ hc mousebind $Mod-Button3 resize
 
 # focus
 hc keybind $Mod-BackSpace cycle_monitor
+hc keybind Shift-Control-l focus_monitor -r
+hc keybind Shift-Control-h focus_monitor -l
+
 hc keybind $Mod-Tab cycle_all +1
 hc keybind $Mod-Shift-Tab cycle_all -1
 hc keybind $Mod-c cycle
 hc keybind $Mod-Shift-i jumpto urgent
 
-# THEME
+#########################################################
+####################### THEME ###########################
+#########################################################
+
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
 
@@ -153,16 +159,21 @@ hc set smart_frame_surroundings on
 hc set mouse_recenter_gap 0
 
 #########################################################
-######################## RULES ##########################
+####################### RULES ###########################
 #########################################################
 
 hc unrule -F
-hc rule class~'([Vv]ivaldi.*|firefox|[Cc]hromium)' tag="${tag_names[0]}" # move all browsers to tag 0
-hc rule once class~'([Aa]lacritty|[Kk]itty)' tag="${tag_names[1]}"       # move terminal to tag 1 on first call
-hc rule focus=on                                                         # normally focus new clients
+hc rule tag="${tag_names[0]}" class~'([Vv]ivaldi.*|firefox|[Cc]hromium)' # move all browsers to tag 0
+hc rule tag="${tag_names[1]}" once class~'([Aa]lacritty|[Kk]itty)'       # move terminal to tag 1 on first call
+hc rule tag="${tag_names[2]}" class~'jetbrains-idea|code'
+hc rule tag="${tag_names[3]}" class~'Pcmanfm'
+hc rule tag="${tag_names[4]}" class~'[Rr]ambox|[Ss]lack'
+hc rule tag="${tag_names[5]}" class~'[Ss]potify'
+hc rule class~'([Ll]xappearance|[Nn]itrogen|[Bb]lueman-manager|[Qq]alculate-gtk|[Gg]simplecal)' floating=on floatplacement=center
+
+hc rule focus=on # normally focus new clients
 #hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
-#hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
@@ -172,24 +183,28 @@ hc set tree_style '╾│ ├└╼─┐'
 # unlock, just to be sure
 hc unlock
 
-# do multi monitor setup here, e.g.:
-# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
-# or simply:
-hc detect_monitors
+#########################################################
+################# MONITORS SETUP ########################
+#########################################################
 
-# find the panel
-panel=~/.config/herbstluftwm/panel.sh
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-for monitor in $(hc list_monitors | cut -d: -f1); do
-  # start it on each monitor
-  "$panel" "$monitor" &
-done
+hc detect_monitors
+# create some virtual monitors (used to test multi-monitor setup on a laptop):
+#hc set_monitors 1000x1080+0+0 920x1080+1000+0               # 2-monitor setup
+#hc set_monitors 640x1080+0+0 640x1080+640+0 640x1080+1280+0 # 3-monitor setup
+
+hc set swap_monitors_to_get_tag on
+
+#########################################################
+######################## PANEL ##########################
+#########################################################
+
+~/.config/herbstluftwm/panel.sh
 
 #########################################################
 ################### AUTOSTART APPS ######################
 #########################################################
 
-if hc silent new_attr bool my___is_first_start ; then
+if hc silent new_attr bool my___is_first_start; then
   alacritty &
   vivaldi-stable &
 fi

@@ -249,7 +249,7 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = ""
+format-prefix = "%{A1:gsimplecal &:}%{A}"
 ;format-prefix-foreground = ${colors.foreground-alt}
 
 label = %date% %time%

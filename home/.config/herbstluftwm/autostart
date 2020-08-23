@@ -169,7 +169,8 @@ hc rule tag="${tag_names[2]}" class~'jetbrains-idea|code'
 hc rule tag="${tag_names[3]}" class~'Pcmanfm'
 hc rule tag="${tag_names[4]}" class~'[Rr]ambox|[Ss]lack'
 hc rule tag="${tag_names[5]}" class~'[Ss]potify'
-hc rule class~'([Ll]xappearance|[Nn]itrogen|[Bb]lueman-manager|[Qq]alculate-gtk|[Gg]simplecal)' floating=on floatplacement=center
+hc rule class~'([Ll]xappearance|[Nn]itrogen|[Bb]lueman-manager|[Qq]alculate-gtk|llpp|Viewinor|[Nn]m-connection-editor|pavucontrol|[Ss]ystem-config-printer(\.py)*)' floating=on floatplacement=center
+hc rule class~'[Gg]simplecal' floating=on
 
 hc rule focus=on # normally focus new clients
 #hc rule focus=off # normally do not focus new clients

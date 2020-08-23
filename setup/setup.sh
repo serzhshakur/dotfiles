@@ -11,15 +11,15 @@ sudo pacman -S --needed git binutils make gcc fakeroot patch
 # Installing yay
 install_aur_pkg yay
 
-function install_pkg {
+function install_pkg() {
   yay -S \
-      --needed \
-      --noconfirm \
-      --removemake \
-      --nodiffmenu \
-      --nocleanmenu \
-      --noeditmenu  \
-      $@
+    --needed \
+    --noconfirm \
+    --removemake \
+    --nodiffmenu \
+    --nocleanmenu \
+    --noeditmenu \
+    $@
   # removing orphans
   #yay -Rns $(yay -Qtdq) &> /dev/null
 }
@@ -39,42 +39,57 @@ rank_and_update_mirrors
 
 # Installing necessary packages
 install_pkg gvim alacritty \
-	    xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb} \
-	    udisks2 udiskie \
-	    lightdm lightdm-gtk-greeter light-locker \
-	    xkblayout-state light \
-	    mesa mesa-libgl \
-	    xf86-video-vesa \
-	    networkmanager network-manager-applet openvpn networkmanager-openvpn \
-	    cups cups-pdf cups-pk-helper system-config-printer \
-      zsh oh-my-zsh-git \
-	    qtile-git python-pip gcc pacman-contrib \
-	    pulseaudio pulseaudio-alsa pavucontrol pasystray \
-	    bluez bluez-utils pulseaudio-bluetooth blueman \
-	    notification-daemon \
-	    pcmanfm-gtk3 file-roller \
-	    htop bat exa fzf tree \
-	    llpp viewnior cbatticon gsimplecal \
-	    dmenu rofi rofi-greenclip \
-	    syncthing keepassxc \
-	    picom redshift flameshot joplin-appimg \
-	    jdk-openjdk openjdk-doc openjdk-src \
-	    nodejs npm \
-	    go \
-	    docker docker-compose kubectl kubectx \
-	    postgresql-libs \
-	    jetbrains-toolbox code \
-	    postman-bin \
-	    rambox-bin slack-desktop \
-	    spotify vlc \
-	    qalculate-gtk libreoffice-still gnome-font-viewer \
-# Internet
-install_pkg firefox vivaldi chromium transmission-gtk \
+  xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb} \
+  arandr autorandr \
+  udisks2 udiskie \
+  lightdm lightdm-gtk-greeter light-locker \
+  xkblayout-state light \
+  mesa mesa-libgl \
+  xf86-video-vesa \
+  networkmanager network-manager-applet openvpn networkmanager-openvpn \
+  zsh oh-my-zsh-git \
+  htop bat exa fzf tree \
+  dmenu rofi rofi-greenclip \
+  dunst \
+  picom redshift \
+  syncthing keepassxc
+# Audio
+install_pkg pulseaudio pulseaudio-alsa pavucontrol pasystray \
+  bluez bluez-utils pulseaudio-bluetooth blueman
 # Themes, fonts etc.
 install_pkg noto-fonts nerd-fonts-noto-sans-mono \
-      ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \
-      arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins nitrogen \
-
+  ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \
+  arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins nitrogen \
+  fontpreview-git
+# Printing
+install_pkg cups cups-pdf cups-pk-helper system-config-printer
+# Some GUI tools
+install_pkg llpp viewnior \
+  cbatticon \
+  gsimplecal \
+  pcmanfm-gtk3 file-roller \
+  flameshot \
+  joplin-appimg \
+  qalculate-gtk libreoffice-still
+# WMs
+## - Qtile
+install_pkg qtile-git python-pip gcc pacman-contrib
+## - Herbstlufwm
+install_pkg herbstluftwm-git
+# Internet
+install_pkg firefox vivaldi chromium transmission-gtk
+# Communication
+install_pkg rambox-bin slack-desktop
+# Entertainment
+install_pkg spotify vlc
+# Development etc.
+install_pkg jdk-openjdk openjdk-doc openjdk-src \
+  jetbrains-toolbox code \
+  postgresql-libs \
+  nodejs npm \
+  go \
+  docker docker-compose kubectl kubectx \
+  postman-bin
 
 # Some python libraries requred for qtile
 sudo pip install -U --upgrade-strategy=only-if-needed psutil python-dateutil
@@ -97,9 +112,6 @@ add_user_to_groups docker video storage
 sudo mkdir -p /usr/share/pictures
 sudo cp -r ./nature.jpg /usr/share/pictures/
 
-# Setup desktop notifications
-sudo cp ./org.freedesktop.Notifications.service /usr/share/dbus-1/services/org.freedesktop.Notifications.service
-
 # Xorg settings
 sudo cp ./etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
 
@@ -112,7 +124,6 @@ sudo cp ./etc/polkit-1/rules.d/* /etc/polkit-1/rules.d/
 # ZSH syntax highlighting
 git clone https://github.com/zdharma/fast-syntax-highlighting.git \
   ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
-
 
 echo ""
 echo "------------------------------------"

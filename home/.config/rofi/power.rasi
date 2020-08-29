@@ -23,25 +23,21 @@ mainbox {
     padding: 0;
     border:  0;
 }
-message {
-    padding:      1px ;
-    border:       0 ;
-}
 textbox {
     font: "Noto Bold 15";
     padding: 10 0;
     text-color:   var(selected-normal-background);
 }
 listview {
-    padding:      8px 0px 8px 0px ;
+    padding:      8px 0px 8px 0px;
     scrollbar:    false;
     border-color: var(separatorcolor);
-    spacing:      6px ;
+    spacing:      6px;
     fixed-height: 0;
-    border:       0px 0px 0px 0px ;
+    border:       0px 0px 0px 0px;
 }
 element {
-    padding: 10px ;
+    padding: 8px 5px 15px 5px;
     border:  0;
 }
 element normal.normal {
@@ -57,14 +53,10 @@ element alternate.normal {
     text-color:       var(alternate-normal-foreground);
 }
 scrollbar {
-    width:        4px ;
+    width:        4px;
     padding:      0;
-    handle-width: 8px ;
+    handle-width: 8px;
     border:       0;
-}
-mode-switcher {
-    border-color: var(separatorcolor);
-    border:       2px dash 0px 0px ;
 }
 button selected {
     background-color: var(selected-normal-background);
@@ -72,27 +64,9 @@ button selected {
 }
 inputbar {
     enabled: false;
-    padding:    1px ;
-    spacing:    0;
-    text-color: var(normal-foreground);
-    children:   [ prompt,textbox-prompt-colon,entry,overlay,case-indicator ];
-}
-case-indicator {
-    spacing:    0;
-    text-color: var(normal-foreground);
 }
 entry {
     padding: 5;
     spacing:    0;
-    text-color: var(normal-foreground);
-}
-prompt {
-    spacing:    0;
-    text-color: var(normal-foreground);
-}
-textbox-prompt-colon {
-    margin:     0px 0.3000em 0.0000em 0.0000em ;
-    expand:     false;
-    str:        ":";
     text-color: var(normal-foreground);
 }

@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
-
 hc() {
   herbstclient "$@"
 }
-monitors_count="$(hc attr monitors.count)"
-active_icon="%{T4}%{F#eaa560}%{F-}"
-inactive_icon="%{T4}%{F#969595}%{F-}"
+
+#active_icon="%{T4}%{F#eaa560}%{F-}"
+#inactive_icon="%{T4}%{F#969595}%{F-}"
+active_icon=$1
+inactive_icon=$2
+
 offset="%{O10}"
+monitors_count="$(hc attr monitors.count)"
 two_mon_setup=("$active_icon$offset$inactive_icon" "$inactive_icon$offset$active_icon")
 three_mon_setup=("$active_icon$offset$inactive_icon$offset$inactive_icon" "$inactive_icon$offset$active_icon$offset$inactive_icon" "$inactive_icon$offset$inactive_icon$offset$active_icon")
+
 
 if [[ $monitors_count -gt 1 ]]; then
   focused_monitor="$(hc attr monitors.focus.index)"

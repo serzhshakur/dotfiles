@@ -16,12 +16,14 @@ xsetroot -solid '#5A8E3A'
 # remove all existing keybindings
 hc keyunbind --all
 
-# keybindings
+#########################################################
+#################### KEYBINDINGS ########################
+#########################################################
+
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-w close
 hc keybind $Mod-Return spawn $myTerm
-hc keybind $Mod-grave spawn rofi -theme nord -font "Noto 16" -show
 
 # basic movement in tiling and floating mode
 # focusing clients
@@ -119,6 +121,11 @@ hc keybind $Mod-Tab cycle_all +1
 hc keybind $Mod-Shift-Tab cycle_all -1
 hc keybind $Mod-c cycle
 hc keybind $Mod-Shift-i jumpto urgent
+
+###### custom keybindings ###########
+
+hc keybind $Mod-grave spawn rofi -theme nord -font "Noto 16" -show
+hc keybind Shift-Control-p spawn flameshot gui
 
 #########################################################
 ####################### THEME ###########################

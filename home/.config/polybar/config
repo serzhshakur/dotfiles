@@ -89,6 +89,7 @@ label-active-background = ${colors.background-alt}
 label-active-padding = 1
 
 label-occupied = %icon%
+label-occupied-foreground = #f4f4f4
 label-occupied-background = ${colors.background}
 label-occupied-padding = 1
 
@@ -101,8 +102,6 @@ label-urgent-padding = 1
 label-empty = %icon%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 1
-format-foreground = ${colors.foreground}
-format-background = ${colors.background}
 
 
 [module/xwindow]
@@ -395,6 +394,7 @@ click-left = ~/scripts/power.sh
 [module/herbst-monitors]
 type = custom/script
 exec = ~/.config/herbstluftwm/scripts/polybar_monitors.sh "%{T4}%{F#eaa560}%{F-}" "%{T4}%{F#969595}%{F-}"
+format-padding = 2
 tail = true
 
 

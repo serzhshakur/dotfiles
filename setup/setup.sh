@@ -119,7 +119,7 @@ sudo cp ./etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
 sudo cp ./system/etc/lightdm/* /etc/lightdm/
 
 # Pollkit
-sudo cp ./etc/polkit-1/rules.d/* /etc/polkit-1/rules.d/
+sudo cp ./system/etc/polkit-1/rules.d/* /etc/polkit-1/rules.d/
 
 # ZSH syntax highlighting
 git clone https://github.com/zdharma/fast-syntax-highlighting.git \

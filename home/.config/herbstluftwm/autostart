@@ -94,10 +94,11 @@ hc keybind $Mod-comma use_index -1 --skip-visible
 
 # layouting
 hc keybind $Mod-r remove
-hc keybind $Mod-Shift-s floating toggle
+hc keybind $Mod-Shift-z floating toggle
 hc keybind $Mod-Shift-x fullscreen toggle
-hc keybind $Mod-Shift-f set_attr clients.focus.floating toggle
+#hc keybind $Mod-Shift-f set_attr clients.focus.floating toggle
 hc keybind $Mod-p pseudotile toggle
+
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
@@ -126,6 +127,7 @@ hc keybind $Mod-Shift-i jumpto urgent
 
 hc keybind $Mod-grave spawn rofi -theme nord -font "Noto 16" -show
 hc keybind Shift-Control-p spawn flameshot gui
+hc keybind Shift-Control-BackSpace spawn ~/scripts/power.sh
 
 #########################################################
 ####################### THEME ###########################
@@ -200,7 +202,7 @@ hc detect_monitors
 #hc set_monitors 1000x1080+0+0 920x1080+1000+0               # 2-monitor setup
 #hc set_monitors 640x1080+0+0 640x1080+640+0 640x1080+1280+0 # 3-monitor setup
 
-hc set swap_monitors_to_get_tag on
+hc set swap_monitors_to_get_tag off
 
 #########################################################
 ######################## PANEL ##########################

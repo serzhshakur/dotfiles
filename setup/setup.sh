@@ -55,7 +55,7 @@ install_pkg gvim alacritty \
   syncthing keepassxc
 # Audio
 install_pkg pulseaudio pulseaudio-alsa pavucontrol pasystray \
-  bluez bluez-utils pulseaudio-bluetooth blueman
+  bluez bluez-utils pulseaudio-bluetooth blueman playerctl
 # Themes, fonts etc.
 install_pkg noto-fonts nerd-fonts-noto-sans-mono \
   ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \

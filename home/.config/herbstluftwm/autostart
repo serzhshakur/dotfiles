@@ -123,11 +123,21 @@ hc keybind $Mod-Shift-Tab cycle_all -1
 hc keybind $Mod-c cycle
 hc keybind $Mod-Shift-i jumpto urgent
 
-###### custom keybindings ###########
+###### custom keybindings ########
 
 hc keybind $Mod-grave spawn rofi -theme nord -font "Noto 16" -show
 hc keybind Shift-Control-p spawn flameshot gui
 hc keybind Shift-Control-BackSpace spawn ~/scripts/power.sh
+
+# player keybindings
+hc keybind Shift-Control-minus spawn pactl set-sink-volume @DEFAULT_SINK@ -5%       # volume down
+hc keybind Shift-Control-KP_Subtract spawn pactl set-sink-volume @DEFAULT_SINK@ -5% # volume down
+hc keybind Shift-Control-KP_Add spawn pactl set-sink-volume @DEFAULT_SINK@ +5%      # volume up
+hc keybind Shift-Control-equal spawn pactl set-sink-volume @DEFAULT_SINK@ +5%       # volume up
+hc keybind Shift-Control-0 spawn playerctl play-pause                               # play/pause
+hc keybind Shift-Control-KP_Insert spawn playerctl play-pause                       # play/pause
+hc keybind Shift-Control-bracketleft spawn playerctl previous                       # previous track
+hc keybind Shift-Control-bracketright spawn playerctl next                          # next track
 
 #########################################################
 ####################### THEME ###########################

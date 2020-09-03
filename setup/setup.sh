@@ -113,13 +113,14 @@ sudo mkdir -p /usr/share/pictures
 sudo cp -r ./nature.jpg /usr/share/pictures/
 
 # Xorg settings
-sudo cp ./etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
+sudo cp ./system/etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
 
 # Lightdm settings
 sudo cp ./system/etc/lightdm/* /etc/lightdm/
 
 # Pollkit
 sudo cp ./system/etc/polkit-1/rules.d/* /etc/polkit-1/rules.d/
+sudo chmod 644 ./system/etc/polkit-1/rules.d/
 
 # ZSH syntax highlighting
 git clone https://github.com/zdharma/fast-syntax-highlighting.git \

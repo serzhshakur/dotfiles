@@ -70,8 +70,8 @@ tag_keys=("a" "s" "d" "f" "u" "i" "o" 0)
 
 # a default tag is renamed to the first from a list
 hc rename default "${tag_names[0]}" || true
-for i in "${!tag_names[@]}"; do
 
+for i in "${!tag_names[@]}"; do
   # setting default layout to max for all tags except "s"
   if [ "${tag_names[i]}" == "s" ]; then
     hc set default_frame_layout $layoutVertical
@@ -96,7 +96,7 @@ hc keybind $Mod-comma use_index -1 --skip-visible
 hc keybind $Mod-r remove
 hc keybind $Mod-Shift-z floating toggle
 hc keybind $Mod-Shift-x fullscreen toggle
-#hc keybind $Mod-Shift-f set_attr clients.focus.floating toggle
+hc keybind $Mod-Shift-c set_attr clients.focus.floating toggle
 hc keybind $Mod-p pseudotile toggle
 
 # The following cycles through the available layouts within a frame, but skips
@@ -119,9 +119,10 @@ hc keybind Shift-Control-l focus_monitor -r
 hc keybind Shift-Control-h focus_monitor -l
 
 hc keybind $Mod-Tab cycle_all +1
-hc keybind $Mod-Shift-Tab cycle_all -1
+hc keybind Alt-Tab cycle_all -1
 hc keybind $Mod-c cycle
 hc keybind $Mod-Shift-i jumpto urgent
+hc keybind Mod5-Tab use_previous # Mod5 = Right Alt
 
 ###### custom keybindings ########
 

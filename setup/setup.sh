@@ -6,7 +6,7 @@ source ./functions.sh
 USER=$(whoami)
 
 # Installing some packages for makepkg to work
-sudo pacman -S --needed git binutils make gcc fakeroot patch
+sudo pacman -S --needed git binutils make gcc fakeroot patch # consider installing just 'base-devel' package
 
 # Installing yay
 install_aur_pkg yay

@@ -118,11 +118,11 @@ hc keybind $Mod-BackSpace cycle_monitor
 hc keybind Shift-Control-l focus_monitor -r
 hc keybind Shift-Control-h focus_monitor -l
 
-hc keybind $Mod-Tab cycle_all +1
-hc keybind Alt-Tab cycle_all -1
+hc keybind Alt-Tab cycle_all +1
+hc keybind Mod5-Tab cycle_all -1
 hc keybind $Mod-c cycle
 hc keybind $Mod-Shift-i jumpto urgent
-hc keybind Mod5-Tab use_previous # Mod5 = Right Alt
+hc keybind $Mod-Tab use_previous # Mod5 = Right Alt
 
 ###### custom keybindings ########
 
@@ -149,18 +149,18 @@ hc attr theme.floating.reset 1
 
 # frame theme
 hc set frame_border_active_color '#b6c3db'
-hc set frame_border_width 3
+hc set frame_border_width 1
 hc set frame_border_normal_color '#646d7e'
 hc set frame_bg_normal_color '#565656'
 hc set frame_bg_active_color '#345F0C'
 hc set always_show_frame on
 hc set frame_bg_transparent on
 hc set frame_transparent_width 0
-hc set frame_gap 4
+hc set frame_gap 7
 
 # window theme
-hc attr theme.active.color '#d5d5d5'
-hc attr theme.normal.color '#1f232c'
+hc attr theme.active.color '#81A1C1'
+hc attr theme.normal.color '#4C566A'
 hc attr theme.urgent.color orange
 hc attr theme.inner_width 0
 hc attr theme.inner_color black
@@ -172,7 +172,7 @@ hc attr theme.active.inner_color '#3E4A00'
 hc attr theme.active.outer_color '#3E4A00'
 hc attr theme.background_color '#141414'
 
-hc set window_gap 4
+hc set window_gap 5
 hc set frame_padding 1
 hc set smart_window_surroundings on
 hc set smart_frame_surroundings on

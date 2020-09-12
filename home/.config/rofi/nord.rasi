@@ -129,7 +129,7 @@ entry {
     text-color: var(normal-foreground);
 }
 prompt {
-    font: "Noto Bold 17";
+    font: "Noto Bold 15";
     spacing:    0;
     text-color: var(normal-foreground);
 }

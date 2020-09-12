@@ -126,7 +126,8 @@ hc keybind $Mod-Tab use_previous # Mod5 = Right Alt
 
 ###### custom keybindings ########
 
-hc keybind $Mod-grave spawn rofi -theme nord -font "Noto 16" -show
+hc keybind F1 spawn rofi -sidebar-mode -font "Noto 16" -show
+hc keybind F2 spawn rofi -display-windowcd window -no-fixed-num-lines -hide-scrollbar -no-plugins -modi windowcd -show windowcd -i
 hc keybind Shift-Control-p spawn flameshot gui
 hc keybind Shift-Control-BackSpace spawn ~/scripts/power.sh
 

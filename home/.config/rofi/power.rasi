@@ -33,7 +33,7 @@ listview {
     scrollbar:    false;
     border-color: var(separatorcolor);
     spacing:      6px;
-    fixed-height: 0;
+    fixed-height: false;
     border:       0px 0px 0px 0px;
 }
 element {

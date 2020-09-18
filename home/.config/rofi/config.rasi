@@ -1,0 +1,5 @@
+configuration {
+	modi: "drun,window,clipboard:greenclip print";
+	font: "Nord 14";
+	theme: "nord";
+}

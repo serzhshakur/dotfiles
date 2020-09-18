@@ -126,10 +126,18 @@ hc keybind $Mod-Tab use_previous # Mod5 = Right Alt
 
 ###### custom keybindings ########
 
-hc keybind F1 spawn rofi -sidebar-mode -font "Noto 16" -show
-hc keybind F2 spawn rofi -display-windowcd window -no-fixed-num-lines -hide-scrollbar -no-plugins -modi windowcd -show windowcd -i
 hc keybind Shift-Control-p spawn flameshot gui
 hc keybind Shift-Control-BackSpace spawn ~/scripts/power.sh
+hc keybind F1 spawn rofi -sidebar-mode -font "Noto 16" -show
+hc keybind F2 spawn rofi -i \
+                    -modi windowcd -show windowcd \
+                    -display-windowcd window \
+                    -location 2 \
+                    -no-fixed-num-lines \
+                    -hide-scrollbar \
+                    -no-plugins \
+                    -me-select-entry '' \
+                    -me-accept-entry MousePrimary
 
 # player keybindings
 hc keybind Shift-Control-minus spawn pactl set-sink-volume @DEFAULT_SINK@ -5%       # volume down

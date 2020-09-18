@@ -1,3 +1,0 @@
-rofi.font: Nord 14
-rofi.theme: nord
-rofi.modi: drun,window,find:~/.config/rofi/file_browser.sh,clipboard:greenclip print

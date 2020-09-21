@@ -1,5 +1,10 @@
-# wm independent hotkeys
-#
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+#####################################
+###### wm independent hotkeys #######
+#####################################
 
 # terminal emulator
 super + Return
@@ -9,15 +14,28 @@ super + Return
 F1
 	rofi -sidebar-mode -font "Noto 16" -show
 F2
-    rofi -display-windowcd window -no-fixed-num-lines -hide-scrollbar -no-plugins -me-select-entry '' -me-accept-entry MousePrimary -modi windowcd -show windowcd -i
+    rofi -i \
+         -modi windowcd -show windowcd \
+         -display-windowcd window \
+         -location 2 \
+         -no-fixed-num-lines \
+         -hide-scrollbar \
+         -no-plugins \
+         -me-select-entry '' \
+         -me-accept-entry MousePrimary
 
-# make sxhkd reload its configuration files:
-super + Escape
-	pkill -USR1 -x sxhkd
+ctrl + shift + p
+    flameshot gui
 
-#
-# bspwm hotkeys
-#
+ctrl + shift + BackSpace
+    ~/scripts/power.sh
+
+ctrl + shift + {minus,KP_Subtract}
+    pactl set-sink-volume @DEFAULT_SINK@ {-,+}5%       # volume up/down
+
+#####################################
+########## bspwm hotkeys ############
+#####################################
 
 # quit/restart bspwm
 super + alt + {q,r}
@@ -51,11 +69,15 @@ super + g
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
-#
-# focus/swap
-#
+#####################################
+########### focus/swap ##############
+#####################################
 
-# focus the node in the given direction
+# focus or send to the given desktop
+super + {_,shift + }{a,s,d,f,u,i,o}
+	bspc {desktop -f,node -d} {a,s,d,f,u,i,o}
+
+# focus/move the node in the given direction
 super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
@@ -72,8 +94,8 @@ super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
-super + {grave,Tab}
-	bspc {node,desktop} -f last
+{super,alt} + Tab
+	bspc {desktop,node} -f last
 
 # focus the older or newer node in the focus history
 #super + {o,i}
@@ -81,13 +103,9 @@ super + {grave,Tab}
 #	bspc node {older,newer} -f; \
 #	bspc wm -h on
 
-# focus or send to the given desktop
-super + {_,shift + }{a,s,d,f,u,i,o}
-	bspc {desktop -f,node -d} {a,s,d,f,u,i,o}
-
-#
-# preselect
-#
+#####################################
+########### preselect ###############
+#####################################
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
@@ -105,9 +123,9 @@ super + ctrl + space
 super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-###############################
-# move/resize
-###############################
+#####################################
+########## move/resize ##############
+#####################################
 
 # expand a window by moving one of its side outward
 #super + alt + {h,j,k,l}

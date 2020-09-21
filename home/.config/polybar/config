@@ -10,7 +10,7 @@ foreground-ok = #b8d8ba
 foreground-warn = #ffe1a8
 foreground-urgent = #e26d5c
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [bar/main]
 monitor = ${env:MONITOR:eDP-1}
 width = 100%
@@ -42,7 +42,6 @@ font-2 = Font Awesome 5 Free Solid:style=Solid;3
 ;; !! the following is used in an external scripts like polybar_monitor.sh
 font-3 = NotoSansMono Nerd Font:size=15;3
 
-modules-left = ewmh herbst-monitors
 modules-center = xwindow
 modules-right = cpu memory backlight xkeyboard wlan battery date power
 
@@ -51,18 +50,138 @@ tray-padding = 2
 tray-maxsize = 24
 ;tray-background = #0063ff
 
-;override-redirect = true
-
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
-
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[bar/bspwm-bar]
+inherit = bar/main
+modules-left = bspwm
 
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[bar/herbst-bar]
+inherit = bar/main
+modules-left = ewmh herbst-monitors
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[module/bspwm]
+type = internal/bspwm
+
+; Only show workspaces defined on the same output as the bar
+; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
+; But if you rename your bspwm monitors with bspc -n this option will no longer
+; behave correctly.
+; Default: true
+pin-workspaces = true
+
+; Create scroll handlers used to cycle workspaces
+enable-scroll = true
+
+; Set the scroll cycle direction
+reverse-scroll = false
+
+; ws-icon-[0-9]+ = <label>;<icon>
+; Note that the <label> needs to correspond with the bspwm workspace name
+; Neither <label> nor <icon> can contain a semicolon (;)
+
+ws-icon-0 = a;
+ws-icon-1 = s;
+ws-icon-2 = d;
+ws-icon-3 = f;
+ws-icon-4 = u;
+ws-icon-5 = i;ﱘ
+ws-icon-6 = o;
+
+; Available tags:
+;   <label-monitor>
+;   <label-state> - gets replaced with <label-(focused|urgent|occupied|empty)>
+;   <label-mode> - gets replaced with <label-(monocle|tiled|fullscreen|floating|locked|sticky|private)>
+; Default: <label-state>
+format = <label-state> <label-mode>    <label-monitor>
+
+; Available tokens:
+;   %name%
+; Default: %name%
+label-monitor = %name%
+
+; If any values for label-dimmed-N are defined, the workspace/mode
+; colors will get overridden with those values if the monitor is out of focus
+; To only override workspaces in a specific state, use:
+;   label-dimmed-focused
+;   label-dimmed-occupied
+;   label-dimmed-urgent
+;   label-dimmed-empty
+label-dimmed-foreground = #555
+;label-dimmed-underline = ${bar/top.background}
+label-dimmed-focused-background = #f00
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-focused = %icon%
+label-focused-foreground = ${colors.background}
+label-focused-background = ${colors.background-alt}
+label-focused-padding = 1
+;label-focused-underline = #fba922
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-occupied = %icon%
+label-occupied-padding = 1
+; label-occupied-underline = #555555
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-urgent = %icon%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-padding = 1
+; label-urgent-underline = #9b0a20
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-empty = %icon%
+label-empty-foreground = #55
+label-empty-padding = 1
+
+; The following labels will be used to indicate the layout/mode
+; for the focused workspace. Requires <label-mode>
+;
+; Available tokens:
+;   None
+;label-monocle = 
+;label-tiled = 
+;label-fullscreen = 
+;label-floating = 
+;label-pseudotiled = P
+;label-locked = 
+;label-locked-foreground = #bd2c40
+;label-sticky = 
+;label-sticky-foreground = #fba922
+;label-private = 
+;label-private-foreground = #bd2c40
+;label-marked = M
+
+; Separator in between workspaces
+;label-separator = |
+;label-separator-padding = 2
+;label-separator-foreground = #ffb52a
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [module/ewmh]
 type = internal/xworkspaces
 pin-workspaces = false

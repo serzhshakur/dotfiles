@@ -3,7 +3,15 @@
 pgrep -x sxhkd > /dev/null || sxhkd &
 ~/.config/bspwm/panel.sh &
 
-bspc monitor -d a s d f u i o
+number_of_monitors=$(xrandr | grep -sw 'connected' | cut -d " " -f 1 | wc -l)
+
+if [ $number_of_monitors -eq 3 ]; then
+  bspc monitor HDMI1 -d s f
+  bspc monitor DP1 -d a d i o
+  bspc monitor eDP1 -d u
+else
+  bspc monitor -d a s d f u i o
+fi
 
 bspc config split_ratio          0.50
 bspc config borderless_monocle   true

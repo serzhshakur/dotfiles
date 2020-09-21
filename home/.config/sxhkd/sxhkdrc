@@ -30,8 +30,14 @@ ctrl + shift + p
 ctrl + shift + BackSpace
     ~/scripts/power.sh
 
-ctrl + shift + {minus,KP_Subtract}
-    pactl set-sink-volume @DEFAULT_SINK@ {-,+}5%       # volume up/down
+ctrl + shift + {minus,KP_Subtract,equal,KP_Add}
+    pactl set-sink-volume @DEFAULT_SINK@ {-,-,+,+}5%       # volume up/down
+
+ctrl + shift + {0,KP_Insert}
+    playerctl play-pause                                    # play/pause
+
+ctrl + shift + {bracketleft,bracketright}
+    playerctl {previous,next}                               # play/pause
 
 #####################################
 ########## bspwm hotkeys ############

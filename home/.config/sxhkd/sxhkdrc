@@ -63,9 +63,9 @@ super + y
 super + g
 	bspc node -s biggest.window
 
-#
-# state/flags
-#
+#####################################
+########### state/flags #############
+#####################################
 
 # set the window state
 #super + {t,shift + t,s,f}
@@ -132,6 +132,10 @@ super + ctrl + shift + space
 #####################################
 ########## move/resize ##############
 #####################################
+
+# move desktop to other monitor
+ctrl + shift + {l,h}
+    bspc desktop -m {east,west} --follow
 
 # expand a window by moving one of its side outward
 #super + alt + {h,j,k,l}

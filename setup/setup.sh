@@ -69,13 +69,12 @@ install_pkg llpp viewnior \
   gsimplecal \
   pcmanfm-gtk3 file-roller \
   flameshot \
-  joplin-appimg \
+  joplin-appimage \
   qalculate-gtk libreoffice-still
 # WMs
-## - Qtile
-install_pkg qtile-git python-pip gcc pacman-contrib
-## - Herbstlufwm
+# install_pkg qtile-git python-pip gcc pacman-contrib
 install_pkg herbstluftwm-git
+install_pkg bspwm sxhkd
 # Internet
 install_pkg firefox vivaldi chromium transmission-gtk
 # Communication

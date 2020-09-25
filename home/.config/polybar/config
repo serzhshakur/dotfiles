@@ -11,6 +11,7 @@ foreground-warn = #ffe1a8
 foreground-urgent = #e26d5c
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [bar/main]
 monitor = ${env:MONITOR:eDP-1}
 width = 100%
@@ -54,6 +55,7 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [bar/bspwm-bar]
 inherit = bar/main
 modules-left = bspwm
@@ -62,14 +64,18 @@ scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [bar/herbst-bar]
 inherit = bar/main
 modules-left = ewmh herbst-monitors
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 [module/bspwm]
 type = internal/bspwm
 
+override-redirect = true
+wm-restack = bspwm
 ; Only show workspaces defined on the same output as the bar
 ; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
 ; But if you rename your bspwm monitors with bspc -n this option will no longer

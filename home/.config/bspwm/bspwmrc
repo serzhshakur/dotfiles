@@ -9,8 +9,8 @@ number_of_monitors=$(xrandr | grep -sw 'connected' | cut -d " " -f 1 | wc -l)
 
 if [ $number_of_monitors -eq 3 ]; then
   bspc monitor HDMI1 -d s f
-  bspc monitor DP1 -d a d i o
-  bspc monitor eDP1 -d u
+  bspc monitor DP1 -d a d o
+  bspc monitor eDP1 -d u i
 else
   bspc monitor -d a s d f u i o
 fi
@@ -58,6 +58,6 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-for wm_class in Lxappearance Nitrogen Blueman-manager Qalculate-gtk llpp Viewinor Nm-connection-editor pavucontrol System-config-printer.py; do
+for wm_class in Lxappearance Nitrogen Blueman-manager Qalculate-gtk llpp Viewinor Nm-connection-editor pavucontrol jetbrains-toolbox System-config-printer.py; do
   bspc rule -a $wm_class state=floating center=true
 done

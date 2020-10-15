@@ -8,9 +8,12 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 number_of_monitors=$(xrandr | grep -sw 'connected' | cut -d " " -f 1 | wc -l)
 
 if [ $number_of_monitors -eq 3 ]; then
-  bspc monitor HDMI1 -d s f
-  bspc monitor DP1 -d a d o
-  bspc monitor eDP1 -d u i
+  bspc monitor HDMI-1 -d s f 1 2
+  bspc monitor DP-1 -d a d o 3
+  bspc monitor eDP-1 -d u i
+elif [ $number_of_monitors -eq 2 ]; then
+  bspc monitor HDMI-1 -d a s d f 1 2 3
+  bspc monitor eDP-1 -d u i o
 else
   bspc monitor -d a s d f u i o
 fi
@@ -29,10 +32,7 @@ bspc config bottom_padding                0
 bspc config left_padding                  0
 bspc config right_padding                 0
 bspc config single_monocle                true  # Set the desktop layout to monocle if there’s only one tiled window in the tree.
-bspc config click_to_focus                true
-bspc config focus_by_distance             true
 bspc config focus_follows_pointer         false
-bspc config history_aware_focus           true
 bspc config remove_disabled_monitors      true
 bspc config merge_overlapping_monitors    true
 bspc config presel_feedback               true  # Draw the preselection feedback area
@@ -48,12 +48,10 @@ bspc config normal_border_color		      "#434C5E"
 bspc config active_border_color	        "#1e1e1e"
 bspc config focused_border_color	      "#81A1C1"
 bspc config presel_feedback_color	      "#5e81ac"
-bspc config urgent_border_color 	      "#dd2727"
 
 ################ RULES #####################
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
-bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off

@@ -80,8 +80,8 @@ super + g
 #####################################
 
 # focus or send to the given desktop
-super + {_,shift + }{a,s,d,f,u,i,o}
-	bspc {desktop -f,node -d} {a,s,d,f,u,i,o}
+super + {_,shift + }{a,s,d,f,u,i,o,1,2,3}
+	bspc {desktop -f,node -d} {a,s,d,f,u,i,o,1,2,3}
 
 # focus/move the node in the given direction
 super + {_,shift + }{h,j,k,l}

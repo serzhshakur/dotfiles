@@ -2,23 +2,35 @@
 
 function enable_services() {
   for service in "$@"; do
-    sudo systemctl enable --now "$service"
+    echo ""
+    echo "------------------------------------"
+    echo "enabling service $service"
+    sudo systemctl enable "$service"
     sudo systemctl start "$service"
+    echo "------------------------------------"
   done
 }
 
 function add_user_to_groups() {
   for group in "$@"; do
+    echo ""
+    echo "------------------------------------"
+    echo "adding user to group $group"
     if grep -q $group /etc/group && ! groups ${USER} | grep -qw $group; then
       sudo usermod -aG ${group} ${USER}
     fi
+    echo "------------------------------------"
   done
 }
 
 function enable_user_services() {
   for service in "$@"; do
-    sudo systemctl --user enable --now "$service"
+    echo ""
+    echo "------------------------------------"
+    echo "enabling user service $service"
+    sudo systemctl --user enable "$service"
     sudo systemctl --user start "$service"
+    echo "------------------------------------"
   done
 }
 
@@ -27,7 +39,7 @@ function install_aur_pkg() {
   if ! (pacman -Q $pkg >/dev/null 2>&1); then
     git clone https://aur.archlinux.org/$pkg.git /tmp/packages/$pkg
     cd /tmp/packages/$pkg
-    sudo makepkg -si --noconfirm
+    makepkg -si --noconfirm
     rm -rf /tmp/packages/$pkg
   fi
 }

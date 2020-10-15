@@ -24,18 +24,8 @@ function install_pkg() {
   #yay -Rns $(yay -Qtdq) &> /dev/null
 }
 
-# Timezone
-sudo timedatectl set-ntp true
-sudo timedatectl set-timezone Europe/Riga
-
-# Locale
-sudo locale-gen en_GB.UTF-8
-echo LANG=en_GB.UTF-8 | sudo tee /etc/locale.conf
-export LANG=en_GB.UTF-8
-sudo /bin/bash /etc/profile.d/locale.sh
-
 # Setup faster mirrors
-rank_and_update_mirrors
+#rank_and_update_mirrors
 
 # Installing necessary packages
 install_pkg gvim alacritty \
@@ -48,7 +38,7 @@ install_pkg gvim alacritty \
   xf86-video-vesa \
   networkmanager network-manager-applet openvpn networkmanager-openvpn \
   zsh oh-my-zsh-git \
-  htop bat exa fzf tree \
+  htop bat exa lf fzf tree jq \
   dmenu rofi rofi-greenclip \
   dunst \
   picom redshift \
@@ -59,7 +49,7 @@ install_pkg pulseaudio pulseaudio-alsa pavucontrol pasystray \
 # Themes, fonts etc.
 install_pkg noto-fonts nerd-fonts-noto-sans-mono \
   ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \
-  arc-gtk-theme flat-remix lxappearance qt5ct qt5-styleplugins nitrogen \
+  arc-gtk-theme papirus-icon-theme lxappearance qt5ct qt5-styleplugins nitrogen \
   fontpreview-git
 # Printing
 install_pkg cups cups-pdf cups-pk-helper system-config-printer
@@ -72,15 +62,13 @@ install_pkg llpp viewnior \
   joplin-appimage \
   qalculate-gtk libreoffice-still
 # WMs
-# install_pkg qtile-git python-pip gcc pacman-contrib
-install_pkg herbstluftwm-git
-install_pkg bspwm sxhkd
+install_pkg bspwm sxhkd polybar
 # Internet
 install_pkg firefox vivaldi chromium transmission-gtk
 # Communication
 install_pkg rambox-bin slack-desktop
 # Entertainment
-install_pkg spotify vlc
+install_pkg vlc
 # Development etc.
 install_pkg jdk-openjdk openjdk-doc openjdk-src \
   jetbrains-toolbox code \
@@ -90,19 +78,8 @@ install_pkg jdk-openjdk openjdk-doc openjdk-src \
   docker docker-compose kubectl kubectx \
   postman-bin
 
-# Some python libraries requred for qtile
-sudo pip install -U --upgrade-strategy=only-if-needed psutil python-dateutil
-
 # Move config files
-cp -r $PWD/../.config/* ~/.config/
-
-# Systemd
-enable_services lightdm NetworkManager bluetooth docker
-enable_user_services greenclip redshift-gtk mpris-proxy
-
-# Syncthing
-sudo systemctl enable syncthing@$USER.service
-sudo systemctl start syncthing@$USER.service
+#cp -r $PWD/../.config/* ~/.config/
 
 # Adding user to necessary groups
 add_user_to_groups docker video storage
@@ -120,6 +97,14 @@ sudo cp ./system/etc/lightdm/* /etc/lightdm/
 # Pollkit
 sudo cp ./system/etc/polkit-1/rules.d/* /etc/polkit-1/rules.d/
 sudo chmod 644 ./system/etc/polkit-1/rules.d/
+
+# Systemd
+enable_services lightdm NetworkManager bluetooth docker
+enable_user_services greenclip.service redshift-gtk mpris-proxy
+
+# Syncthing
+sudo systemctl enable syncthing@$USER.service
+sudo systemctl start syncthing@$USER.service
 
 # ZSH syntax highlighting
 git clone https://github.com/zdharma/fast-syntax-highlighting.git \

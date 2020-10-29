@@ -47,7 +47,7 @@ install_pkg gvim alacritty \
 install_pkg pulseaudio pulseaudio-alsa pavucontrol pasystray \
   bluez bluez-utils pulseaudio-bluetooth blueman playerctl
 # Themes, fonts etc.
-install_pkg noto-fonts nerd-fonts-noto-sans-mono \
+install_pkg noto-fonts noto-fonts-emoji nerd-fonts-noto-sans-mono \
   ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \
   arc-gtk-theme papirus-icon-theme lxappearance qt5ct qt5-styleplugins nitrogen \
   fontpreview-git

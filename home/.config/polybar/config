@@ -326,10 +326,10 @@ label = %gb_used%/%gb_total%
 ; Only applies if <bar-used> is used
 bar-used-indicator =
 bar-used-width = 10
-bar-used-foreground-0 = #81A1C1
-bar-used-foreground-1 = #8FBCBB
-bar-used-foreground-2 = #eaa560
-bar-used-foreground-3 = #ff5555
+bar-used-foreground-0 = #8FBCBB
+bar-used-foreground-1 = #a3be8c
+bar-used-foreground-2 = #ebcb8b
+bar-used-foreground-3 = #d08770
 bar-used-fill = ▐
 bar-used-empty = ▐
 bar-used-empty-foreground = #444444

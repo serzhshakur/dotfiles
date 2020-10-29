@@ -71,6 +71,10 @@ super + g
 #super + {t,shift + t,s,f}
 #	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
+# toggle window between floating and tiled
+super + n
+	bspc node -t {floating,tiled}
+
 # set the node flags
 #super + ctrl + {m,x,y,z}
 #	bspc node -g {marked,locked,sticky,private}

@@ -20,8 +20,9 @@ nitrogen --restore &
 # Starting a picom - compositor for Xorg
 picom -b &
 
-# Light locker
-light-locker &
+# Screen locker
+xss-lock -- /usr/bin/betterlockscreen -l blur dim &
+#light-locker &
 
 # PulseAudio System Tray
 pasystray --notify=none &

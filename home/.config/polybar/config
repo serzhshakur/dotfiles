@@ -20,7 +20,7 @@ padding = 0
 offset-x = 0
 offset-y = 0
 radius = 0
-fixed-center = false
+fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -43,8 +43,8 @@ font-2 = Font Awesome 5 Free Solid:style=Solid;3
 ;; !! the following is used in an external scripts like polybar_monitor.sh
 font-3 = NotoSansMono Nerd Font:size=15;3
 
-modules-center = xwindow
-modules-right = cpu memory backlight xkeyboard wlan battery date power
+modules-center = date
+modules-right = cpu memory backlight xkeyboard wlan battery power
 
 tray-position = right
 tray-padding = 2
@@ -58,10 +58,7 @@ cursor-scroll = ns-resize
 
 [bar/bspwm-bar]
 inherit = bar/main
-modules-left = bspwm
-
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
+modules-left = bspwm xwindow
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -84,7 +81,7 @@ wm-restack = bspwm
 pin-workspaces = true
 
 ; Create scroll handlers used to cycle workspaces
-enable-scroll = true
+enable-scroll = false
 
 ; Set the scroll cycle direction
 reverse-scroll = false
@@ -107,7 +104,7 @@ ws-icon-default = ﱤ
 ;   <label-state> - gets replaced with <label-(focused|urgent|occupied|empty)>
 ;   <label-mode> - gets replaced with <label-(monocle|tiled|fullscreen|floating|locked|sticky|private)>
 ; Default: <label-state>
-format = <label-state> <label-mode>    <label-monitor>
+format = <label-state> <label-mode>%{O110}
 
 ; Available tokens:
 ;   %name%
@@ -280,6 +277,7 @@ type = internal/backlight
 card = intel_backlight
 enable-scroll = true
 format-prefix = " "
+;enable-scroll = true
 
 
 [module/xbacklight]
@@ -380,8 +378,8 @@ time = %H:%M
 time-alt = %H:%M:%S
 
 format-prefix = "%{A1:gsimplecal &:}%{A}"
-;format-prefix-foreground = ${colors.foreground-alt}
-
+;;format-foreground = #8FBCBB
+;;label = %{T1}%date% %{T5}%time%
 label = %date% %time%
 
 

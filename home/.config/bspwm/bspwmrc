@@ -55,6 +55,11 @@ bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
+bspc rule -a firefox desktop='a'
+bspc rule -a KeePassXC desktop='o'
+bspc rule -a Rambox desktop='u'
+bspc rule -a Slack desktop='u'
+bspc rule -a Spotify desktop='i'
 
 for wm_class in Lxappearance Nitrogen Blueman-manager Qalculate-gtk llpp Viewinor Nm-connection-editor pavucontrol jetbrains-toolbox System-config-printer.py; do
   bspc rule -a $wm_class state=floating center=true

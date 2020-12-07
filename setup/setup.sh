@@ -32,7 +32,8 @@ install_pkg gvim alacritty \
   xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb} \
   arandr autorandr \
   udisks2 udiskie \
-  lightdm lightdm-gtk-greeter light-locker \
+  lightdm lightdm-gtk-greeter \
+  betterlockscreen xss-lock \
   xkblayout-state light \
   mesa mesa-libgl \
   xf86-video-vesa \

@@ -7,7 +7,7 @@ confirm_options="  Yes\n  No"
 
 # https://www.freedesktop.org/software/systemd/man/systemd-sleep.conf.html#Description
 if [[ $chosen == *"Lock" ]]; then
-  betterlockscreen -l blur
+  bslock
 elif [[ $chosen == *"Shutdown" ]]; then
   confirm=$(echo -e "$confirm_options" | rofi -dmenu -theme $theme -mesg "$confirm_message" -i)
   if [[ $confirm == *"Yes" ]]; then

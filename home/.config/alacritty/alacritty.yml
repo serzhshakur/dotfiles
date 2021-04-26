@@ -8,14 +8,14 @@ window:
     y: 4 
 font:
   normal:
-    family: Iosevka
+    family: Iosevka Light
   bold:
-    family: Iosevka
+    family: Iosevka Light
     style: Bold
   italic:
-    family: Iosevka
+    family: Iosevka Light
     style: Italic 
-  size: 13
+  size: 14
   offset:
     x: 0
     y: 2 

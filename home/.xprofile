@@ -8,9 +8,6 @@ nm-applet &
 # Blueman
 blueman-applet &
 
-# 'lv' and 'ru' keyboard layouts, set keyboard shortcut to Shift+Alt
-setxkbmap -layout lv,ru -variant ",phonetic_winkeys" -option "grp:lalt_lshift_toggle" &
-
 # Automount volumes
 udiskie &
 
@@ -21,7 +18,8 @@ nitrogen --restore &
 picom -b &
 
 # Screen locker
-xss-lock -- /usr/bin/betterlockscreen -l blur dim &
+xss-lock -- bslock &
+#xss-lock -- /usr/bin/betterlockscreen -l blur dim &
 #light-locker &
 
 # PulseAudio System Tray

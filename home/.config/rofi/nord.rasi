@@ -1,6 +1,6 @@
 * {
-    padding:                     4;
-    spacing:                     2;
+    padding:                     2;
+    spacing:                     1;
     separatorcolor:              #4C566A;
     border-color:                #4C566A;
     background-color:            rgba ( 0, 0, 0, 0 % );
@@ -46,13 +46,13 @@ textbox {
     text-color: var(foreground);
 }
 listview {
-    lines: 13;
-    padding:      8px 0px 8px 0px ;
+    lines: 10;
+    padding:      10px 0px 10px 0px ;
     border-color: var(separatorcolor);
     border:       0px 0px 0px 0px ;
 }
 element {
-    padding: 10px ;
+    padding: 7px;
     border:  0;
 }
 element normal.normal {
@@ -124,12 +124,11 @@ case-indicator {
 }
 entry {
     border: 0 0 1px 0;
-    margin: 0 20 0 15;
+    margin: 0 10 0 10;
     spacing:    0;
     text-color: var(normal-foreground);
 }
 prompt {
-    font: "Noto Bold 15";
     spacing:    0;
     text-color: var(normal-foreground);
 }

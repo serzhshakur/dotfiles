@@ -1,22 +1,19 @@
 #! /bin/sh
 
-pgrep -x sxhkd > /dev/null || sxhkd &
-~/.config/bspwm/panel.sh &
+################ DESKTOPS ######################
 
-################ DESKTOPS #####################
+~/.config/bspwm/multi-monitors.sh
 
-number_of_monitors=$(xrandr | grep -sw 'connected' | cut -d " " -f 1 | wc -l)
+################ POLYBAR PANEL #################
 
-if [ $number_of_monitors -eq 3 ]; then
-  bspc monitor HDMI-1 -d s f 1 2
-  bspc monitor DP-1 -d a d o 3
-  bspc monitor eDP-1 -d u i
-elif [ $number_of_monitors -eq 2 ]; then
-  bspc monitor HDMI-1 -d a s d f 1 2 3
-  bspc monitor eDP-1 -d u i o
-else
-  bspc monitor -d a s d f u i o
-fi
+~/.config/bspwm/panel.sh
+
+################ KEYBINDINGS ###################
+
+pgrep -x sxhkd > /dev/null || sxhkd
+
+# 'lv' and 'ru' keyboard layouts, set keyboard shortcut to Shift+Alt
+setxkbmap -layout lv,ru -variant ",phonetic_winkeys" -option "grp:lalt_lshift_toggle"
 
 ################ BASE CONFIG ###################
 
@@ -34,6 +31,7 @@ bspc config right_padding                 0
 bspc config single_monocle                true  # Set the desktop layout to monocle if there’s only one tiled window in the tree.
 bspc config focus_follows_pointer         false
 bspc config remove_disabled_monitors      true
+bspc config remove_unplugged_monitors     true
 bspc config merge_overlapping_monitors    true
 bspc config presel_feedback               true  # Draw the preselection feedback area
 
@@ -52,10 +50,12 @@ bspc config presel_feedback_color	      "#5e81ac"
 ################ RULES #####################
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a "*:*:Slack | mini panel" hidden=on
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a firefox desktop='a'
+bspc rule -a jetbrains-idea desktop='d'
 bspc rule -a KeePassXC desktop='o'
 bspc rule -a Rambox desktop='u'
 bspc rule -a Slack desktop='u'

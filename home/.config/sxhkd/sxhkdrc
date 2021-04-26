@@ -12,17 +12,9 @@ super + Return
 
 # program launcher
 F1
-	rofi -sidebar-mode -font "Noto 16" -show
+	rofi -sidebar-mode -width 40 -font "IBM-Plex-Sans-Cond 14" -show
 F2
-    rofi -i \
-         -modi windowcd -show windowcd \
-         -display-windowcd window \
-         -location 2 \
-         -no-fixed-num-lines \
-         -hide-scrollbar \
-         -no-plugins \
-         -me-select-entry '' \
-         -me-accept-entry MousePrimary
+    ./scripts/rofi-window.sh
 
 ctrl + shift + p
     flameshot gui

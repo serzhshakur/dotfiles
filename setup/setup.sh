@@ -29,11 +29,11 @@ function install_pkg() {
 
 # Installing necessary packages
 install_pkg gvim alacritty \
-  xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb} \
+  xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb,mkfontscale,xfontsel,xlsfonts} \
   arandr autorandr \
   udisks2 udiskie \
   lightdm lightdm-gtk-greeter \
-  betterlockscreen xss-lock \
+  xss-lock bslock \
   xkblayout-state light \
   mesa mesa-libgl \
   xf86-video-vesa \
@@ -69,7 +69,7 @@ install_pkg firefox vivaldi chromium transmission-gtk
 # Communication
 install_pkg rambox-bin slack-desktop
 # Entertainment
-install_pkg vlc
+install_pkg vlc spotify
 # Development etc.
 install_pkg jdk-openjdk openjdk-doc openjdk-src \
   jetbrains-toolbox code \

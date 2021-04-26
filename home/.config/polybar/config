@@ -10,7 +10,7 @@ foreground-ok = #b8d8ba
 foreground-warn = #ffe1a8
 foreground-urgent = #e26d5c
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;========================================
 
 [bar/main]
 monitor = ${env:MONITOR:eDP-1}
@@ -37,7 +37,7 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Iosevka:style=Regular:size=12;3
+font-0 = Iosevka:style=medium:size=12;3
 font-1 = NotoSansMono Nerd Font:style=Regular;3
 font-2 = Font Awesome 5 Free Solid:style=Solid;3
 ;; !! the following is used in an external scripts like polybar_monitor.sh
@@ -54,19 +54,19 @@ tray-maxsize = 24
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;========================================
 
 [bar/bspwm-bar]
 inherit = bar/main
 modules-left = bspwm xwindow
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;========================================
 
 [bar/herbst-bar]
 inherit = bar/main
 modules-left = ewmh herbst-monitors
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;========================================
 
 [module/bspwm]
 type = internal/bspwm
@@ -185,7 +185,7 @@ label-empty-padding = 1
 ;label-separator-padding = 2
 ;label-separator-foreground = #ffb52a
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;========================================
 [module/ewmh]
 type = internal/xworkspaces
 pin-workspaces = false
@@ -226,11 +226,12 @@ label-empty = %icon%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 1
 
-
+;========================================
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:50:...%
+label = "%{A1:~/scripts/rofi-window.sh &:}%title:0:60:...%%{A}"
 format-foreground = ${colors.foreground-alt}
+;========================================
 
 
 [module/xkeyboard]

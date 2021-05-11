@@ -1,20 +1,5 @@
 #! /bin/sh
 
-################ DESKTOPS ######################
-
-~/.config/bspwm/multi-monitors.sh
-
-################ POLYBAR PANEL #################
-
-~/.config/bspwm/panel.sh
-
-################ KEYBINDINGS ###################
-
-pgrep -x sxhkd > /dev/null || sxhkd
-
-# 'lv' and 'ru' keyboard layouts, set keyboard shortcut to Shift+Alt
-setxkbmap -layout lv,ru -variant ",phonetic_winkeys" -option "grp:lalt_lshift_toggle"
-
 ################ BASE CONFIG ###################
 
 bspc config split_ratio          0.50
@@ -64,3 +49,18 @@ bspc rule -a Spotify desktop='i'
 for wm_class in Lxappearance Nitrogen Blueman-manager Qalculate-gtk llpp Viewinor Nm-connection-editor pavucontrol jetbrains-toolbox System-config-printer.py; do
   bspc rule -a $wm_class state=floating center=true
 done
+
+################ DESKTOPS ######################
+
+~/.config/bspwm/multi-monitors.sh &
+
+################ POLYBAR PANEL #################
+
+~/.config/bspwm/panel.sh &
+
+################ KEYBINDINGS ###################
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+# 'lv' and 'ru' keyboard layouts, set keyboard shortcut to Shift+Alt
+setxkbmap -layout lv,ru -variant ",phonetic_winkeys" -option "grp:lalt_lshift_toggle" &

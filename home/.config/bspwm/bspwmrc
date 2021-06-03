@@ -2,9 +2,9 @@
 
 ################ BASE CONFIG ###################
 
-bspc config split_ratio          0.50
-bspc config borderless_monocle   true
-bspc config gapless_monocle      true
+bspc config split_ratio                   0.50
+bspc config borderless_monocle            true
+bspc config gapless_monocle               true
 
 bspc config automatic_scheme              alternate
 bspc config border_width                  2
@@ -50,3 +50,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 
 # 'lv' and 'ru' keyboard layouts, set keyboard shortcut to Shift+Alt
 setxkbmap -layout lv,ru -variant ",phonetic_winkeys" -option "grp:lalt_lshift_toggle" &
+
+############ SUBSCRIPTIONS #########
+
+nohup ~/.config/bspwm/subscriptions.sh > /dev/null 2>&1 &

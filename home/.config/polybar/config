@@ -43,7 +43,7 @@ font-2 = Font Awesome 5 Free Solid:style=Solid;3
 ;; !! the following is used in an external scripts like polybar_monitor.sh
 font-3 = NotoSansMono Nerd Font:size=15;3
 
-modules-center = date
+modules-center = date weather
 modules-right = cpu memory backlight xkeyboard wlan battery power
 
 tray-position = right
@@ -58,7 +58,7 @@ cursor-scroll = ns-resize
 
 [bar/bspwm-bar]
 inherit = bar/main
-modules-left = bspwm xwindow
+modules-left = bspwm bspwm-xwindow
 
 ;========================================
 
@@ -104,7 +104,7 @@ ws-icon-default = ﱤ
 ;   <label-state> - gets replaced with <label-(focused|urgent|occupied|empty)>
 ;   <label-mode> - gets replaced with <label-(monocle|tiled|fullscreen|floating|locked|sticky|private)>
 ; Default: <label-state>
-format = <label-state> <label-mode>%{O110}
+format = <label-state> %{O90}
 
 ; Available tokens:
 ;   %name%
@@ -186,7 +186,9 @@ label-empty-padding = 1
 ;label-separator-foreground = #ffb52a
 
 ;========================================
+
 [module/ewmh]
+
 type = internal/xworkspaces
 pin-workspaces = false
 enable-click = true
@@ -227,12 +229,20 @@ label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 1
 
 ;========================================
-[module/xwindow]
-type = internal/xwindow
-label = "%{A1:~/scripts/rofi-window.sh &:}%title:0:60:...%%{A}"
-format-foreground = ${colors.foreground-alt}
-;========================================
 
+[module/bspwm-xwindow]
+
+type = internal/xwindow
+format-foreground = ${colors.foreground-alt}
+
+;; Mouse actions applied for 'label':
+;;;; left click - open rofi windows menu
+;;;; scroll up - bspc next window in current desktop
+;;;; scroll down - bspc previous window in current desktop
+;;
+label = "%{A1:~/scripts/rofi-window.sh &:}%{A4:bspc node -f next.local.!hidden.window:}%{A5:bspc node -f prev.local.!hidden.window:}%title:0:60:...%%{A}%{A}%{A}"
+
+;========================================
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -304,6 +314,11 @@ inherit = module/xbacklight
 type = internal/backlight
 card = intel_backlight
 
+[module/weather]
+type = custom/script
+exec = ~/.config/polybar/scripts/weather.sh short
+format-foreground = ${colors.foreground-alt}
+interval = 300
 
 [module/cpu]
 type = internal/cpu

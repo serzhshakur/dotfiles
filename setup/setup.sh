@@ -40,6 +40,8 @@ install_pkg gvim alacritty \
   networkmanager network-manager-applet openvpn networkmanager-openvpn \
   zsh oh-my-zsh-git \
   htop bat exa lf fzf tree jq \
+  ncdu \ `# disk usage analyzer`
+  etcher-bin \ `# Flash drive writer`
   dmenu rofi rofi-greenclip \
   dunst \
   picom redshift \
@@ -58,14 +60,14 @@ install_pkg cups cups-pdf cups-pk-helper system-config-printer
 install_pkg llpp viewnior \
   cbatticon \
   gsimplecal \
-  pcmanfm-gtk3 file-roller \
+  pcmanfm-gtk3 file-roller ranger \ `# file managers`
   flameshot \
   joplin-appimage \
   qalculate-gtk libreoffice-still
-# WMs
+# WM
 install_pkg bspwm sxhkd polybar
 # Internet
-install_pkg firefox vivaldi chromium transmission-gtk
+install_pkg firefox chromium transmission-gtk
 # Communication
 install_pkg rambox-bin slack-desktop
 # Entertainment

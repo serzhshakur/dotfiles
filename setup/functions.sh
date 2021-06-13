@@ -16,8 +16,8 @@ function add_user_to_groups() {
     echo ""
     echo "------------------------------------"
     echo "adding user to group $group"
-    if grep -q $group /etc/group && ! groups ${USER} | grep -qw $group; then
-      sudo usermod -aG ${group} ${USER}
+    if grep -q "$group" /etc/group && ! groups "${USER}" | grep -qw "$group"; then
+      sudo usermod -aG "${group}" "${USER}"
     fi
     echo "------------------------------------"
   done
@@ -36,11 +36,11 @@ function enable_user_services() {
 
 function install_aur_pkg() {
   pkg=$1
-  if ! (pacman -Q $pkg >/dev/null 2>&1); then
-    git clone https://aur.archlinux.org/$pkg.git /tmp/packages/$pkg
-    cd /tmp/packages/$pkg
+  if ! (pacman -Q "$pkg" >/dev/null 2>&1); then
+    git clone https://aur.archlinux.org/"$pkg".git /tmp/packages/"$pkg"
+    cd /tmp/packages/"$pkg" || exit
     makepkg -si --noconfirm
-    rm -rf /tmp/packages/$pkg
+    rm -rf /tmp/packages/"$pkg"
   fi
 }
 

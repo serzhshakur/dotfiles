@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Nerd font icons should be installed to let icons correctly displayed
+
 declare -A icons=(
   [1101]=""
   [1102]=""

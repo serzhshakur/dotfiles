@@ -1,14 +1,12 @@
 [colors]
-background = #2f3541
-background-alt = #eaa560
-foreground = #FFFBFC
-foreground-alt = #989ca5
-primary = #ffb52a
-secondary = #e60053
+bg = #2f3541
+fg = #FFFBFC
+
 alert = #bd2c40
-foreground-ok = #b8d8ba
-foreground-warn = #ffe1a8
-foreground-urgent = #e26d5c
+orange = #eaa560
+gray-5 = #989ca5
+gray-6 = #858991
+gray-7 = #757984
 
 ;========================================
 
@@ -22,8 +20,8 @@ offset-y = 0
 radius = 0
 fixed-center = true
 
-background = ${colors.background}
-foreground = ${colors.foreground}
+background = ${colors.bg}
+foreground = ${colors.fg}
 
 line-size = 3
 line-color = #f00
@@ -42,6 +40,7 @@ font-1 = NotoSansMono Nerd Font:style=Regular;3
 font-2 = Font Awesome 5 Free Solid:style=Solid;3
 ;; !! the following is used in an external scripts like polybar_monitor.sh
 font-3 = NotoSansMono Nerd Font:size=15;3
+font-4 = Iosevka:style=light:size=10;3
 
 modules-center = date weather
 modules-right = cpu memory backlight xkeyboard wlan battery power
@@ -104,7 +103,7 @@ ws-icon-default = ﱤ
 ;   <label-state> - gets replaced with <label-(focused|urgent|occupied|empty)>
 ;   <label-mode> - gets replaced with <label-(monocle|tiled|fullscreen|floating|locked|sticky|private)>
 ; Default: <label-state>
-format = <label-state> %{O90}
+format = <label-state> %{O70}
 
 ; Available tokens:
 ;   %name%
@@ -128,8 +127,8 @@ label-dimmed-focused-background = #c1ad99
 ;   %index%
 ; Default: %icon%  %name%
 label-focused = %icon%
-label-focused-foreground = ${colors.background}
-label-focused-background = ${colors.background-alt}
+label-focused-foreground = ${colors.bg}
+label-focused-background = ${colors.orange}
 label-focused-padding = 1
 ;label-focused-underline = #fba922
 
@@ -208,24 +207,24 @@ format = <label-state>
 label-monitor = %name%
 
 label-active = %icon%
-label-active-foreground = ${colors.background}
-label-active-background = ${colors.background-alt}
+label-active-foreground = ${colors.bg}
+label-active-background = ${colors.orange}
 ;label-active-underline = #6790eb
 label-active-padding = 1
 
 label-occupied = %icon%
 label-occupied-foreground = #f4f4f4
-label-occupied-background = ${colors.background}
+label-occupied-background = ${colors.bg}
 label-occupied-padding = 1
 
 label-urgent = %icon%
-label-urgent-foreground = ${colors.foreground-urgent}
+label-urgent-foreground = ${colors.fg-urgent}
 label-urgent-background = ${colors.alert}
 label-urgent-underline = ${colors.alert}
 label-urgent-padding = 1
 
 label-empty = %icon%
-label-empty-foreground = ${colors.foreground-alt}
+label-empty-foreground = ${colors.gray-5}
 label-empty-padding = 1
 
 ;========================================
@@ -233,7 +232,8 @@ label-empty-padding = 1
 [module/bspwm-xwindow]
 
 type = internal/xwindow
-format-foreground = ${colors.foreground-alt}
+format-font = 5
+format-foreground = ${colors.gray-5}
 
 ;; Mouse actions applied for 'label':
 ;;;; left click - open rofi windows menu
@@ -249,13 +249,13 @@ type = internal/xkeyboard
 blacklist-0 = num lock
 
 format-prefix = %{T4}%{T-}
-format-prefix-foreground = ${colors.foreground}
+format-prefix-foreground = ${colors.fg}
 
 label-layout = %layout%
 
 label-indicator-padding = 2
 label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
+label-indicator-background = ${colors.alert}
 
 
 [module/filesystem]
@@ -266,7 +266,7 @@ mount-0 = /
 
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
+label-unmounted-foreground = ${colors.gray-5}
 
 
 [module/mpd]
@@ -306,7 +306,7 @@ bar-fill-font = 2
 bar-fill-foreground = #9f78e1
 bar-empty = ─
 bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
+bar-empty-foreground = ${colors.gray-5}
 
 
 [module/backlight-acpi]
@@ -316,15 +316,16 @@ card = intel_backlight
 
 [module/weather]
 type = custom/script
-exec = ~/.config/polybar/scripts/weather.sh short
-format-foreground = ${colors.foreground-alt}
+exec = ~/.config/polybar/scripts/weather_lv.sh
+format-foreground = ${colors.gray-6}
+;format-font = 5
 interval = 300
 
 [module/cpu]
 type = internal/cpu
 interval = 2
 format-prefix = "cpu "
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-foreground = ${colors.gray-5}
 ;format-underline = #f90000
 label = %percentage:2%%
 
@@ -333,7 +334,7 @@ type = internal/memory
 interval = 3
 format = <bar-used>
 format-prefix = "mem "
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-foreground = ${colors.gray-5}
 ;format-underline = #4bffdc
 label = %gb_used%/%gb_total%
 
@@ -361,10 +362,10 @@ format-disconnected =
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground}
+;label-disconnected-foreground = ${colors.fg}
 
 ramp-signal-0 = 直
-ramp-signal-foreground = ${colors.foreground}
+ramp-signal-foreground = ${colors.fg}
 
 [module/eth]
 type = internal/network
@@ -373,14 +374,14 @@ interval = 3.0
 
 format-connected-underline = #55aa55
 format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
+format-connected-prefix-foreground = ${colors.gray-5}
 label-connected = %local_ip%
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
+;label-disconnected-foreground = ${colors.gray-5}
 
 
 [module/date]
@@ -424,7 +425,7 @@ bar-volume-fill = ─
 bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+bar-volume-empty-foreground = ${colors.gray-5}
 
 
 [module/alsa]
@@ -435,7 +436,7 @@ label-volume = VOL
 label-volume-foreground = ${root.foreground}
 
 format-muted-prefix = " "
-format-muted-foreground = ${colors.foreground-alt}
+format-muted-foreground = ${colors.gray-5}
 label-muted = sound muted
 
 bar-volume-width = 10
@@ -453,7 +454,7 @@ bar-volume-fill = ─
 bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+bar-volume-empty-foreground = ${colors.gray-5}
 
 
 [module/battery]
@@ -469,7 +470,7 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline =
 
 format-full-prefix = ""
-format-full-prefix-foreground = ${colors.foreground}
+format-full-prefix-foreground = ${colors.fg}
 format-full-underline = ${self.format-charging-underline}
 
 ramp-capacity-0 = 
@@ -482,12 +483,12 @@ ramp-capacity-6 = 
 ramp-capacity-7 = 
 ramp-capacity-8 = 
 ramp-capacity-9 = 
-ramp-capacity-foreground = ${colors.foreground}
-ramp-capacity-0-foreground = ${colors.foreground-urgent}
-ramp-capacity-1-foreground = ${colors.foreground-urgent}
-ramp-capacity-2-foreground = ${colors.foreground-warn}
-ramp-capacity-3-foreground = ${colors.foreground-warn}
-ramp-capacity-4-foreground = ${colors.foreground-warn}
+ramp-capacity-foreground = ${colors.fg}
+ramp-capacity-0-foreground = ${colors.fg-urgent}
+ramp-capacity-1-foreground = ${colors.fg-urgent}
+ramp-capacity-2-foreground = ${colors.fg-warn}
+ramp-capacity-3-foreground = ${colors.fg-warn}
+ramp-capacity-4-foreground = ${colors.fg-warn}
 
 animation-charging-0 = 
 animation-charging-1 = 
@@ -496,13 +497,13 @@ animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-5 = 
 animation-charging-6 = 
-animation-charging-foreground = ${colors.foreground-ok}
+animation-charging-foreground = ${colors.fg-ok}
 animation-charging-framerate = 750
 
 animation-discharging-0 = 
 animation-discharging-1 = 
 animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
+animation-discharging-foreground = ${colors.gray-5}
 animation-discharging-framerate = 750
 
 [module/temperature]
@@ -517,17 +518,16 @@ format-warn-underline = ${self.format-underline}
 
 label = %temperature-c%
 label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
 
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+ramp-foreground = ${colors.gray-5}
 
 [module/power]
 type = custom/text
 content = 
-content-foreground = ${colors.background-alt}
+content-foreground = ${colors.orange}
 click-left = ~/scripts/power.sh
 
 
@@ -544,12 +544,12 @@ expand-right = true
 format-spacing = 1
 
 label-open = 
-label-open-foreground = ${colors.background-alt}
+label-open-foreground = ${colors.orange}
 ;label-open-padding = 1
 label-close = ﰸ cancel
-label-close-foreground = ${colors.foreground-ok}
+label-close-foreground = ${colors.fg-ok}
 label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
+label-separator-foreground = ${colors.gray-5}
 
 menu-0-0 = reboot
 menu-0-0-exec = menu-open-1

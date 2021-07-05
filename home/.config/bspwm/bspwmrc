@@ -40,10 +40,6 @@ bspc config presel_feedback_color	      "#5e81ac"
 
 ~/.config/bspwm/multi-monitors.sh &
 
-############ POLYBAR ###############
-
-~/.config/bspwm/panel.sh &
-
 ############ KEYBINDINGS ###########
 
 pgrep -x sxhkd > /dev/null || sxhkd &

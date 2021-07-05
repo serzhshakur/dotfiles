@@ -32,9 +32,20 @@ make_floating() {
 to_desktop 'a' firefox
 to_desktop 'd' jetbrains-idea
 to_desktop 'o' KeePassXC
+to_desktop 'i' Spotify
 to_desktop 'u' Slack Rambox Ferdi
 
-make_floating Lxappearance Nitrogen Blueman-manager Qalculate-gtk llpp Viewinor Nm-connection-editor pavucontrol jetbrains-toolbox System-config-printer.py
+make_floating \
+  Lxappearance \
+  Nitrogen \
+  Blueman-manager \
+  Qalculate-gtk \
+  llpp \
+  Viewinor \
+  Nm-connection-editor \
+  pavucontrol \
+  jetbrains-toolbox \
+  System-config-printer.py
 
 # Getting rid of small annoying Slack window while having a call
 bspc rule -a "*:*:Slack | mini panel" hidden=on

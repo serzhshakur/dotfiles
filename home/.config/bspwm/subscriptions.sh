@@ -3,6 +3,15 @@
 # Subscribing for node_add and node_remove in order to detect dialog windows.
 # If a window considered being a dialog, disable focus_follows_pointer until the window is removed
 
+# prevent multiple script instances
+PID_FILE=/tmp/bspwm_subscriptions.pid
+[[ -e $PID_FILE ]] && exit
+
+echo $$ >"$PID_FILE"
+trap "rm -f -- '$PID_FILE'" EXIT
+
+######
+
 WID_FILE=/tmp/bspwm_current_dialog
 
 handle_node_add() {

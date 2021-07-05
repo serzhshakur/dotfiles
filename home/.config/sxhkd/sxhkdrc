@@ -39,6 +39,10 @@ ctrl + shift + {bracketleft,bracketright}
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
+# reload monitors setup and reapply rules
+super + r
+	~/.config/bspwm/multi-monitors.sh && ~/.config/bspwm/reapply_rules.sh
+
 # close and kill
 super + {_,shift + }w
 	bspc node -{c,k}

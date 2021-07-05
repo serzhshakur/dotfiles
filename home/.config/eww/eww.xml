@@ -1,0 +1,106 @@
+<eww>
+    <definitions>
+        <def name="weather">
+            <box class="main" orientation="v" space-evenly="false">
+                <header/>
+                <weather-current/>
+                <weather-misc/>
+                <weather-forecast/>
+            </box>
+        </def>
+
+        <def name="location">
+            <box class="location" space-evenly="false">
+                <label class="location-label" text=" "/>
+                <label class="location-city" text="{{weather_area}}"/>
+            </box>
+        </def>
+
+        <def name="close">
+            <box class="close" space-evenly="false" halign="end">
+                <button onclick="eww close weather"></button>
+            </box>
+        </def>
+
+        <def name="header">
+            <box class="header">
+                <location/>
+                <close/>
+            </box>
+        </def>
+
+        <def name="weather-current">
+            <box class="weather-current" space-evenly="false" orientation="h" valign="center" halign="center">
+                <box class="weather-current-item" orientation="v" space-evenly="false" valign="end">
+                    <box class="weather-icon" halign="end">{{weather_icon}}</box>
+                    <box class="weather-current-text" halign="end">{{weather_desc}}</box>
+                </box>
+                <box class="weather-current-item" orientation="v" space-evenly="false" valign="end">
+                    <box class="weather-temp" space-evenly="false" halign="start">{{weather_temp}}</box>
+                    <box class="weather-current-text" halign="start">Feels like {{weather_ftemp}}</box>
+                </box>
+            </box>
+        </def>
+
+        <def name="weather-misc">
+            <box class="misc" orientation="v" halign="center">
+                <box class="misc-container" orientation="h" space-evenly="true" halign="center">
+                    <box class="misc-label" halign="end">Wind:</box>
+                    <box class="misc-value" valign="start">{{weather_wind_dir}} {{weather_wind}}</box>
+                </box>
+                <box class="misc-container" orientation="h" halign="center">
+                    <box class="misc-label" space-evenly="false" valign="end">Clouds:</box>
+                    <box class="misc-value" space-evenly="false" valign="start">{{weather_clouds}}</box>
+                </box>
+                <box class="misc-container" orientation="h" space-evenly="true" halign="center">
+                    <box class="misc-label" space-evenly="false" valign="end">Precipitation:</box>
+                    <box class="misc-value" space-evenly="false" valign="start">{{weather_precipitation}}</box>
+                </box>
+            </box>
+        </def>
+
+        <def name="weather-forecast">
+            <box class="weather-forecast" space-evenly="false" orientation="v">
+                <label class="weather-forecast-title" text="Forecast"/>
+                <box orientation="h" halign="center">
+
+                    <box class="weather-forecast-item" orientation="v">
+                        <box class="weather-forecast-time" halign="center">{{time_short_1}}</box>
+                        <box orientation="h" space-evenly="false">
+                            <box class="weather-forecast-icon" space-evenly="false" valign="start">{{icon_short_1}}
+                            </box>
+                            <box space-evenly="false" valign="start">{{temp_short_1}}</box>
+                        </box>
+                    </box>
+                    <box class="weather-forecast-item" orientation="v">
+                        <box class="weather-forecast-time" halign="center">{{time_short_2}}</box>
+                        <box orientation="h" space-evenly="false">
+                            <box class="weather-forecast-icon" space-evenly="false" valign="start">{{icon_short_2}}
+                            </box>
+                            <box space-evenly="false" valign="start">{{temp_short_2}}</box>
+                        </box>
+                    </box>
+                    <box class="weather-forecast-item" orientation="v">
+                        <box class="weather-forecast-time" halign="center">{{time_short_3}}</box>
+                        <box orientation="h" space-evenly="false">
+                            <box class="weather-forecast-icon" space-evenly="false" valign="start">{{icon_short_3}}
+                            </box>
+                            <box space-evenly="false" valign="start">{{temp_short_3}}</box>
+                        </box>
+                    </box>
+
+                </box>
+            </box>
+        </def>
+
+    </definitions>
+
+    <windows>
+        <window name="weather" screen="0">
+            <geometry anchor="top center" x="0px" y="40px" width="350px"/>
+            <widget>
+                <weather/>
+            </widget>
+        </window>
+    </windows>
+</eww>

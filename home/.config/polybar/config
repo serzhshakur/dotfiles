@@ -317,6 +317,7 @@ card = intel_backlight
 [module/weather]
 type = custom/script
 exec = ~/.config/polybar/scripts/weather_lv.sh
+click-left = ~/.config/eww/scripts/weather-toggle.sh
 format-foreground = ${colors.gray-6}
 ;format-font = 5
 interval = 300

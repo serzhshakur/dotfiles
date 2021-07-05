@@ -33,7 +33,7 @@ declare -A icons=(
 
 get_time() {
   time=$(date +'%Y%m%d%H00')
-  if [[ $(date +'%-M') -gt 30 ]]; then
+  if [[ $(date +'%-M') -gt 20 ]]; then
     time=$(date -d '+1 hour' +'%Y%m%d%H00')
   fi
   echo "$time"
@@ -55,8 +55,8 @@ get_temp() {
   if [[ -n $json ]]; then
     local curr=$(get_value "$response" "temperatura" | xargs printf "%.0f\n")
     local icon_code=$(get_value "$response" "laika_apstaklu_ikona")
-
     icon_code=${icon_code%.0} # removing trailing ".0"
+
     local icon=${icons[$icon_code]}
 
     echo "+$curr°C $icon"

@@ -65,7 +65,7 @@ install_pkg llpp viewnior \
   joplin-appimage \
   qalculate-gtk libreoffice-still
 # WM
-install_pkg bspwm sxhkd polybar
+install_pkg bspwm sxhkd xdo polybar
 # Internet
 install_pkg firefox chromium transmission-gtk
 # Communication

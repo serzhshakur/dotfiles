@@ -8,7 +8,7 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 if type "xrandr"; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar --reload bspwm-bar &
+    MONITOR=$m polybar --reload bspwm-bar 2>/tmp/polybar &
   done
 else
   polybar --reload bspwm-bar &

@@ -19,11 +19,13 @@ picom -b &
 
 # Screen locker
 xss-lock -- bslock &
-#xss-lock -- /usr/bin/betterlockscreen -l blur dim &
 #light-locker &
 
 # PulseAudio System Tray
 pasystray --notify=none &
+
+# EWW
+eww daemon || ~/.local/bin/eww daemon &
 
 # Battery tray icon
 cbatticon &

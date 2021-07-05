@@ -1,0 +1,127 @@
+$bg-color: #3b4252;
+$fg-color: #d8dee9;
+$fg-color-darker: #afb7c5;
+$fg-color-alt: #8fbcbb;
+
+* {
+  all: unset;
+}
+
+.main {
+  background-color: $bg-color;
+  font-family: Iosevka, NotoSansMono Nerd Font, Noto Serif CJK JP, serif;
+  font-size: 15px;
+  color: $fg-color;
+  padding: 15px 2px;
+}
+
+.header {
+
+  button {
+    margin-right: 10px;
+    color: $fg-color-alt;
+
+    &:hover {
+      font-size: 16px;
+      color: $fg-color;
+      transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+}
+
+// Location
+
+.location {
+  font-size: 16px;
+  margin-top: 5px;
+  margin-left: 12px;
+
+  &-label {
+    color: $fg-color-alt;
+  }
+
+  &-city {
+    color: $fg-color-darker;
+  }
+}
+
+// Weather current
+
+.weather-current {
+
+  margin-top: 10px;
+
+  .weather-icon {
+    font-size: 40px;
+  }
+
+  .weather-temp {
+    font-size: 36px;
+  }
+
+  &-item {
+    margin: 0 8px;
+  }
+
+  &-text {
+    margin-top: 7px;
+    font-size: 12px;
+    color: $fg-color-darker;
+
+    .weather-desc {
+      margin-right: 10px;
+    }
+
+    .weather-ftemp {
+      margin-left: 10px;
+    }
+  }
+
+}
+
+.misc {
+  margin-top: 40px;
+
+  &-container {
+    margin: 5px 2px;
+    font-size: 16px;
+
+  }
+
+  &-label {
+    font-weight: bold;
+    margin-right: 7px;
+  }
+
+  &-value {
+    margin-left: 7px;
+  }
+}
+
+.weather-forecast {
+  margin: 40px 0;
+
+  &-title {
+    margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    color: $fg-color-alt;
+  }
+
+  &-item {
+    margin: 0 12px;
+    font-size: 17px;
+  }
+
+  &-icon {
+    font-size: 22px;
+    margin-right: 10px;
+    color: $fg-color-alt;
+  }
+
+  &-time {
+    font-size: 17px;
+    margin-bottom: 5px;
+    color: $fg-color-darker;
+  }
+}

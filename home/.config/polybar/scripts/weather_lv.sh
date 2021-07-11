@@ -29,6 +29,7 @@ declare -A icons=(
   [1310]=""
   [1311]=""
   [1506]=""
+  [2102]=""
 )
 
 get_time() {
@@ -98,7 +99,7 @@ time=$(get_time)
 response=$(
   curl -fsLG \
     --retry 3 --retry-connrefused \
-    --connect-timeout 1 \
+    --connect-timeout 3 \
     --data-urlencode "nosaukums=Rīga" \
     "https://videscentrs.lvgmc.lv/data/weather_forecast_for_location_hourly" |
     jq --arg time "$time" '.[] | select(.laiks==$time)'
@@ -107,4 +108,5 @@ response=$(
 temp=$(get_temp "$response")
 wind=$(get_wind "$response")
 
-echo "$temp $wind"
+#echo "$temp $wind"
+echo "$temp"

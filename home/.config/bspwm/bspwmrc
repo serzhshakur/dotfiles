@@ -45,7 +45,7 @@ bspc config presel_feedback_color	      "#5e81ac"
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 # 'lv' and 'ru' keyboard layouts, set keyboard shortcut to Shift+Alt
-setxkbmap -layout lv,ru -variant ",phonetic_winkeys" -option "grp:lalt_lshift_toggle" &
+#setxkbmap -layout lv,ru -variant ",phonetic_winkeys" -option "grp:lalt_lshift_toggle" &
 
 ############ SUBSCRIPTIONS #########
 

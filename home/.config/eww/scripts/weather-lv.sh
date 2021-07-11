@@ -1,6 +1,8 @@
 #!/bin/bash
 # Gets weather from wttr.in
 
+eww update loading="true"
+
 area="Rīga"
 
 declare -A icons=(
@@ -8,6 +10,7 @@ declare -A icons=(
   [1201]="" [1202]="" [1203]="" [1204]="" [1205]="" [1205]="" [1206]="" [1207]="ﭽ" [1208]=""
   [1301]="" [1302]="" [1303]="" [1304]="" [1305]="" [1306]="" [1307]="" [1308]="" [1309]="" [1310]="" [1311]=""
   [1506]=""
+  [2102]="" [2103]="" [2104]="" [2105]=""
 )
 
 get_value() {
@@ -94,7 +97,7 @@ wind=$(get_value "$weather_raw" 'veja_atrums')
 wind_dir_degree=$(get_value "$weather_raw" 'veja_virziens')
 wind_dir=$(get_wind_dir_icon "$wind_dir_degree")
 clouds="$(get_value "$weather_raw" 'makoni')%"
-precipitation="$(get_value "$weather_raw" 'nokrisni_1h')mm / $(get_value "$weather_raw" 'nokrisnu_varbutiba')%"
+precipitation="$(get_value "$weather_raw" 'nokrisni_1h') mm / $(get_value "$weather_raw" 'nokrisnu_varbutiba')%"
 
 eww update weather_temp="$temp" &
 eww update weather_icon="$icon" &
@@ -104,6 +107,8 @@ eww update weather_clouds="$clouds" &
 eww update weather_precipitation="$precipitation" &
 eww update weather_wind_dir="$wind_dir" &
 eww update weather_area="$area" &
+eww update loading="false" &
+
 
 for i in {1..3}; do
   start_time=$(get_start_time)

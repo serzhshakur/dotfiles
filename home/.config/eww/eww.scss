@@ -1,8 +1,11 @@
 $bg-color: #3b4252;
+$bg-color-light: #81a1c1;
 $fg-color: #d8dee9;
 $fg-color-darker: #afb7c5;
 $fg-color-dark: #8b94a4;
+$fg-color-darkest: #545c6b;
 $fg-color-alt: #8fbcbb;
+$fg-color-blue: #88c0d0;
 
 * {
   all: unset;
@@ -139,6 +142,93 @@ $fg-color-alt: #8fbcbb;
 
     + box {
       color: $fg-color-alt;
+    }
+  }
+}
+
+.music-info {
+  font-size: 20px;
+
+  &-artist {
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  &-song {
+    padding: 10px;
+  }
+
+  &-album {
+    padding: 10px;
+    font-size: 15px;
+    font-style: italic;
+    color: $fg-color-dark;
+  }
+}
+
+.music-controls {
+  font-size: 30px;
+
+  button {
+    padding: 0 10px;
+
+    &:hover {
+      color: $fg-color-alt;
+    }
+  }
+
+}
+
+.datetime {
+  margin: 40px 0;
+
+  .time {
+    font-size: 55px;
+
+    .hour {
+      font-weight: bold;
+    }
+  }
+
+  .date {
+    font-size: 21px;
+
+    .weekday {
+      font-weight: bold
+    }
+  }
+}
+
+.cal {
+  padding: 20px;
+
+  calendar {
+    padding: 8px;
+    color: $fg-color;
+    font-size: 17px;
+    font-style: normal;
+
+    &:selected {
+      border-radius: 3px;
+      color: $fg-color-darkest;
+      background-color: $fg-color-alt;
+    }
+
+    &.header {
+      color: $fg-color-darker;
+    }
+
+    &.button {
+      color: $fg-color-blue;
+    }
+
+    &.highlight { // weekday names
+      color: $fg-color-blue;
+      font-weight: bold;
+    }
+
+    &:indeterminate { // other months' weekday cells
+      color: $fg-color-darkest;
     }
   }
 }

@@ -1,4 +1,17 @@
 <eww>
+    <variables>
+        <script-var name="mus_status" interval="300ms">playerctl status</script-var>
+        <script-var name="mus_song" interval="1s">playerctl metadata --format '{{ title }}'</script-var>
+        <script-var name="mus_artist" interval="1s">playerctl metadata --format '{{ artist }}'</script-var>
+        <script-var name="mus_album" interval="2s">playerctl metadata --format '{{ album }}'</script-var>
+
+        <script-var name="day" interval="2h">date "+%d"</script-var>
+        <script-var name="month" interval="12h">date "+%b"</script-var>
+        <script-var name="weekday" interval="2h">date "+%a"</script-var>
+        <script-var name="min" interval="5s">date "+%M"</script-var>
+        <script-var name="hour" interval="25s">date "+%H"</script-var>
+    </variables>
+
     <definitions>
         <def name="weather">
             <box class="main" orientation="v" space-evenly="false">
@@ -9,9 +22,19 @@
             </box>
         </def>
 
+        <def name="misc">
+            <box class="main" orientation="v" space-evenly="false">
+                <datetime/>
+                <cal/>
+                <music/>
+            </box>
+        </def>
+
         <def name="header">
             <box class="header">
-                <button class="refresh {{if loading then 'blink' else ''}}" halign="start" onclick="~/.config/eww/scripts/weather-lv.sh &"></button>
+                <button class="refresh {{if loading then 'blink' else ''}}" halign="start"
+                        onclick="~/.config/eww/scripts/weather-lv.sh &">
+                </button>
                 <box class="location" space-evenly="false" valign="center">
                     <label class="location-label" text=" "/>
                     <label class="location-city {{if loading then 'blink' else ''}}" text="{{weather_area}}"/>
@@ -27,7 +50,9 @@
                     <box class="weather-current-text" halign="end">{{weather_desc}}</box>
                 </box>
                 <box class="weather-current-item" orientation="v" space-evenly="false" valign="end">
-                    <box class="weather-temp {{if loading then 'blink' else ''}}" space-evenly="false" halign="start">{{weather_temp}}</box>
+                    <box class="weather-temp {{if loading then 'blink' else ''}}" space-evenly="false" halign="start">
+                        {{weather_temp}}
+                    </box>
                     <box class="weather-current-text" halign="start">Feels like {{weather_ftemp}}</box>
                 </box>
             </box>
@@ -37,15 +62,21 @@
             <box class="misc" orientation="v" halign="center">
                 <box class="misc-container" orientation="h" space-evenly="true" halign="center">
                     <box class="misc-label" halign="end">Wind:</box>
-                    <box class="misc-value {{if loading then 'blink' else ''}}" valign="start">{{weather_wind_dir}} {{weather_wind}} m/s</box>
+                    <box class="misc-value {{if loading then 'blink' else ''}}" valign="start">{{weather_wind_dir}}
+                        {{weather_wind}} m/s
+                    </box>
                 </box>
                 <box class="misc-container" orientation="h" halign="center">
                     <box class="misc-label" space-evenly="false" valign="end">Clouds:</box>
-                    <box class="misc-value {{if loading then 'blink' else ''}}" space-evenly="false" valign="start">{{weather_clouds}}</box>
+                    <box class="misc-value {{if loading then 'blink' else ''}}" space-evenly="false" valign="start">
+                        {{weather_clouds}}
+                    </box>
                 </box>
                 <box class="misc-container" orientation="h" space-evenly="true" halign="center">
                     <box class="misc-label" space-evenly="false" valign="end">Precipitation:</box>
-                    <box class="misc-value {{if loading then 'blink' else ''}}" space-evenly="false" valign="start">{{weather_precipitation}}</box>
+                    <box class="misc-value {{if loading then 'blink' else ''}}" space-evenly="false" valign="start">
+                        {{weather_precipitation}}
+                    </box>
                 </box>
             </box>
         </def>
@@ -81,14 +112,75 @@
             </box>
         </def>
 
+        <def name="music">
+            <box class="main" orientation="v" space-evenly="false">
+                <box class="music-info"
+                     orientation="v"
+                     space-evenly="false">
+                    <label class="music-info-artist" text="{{mus_artist}}" halign="center"/>
+                    <label class="music-info-song" text="{{mus_song}}" halign="center"/>
+                    <label class="music-info-album" text="{{mus_album}}" halign="center"/>
+                </box>
+                <box class="music-controls"
+                     orientation="h"
+                     space-evenly="false"
+                     halign="center">
+                    <button onclick="playerctl previous" class="music-buttons" halign="center">玲</button>
+                    <button onclick="playerctl play-pause" class="music-buttons" halign="center">
+                        {{if mus_status == 'Playing' then '' else '喇'}}
+                    </button>
+                    <button onclick="playerctl next" class="music-buttons" halign="center">怜</button>
+                </box>
+
+            </box>
+        </def>
+
+        <def name="datetime">
+            <box class="datetime" orientation="v" space-evenly="false">
+                <box class="time"
+                     orientation="h"
+                     space-evenly="false"
+                     halign="center"
+                >
+                    <label class="hour" text="{{hour}}" halign="center"/>
+                    <label class="semicolon" text=":" halign="center"/>
+                    <label class="min" text="{{min}}" halign="center"/>
+                </box>
+                <box class="date"
+                     orientation="h"
+                     space-evenly="false"
+                     halign="center"
+                >
+                    <label class="weekday" text="{{weekday}}" halign="center"/>
+                    <label class="month" text=", {{month}} " halign="center"/>
+                    <label class="day" text="{{day}}" halign="center"/>
+                </box>
+            </box>
+        </def>
+
+        <def name="cal">
+            <box class="cal" halign="fill" valign="center">
+                <calendar/>
+            </box>
+        </def>
+
     </definitions>
 
     <windows>
+
         <window name="weather" screen="0">
             <geometry anchor="top center" x="0px" y="40px" width="350px"/>
             <widget>
                 <weather/>
             </widget>
         </window>
+
+        <window name="misc" screen="0">
+            <geometry anchor="top center" x="0px" y="40px" width="400px"/>
+            <widget>
+                <misc/>
+            </widget>
+        </window>
+
     </windows>
 </eww>

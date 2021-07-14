@@ -395,7 +395,7 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = "%{A1:gsimplecal &:}%{A}"
+format-prefix = "%{A1:~/.config/eww/scripts/misc-toggle.sh &:}%{A}"
 ;;format-foreground = #8FBCBB
 ;;label = %{T1}%date% %{T5}%time%
 label = %date% %time%

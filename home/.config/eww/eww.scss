@@ -95,13 +95,12 @@ $fg-color-blue: #88c0d0;
 
 }
 
-.misc {
+.weather-misc {
   margin-top: 40px;
 
   &-container {
     margin: 5px 2px;
     font-size: 16px;
-
   }
 
   &-label {
@@ -146,8 +145,8 @@ $fg-color-blue: #88c0d0;
   }
 }
 
-.music-info {
-  font-size: 20px;
+.spotify-info {
+  font-size: 17px;
 
   &-artist {
     font-weight: bold;
@@ -166,7 +165,7 @@ $fg-color-blue: #88c0d0;
   }
 }
 
-.music-controls {
+.spotify-controls {
   font-size: 30px;
 
   button {
@@ -180,10 +179,10 @@ $fg-color-blue: #88c0d0;
 }
 
 .datetime {
-  margin: 40px 0;
+  margin: 20px 0;
 
   .time {
-    font-size: 55px;
+    font-size: 50px;
 
     .hour {
       font-weight: bold;
@@ -200,10 +199,11 @@ $fg-color-blue: #88c0d0;
 }
 
 .cal {
+  margin-top: 10px;
   padding: 20px;
 
   calendar {
-    padding: 8px;
+    padding: 5px;
     color: $fg-color;
     font-size: 17px;
     font-style: normal;
@@ -218,8 +218,8 @@ $fg-color-blue: #88c0d0;
       color: $fg-color-darker;
     }
 
-    &.button {
-      color: $fg-color-blue;
+    &.button { // left/right arrows
+      //color: $fg-color-blue;
     }
 
     &.highlight { // weekday names
@@ -230,5 +230,22 @@ $fg-color-blue: #88c0d0;
     &:indeterminate { // other months' weekday cells
       color: $fg-color-darkest;
     }
+  }
+}
+
+.sun {
+
+  box:nth-child(1) {
+    margin-right: 15px;
+  }
+
+  &-label {
+    font-style: italic;
+    color: $fg-color-alt;
+    margin-right: 5px;
+  }
+
+  &-value {
+    color: $fg-color-darker;
   }
 }

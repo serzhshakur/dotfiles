@@ -1,9 +1,12 @@
 <eww>
     <variables>
-        <script-var name="mus_status" interval="300ms">playerctl status</script-var>
-        <script-var name="mus_song" interval="1s">playerctl metadata --format '{{ title }}'</script-var>
-        <script-var name="mus_artist" interval="1s">playerctl metadata --format '{{ artist }}'</script-var>
-        <script-var name="mus_album" interval="2s">playerctl metadata --format '{{ album }}'</script-var>
+        <script-var name="mus_visible" interval="300ms">
+            playerctl -l 2>/dev/null | grep -q spotify && echo true || echo false
+        </script-var>
+        <script-var name="mus_status" interval="300ms">playerctl -p spotify status</script-var>
+        <script-var name="mus_song" interval="1s">playerctl -p spotify metadata --format '{{ title }}'</script-var>
+        <script-var name="mus_artist" interval="1s">playerctl -p spotify metadata --format '{{ artist }}'</script-var>
+        <script-var name="mus_album" interval="2s">playerctl -p spotify metadata --format '{{ album }}'</script-var>
 
         <script-var name="day" interval="2h">date "+%d"</script-var>
         <script-var name="month" interval="12h">date "+%b"</script-var>
@@ -22,11 +25,12 @@
             </box>
         </def>
 
-        <def name="misc">
-            <box class="main" orientation="v" space-evenly="false">
+        <def name="miscellaneous">
+            <box class="main" orientation="v" space-evenly="false" valign="start">
                 <datetime/>
+                <sun/>
                 <cal/>
-                <music/>
+                <spotify/>
             </box>
         </def>
 
@@ -37,7 +41,7 @@
                 </button>
                 <box class="location" space-evenly="false" valign="center">
                     <label class="location-label" text=" "/>
-                    <label class="location-city {{if loading then 'blink' else ''}}" text="{{weather_area}}"/>
+                    <label class="location-city" text="{{weather_area}}"/>
                 </box>
                 <button class="close" halign="end" onclick="eww close weather"></button>
             </box>
@@ -46,11 +50,11 @@
         <def name="weather-current">
             <box class="weather-current" space-evenly="false" orientation="h" valign="center" halign="center">
                 <box class="weather-current-item" orientation="v" space-evenly="false" valign="end">
-                    <box class="weather-icon {{if loading then 'blink' else ''}}" halign="end">{{weather_icon}}</box>
+                    <box class="weather-icon" halign="end">{{weather_icon}}</box>
                     <box class="weather-current-text" halign="end">{{weather_desc}}</box>
                 </box>
                 <box class="weather-current-item" orientation="v" space-evenly="false" valign="end">
-                    <box class="weather-temp {{if loading then 'blink' else ''}}" space-evenly="false" halign="start">
+                    <box class="weather-temp" space-evenly="false" halign="start">
                         {{weather_temp}}
                     </box>
                     <box class="weather-current-text" halign="start">Feels like {{weather_ftemp}}</box>
@@ -59,22 +63,24 @@
         </def>
 
         <def name="weather-misc">
-            <box class="misc" orientation="v" halign="center">
-                <box class="misc-container" orientation="h" space-evenly="true" halign="center">
-                    <box class="misc-label" halign="end">Wind:</box>
-                    <box class="misc-value {{if loading then 'blink' else ''}}" valign="start">{{weather_wind_dir}}
-                        {{weather_wind}} m/s
+            <box class="weather-misc" orientation="v" halign="center">
+                <box class="weather-misc-container" orientation="h" space-evenly="true" halign="center">
+                    <box class="weather-misc-label" halign="end">Wind:</box>
+                    <box class="weather-misc-value" valign="start">
+                        {{weather_wind_dir}} {{weather_wind}} m/s
                     </box>
                 </box>
-                <box class="misc-container" orientation="h" halign="center">
-                    <box class="misc-label" space-evenly="false" valign="end">Clouds:</box>
-                    <box class="misc-value {{if loading then 'blink' else ''}}" space-evenly="false" valign="start">
+                <box class="weather-misc-container" orientation="h" halign="center">
+                    <box class="weather-misc-label" space-evenly="false" valign="end">Clouds:</box>
+                    <box class="weather-misc-value" space-evenly="false"
+                         valign="start">
                         {{weather_clouds}}
                     </box>
                 </box>
-                <box class="misc-container" orientation="h" space-evenly="true" halign="center">
-                    <box class="misc-label" space-evenly="false" valign="end">Precipitation:</box>
-                    <box class="misc-value {{if loading then 'blink' else ''}}" space-evenly="false" valign="start">
+                <box class="weather-misc-container" orientation="h" space-evenly="true" halign="center">
+                    <box class="weather-misc-label" space-evenly="false" valign="end">Precipitation:</box>
+                    <box class="weather-misc-value" space-evenly="false"
+                         valign="start">
                         {{weather_precipitation}}
                     </box>
                 </box>
@@ -112,24 +118,24 @@
             </box>
         </def>
 
-        <def name="music">
-            <box class="main" orientation="v" space-evenly="false">
-                <box class="music-info"
+        <def name="spotify">
+            <box class="main" orientation="v" visible="{{mus_visible}}" space-evenly="false">
+                <box class="spotify-info"
                      orientation="v"
                      space-evenly="false">
-                    <label class="music-info-artist" text="{{mus_artist}}" halign="center"/>
-                    <label class="music-info-song" text="{{mus_song}}" halign="center"/>
-                    <label class="music-info-album" text="{{mus_album}}" halign="center"/>
+                    <label class="spotify-info-artist" text="{{mus_artist}}" halign="center" wrap="true" width="200px"/>
+                    <label class="spotify-info-song" text="{{mus_song}}" halign="center" wrap="true" width="200px"/>
+                    <label class="spotify-info-album" text="{{mus_album}}" halign="center" wrap="true" width="200px"/>
                 </box>
-                <box class="music-controls"
+                <box class="spotify-controls"
                      orientation="h"
                      space-evenly="false"
                      halign="center">
-                    <button onclick="playerctl previous" class="music-buttons" halign="center">玲</button>
-                    <button onclick="playerctl play-pause" class="music-buttons" halign="center">
+                    <button onclick="playerctl -p spotify previous" class="spotify-buttons" halign="center">玲</button>
+                    <button onclick="playerctl -p spotify play-pause" class="spotify-buttons" halign="center">
                         {{if mus_status == 'Playing' then '' else '喇'}}
                     </button>
-                    <button onclick="playerctl next" class="music-buttons" halign="center">怜</button>
+                    <button onclick="playerctl  -p spotify next" class="spotify-buttons" halign="center">怜</button>
                 </box>
 
             </box>
@@ -158,10 +164,25 @@
             </box>
         </def>
 
+        <def name="sun">
+            <box class="sun" orientation="h" halign="center">
+                <box space-evenly="false" halign="start">
+                    <label class="sun-label" text="Sunrise"/>
+                    <label class="sun-value" text="{{sunrise}}"/>
+                </box>
+                <box space-evenly="false" halign="end">
+                    <label class="sun-label" text="Sunset"/>
+                    <label class="sun-value" text="{{sunset}}"/>
+                </box>
+            </box>
+        </def>
+
         <def name="cal">
+            <!--            <expander name="calendar" vexpand="true" valign="start">-->
             <box class="cal" halign="fill" valign="center">
                 <calendar/>
             </box>
+            <!--            </expander>-->
         </def>
 
     </definitions>
@@ -175,10 +196,10 @@
             </widget>
         </window>
 
-        <window name="misc" screen="0">
-            <geometry anchor="top center" x="0px" y="40px" width="400px"/>
+        <window name="misc" screen="1">
+            <geometry anchor="top right" x="40px" y="40px" width="380px"/>
             <widget>
-                <misc/>
+                <miscellaneous/>
             </widget>
         </window>
 

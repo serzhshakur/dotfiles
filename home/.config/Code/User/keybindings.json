@@ -1,0 +1,51 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "ctrl+left",
+        "command": "cursorWordPartLeft"
+    },
+    {
+        "key": "ctrl+shift+left",
+        "command": "cursorWordPartLeftSelect"
+    },
+    {
+        "key": "ctrl+right",
+        "command": "cursorWordPartRight"
+    },
+    {
+        "key": "ctrl+shift+right",
+        "command": "cursorWordPartRightSelect"
+    },
+    {
+        "key": "ctrl+backspace",
+        "command": "deleteWordPartLeft"
+    },
+    {
+        "key": "ctrl+delete",
+        "command": "deleteWordPartRight"
+    },
+    {
+        "key": "alt",
+        "command": "workbench.action.toggleMultiCursorModifier"
+    },
+    {
+        "key": "ctrl+alt+up",
+        "command": "editor.action.insertCursorAbove",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+up",
+        "command": "-editor.action.insertCursorAbove",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+down",
+        "command": "editor.action.insertCursorBelow",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+down",
+        "command": "-editor.action.insertCursorBelow",
+        "when": "editorTextFocus"
+    }
+]

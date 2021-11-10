@@ -46,10 +46,34 @@ function install_aur_pkg() {
 
 # Update mirrors
 function rank_and_update_mirrors() {
-  curl -s "https://www.archlinux.org/mirrorlist/?country=CZ&country=LT&country=RU&country=NL&country=BY&country=DE&country=FR&country=GB&protocol=https&use_mirror_status=on" |
+  curl -s "https://archlinux.org/mirrorlist/?country=CZ&country=LT&country=RU&country=NL&country=BY&country=DE&country=FR&country=GB&protocol=https&use_mirror_status=on" |
     sed -e 's/^#Server/Server/' -e '/^#/d' |
     rankmirrors -n 25 - >/tmp/mirrorlist
 
   sudo mv /tmp/mirrorlist /etc/pacman.d/mirrorlist
-  sudo pacman -Syyuu --ignore=qtile
+  sudo pacman -Syyuu
+}
+
+function install_vscode_extensions() {
+  declare -a extensions=(
+    "arcticicestudio.nord-visual-studio-code"
+    "bradlc.vscode-tailwindcss"
+    "csstools.postcss"
+    "dbaeumer.vscode-eslint"
+    "EditorConfig.EditorConfig"
+    "humao.rest-client"
+    "JScearcy.rust-doc-viewer"
+    "k--kato.intellij-idea-keybindings"
+    "lorenzopirro.rust-flash-snippets"
+    "matklad.rust-analyzer"
+    "ms-vscode.test-adapter-converter"
+    "robertrossmann.remedy"
+    "serayuzgur.crates"
+    "tamasfe.even-better-toml"
+    "vadimcn.vscode-lldb"
+    "ZhangYue.rust-mod-generator"
+  )
+  for e in "${extensions[@]}"; do
+    code --install-extension "$e"
+  done
 }

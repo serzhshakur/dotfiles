@@ -45,7 +45,8 @@ install_pkg gvim alacritty \
   dmenu rofi rofi-greenclip \
   dunst \
   picom redshift \
-  syncthing keepassxc
+  syncthing keepassxc \
+  paccache
 # Audio
 install_pkg pulseaudio pulseaudio-alsa pavucontrol pasystray \
   bluez bluez-utils pulseaudio-bluetooth blueman playerctl
@@ -69,7 +70,7 @@ install_pkg bspwm sxhkd xdo polybar
 # Internet
 install_pkg firefox chromium transmission-gtk
 # Communication
-install_pkg rambox-bin slack-desktop
+install_pkg ferdi slack-desktop
 # Entertainment
 install_pkg vlc spotify
 # Development etc.

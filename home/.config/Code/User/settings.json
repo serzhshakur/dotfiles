@@ -1,0 +1,73 @@
+{
+    "editor.fontSize": 18,
+    "editor.formatOnSave": true,
+    "editor.fontFamily": "Iosevka, 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.lineHeight": 1.6,
+    "editor.semanticHighlighting.enabled": true,
+    "files.autoSave": "afterDelay",
+    "[rust]": {
+        "editor.defaultFormatter": "matklad.rust-analyzer",
+        "editor.semanticHighlighting.enabled": false
+    },
+    "editor.semanticTokenColorCustomizations": {
+        "enabled": true,
+    },
+    "editor.tokenColorCustomizations": {
+        "[Nord]": {
+            "textMateRules": [
+                {
+                    "scope": "source.rust",
+                    "settings": {
+                        "foreground": "#c6d3eb"
+                    }
+                },
+                {
+                    "scope": "meta.attribute.rust",
+                    "settings": {
+                        "foreground": "#d08770"
+                    }
+                },
+                {
+                    "scope": "punctuation.definition.string",
+                    "settings": {
+                        "foreground": "#a3be8c"
+                    }
+                },
+                {
+                    "scope": "entity.name.type.rust",
+                    "settings": {
+                        "foreground": "#88c0d0"
+                    }
+                },
+                {
+                    "scope": "punctuation.brackets.angle.rust",
+                    "settings": {
+                        "foreground": "#5e81ac"
+                    }
+                },
+                {
+                    "scope": "entity.name.type.option.rust",
+                    "settings": {
+                        "fontStyle": "italic"
+                    }
+                }
+            ]
+        },
+    },
+    "workbench.colorTheme": "Nord",
+    "rust-analyzer.inlayHints.smallerHints": true,
+    "rust-analyzer.inlayHints.maxLength": 10,
+    "editor.inlayHints.fontFamily": "'Iosevka Bold', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.inlayHints.fontSize": 5,
+    "workbench.colorCustomizations": {
+        // Name of the theme you are currently using
+        "[Nord]": {
+            "rust_analyzer.inlayHints.foreground": "#6a7380",
+            "rust_analyzer.inlayHints.background": "#2c313d",
+            // Overrides for specific kinds of inlay hints
+            // "rust_analyzer.inlayHints.foreground.typeHints": "#fdb6fdf0",
+            // "rust_analyzer.inlayHints.background.chainingHints": "#6b0c0c81"
+        }
+    },
+    "editor.hover.delay": 700
+}

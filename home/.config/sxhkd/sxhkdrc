@@ -12,7 +12,7 @@ super + Return
 
 # program launcher
 F1
-	rofi -sidebar-mode -width 40 -font "IBM-Plex-Sans-Cond 14" -show
+	rofi -sidebar-mode -show
 F2
     ./scripts/rofi-window.sh
 

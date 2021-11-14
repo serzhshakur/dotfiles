@@ -20,7 +20,7 @@ case $number_of_monitors in
 2)
   for mon in $monitors; do
     case $mon in
-    HDMI-1 | DP-1)
+    HDMI-1 | HDMI-2 | DP-1)
       bspc monitor "$mon" -d a s d f 1 2 3
       ;;
     eDP-1)

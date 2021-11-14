@@ -5,15 +5,15 @@ env:
 window:
   padding:
     x: 6
-    y: 4 
+    y: 4
 font:
   normal:
     family: Iosevka Light
   bold:
-    family: Iosevka Light
+    family: Iosevka
     style: Bold
   italic:
-    family: Iosevka Light
+    family: Iosevka
     style: Italic 
   size: 12
   offset:

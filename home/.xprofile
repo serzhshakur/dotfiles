@@ -18,14 +18,14 @@ nitrogen --restore &
 picom -b &
 
 # Screen locker
-xss-lock -- bslock &
-#light-locker &
+#xss-lock -- bslock &
+light-locker &
 
 # PulseAudio System Tray
 pasystray --notify=none &
 
 # EWW
-eww daemon || ~/.local/bin/eww daemon &
+#eww daemon || ~/.local/bin/eww daemon &
 
 # Battery tray icon
 cbatticon &

@@ -30,10 +30,11 @@ make_floating() {
 ###############################
 
 to_desktop 'a' firefox
-to_desktop 'd' jetbrains-idea
+to_desktop 's' alacritty
+to_desktop 'd' jetbrains-idea code
 to_desktop 'o' KeePassXC
 to_desktop 'i' Spotify
-to_desktop 'u' Slack Rambox Ferdi
+to_desktop 'u' Slack Ferdi Discord
 
 make_floating \
   Lxappearance \

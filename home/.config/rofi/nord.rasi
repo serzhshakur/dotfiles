@@ -1,4 +1,5 @@
 * {
+    font:                        "IBM Plex Sans 14";
     padding:                     2;
     spacing:                     1;
     separatorcolor:              #4C566A;
@@ -8,29 +9,29 @@
     foreground:                  #D8DEE9;
     background:                  #2E3440;
     active-foreground:           #4C566A;
-    active-background:           #D8DEE9;
-    normal-foreground:           var(foreground);
-    normal-background:           var(background);
+    active-background:           #8a96aa;
+    normal-foreground:           @foreground;
+    normal-background:           @background;
     urgent-foreground:           #4C566A;
     urgent-background:           #D08770;
 
-    alternate-active-foreground: var(active-foreground);
-    alternate-active-background: var(active-background);
-    alternate-normal-foreground: var(foreground);
-    alternate-normal-background: var(background);
-    alternate-urgent-foreground: var(foreground);
+    alternate-active-foreground: @active-foreground;
+    alternate-active-background: @active-background;
+    alternate-normal-foreground: @foreground;
+    alternate-normal-background: @background;
+    alternate-urgent-foreground: @foreground;
     alternate-urgent-background: red;
 
     selected-active-foreground:  #88C0D0;
     selected-active-background:  #434C5E;
-    selected-normal-foreground:  var(foreground);
+    selected-normal-foreground:  @foreground;
     selected-normal-background:  #4C566A;
-    selected-urgent-foreground:  var(selected-normal-foreground);
-    selected-urgent-background:  var(selected-normal-background);
+    selected-urgent-foreground:  @selected-normal-foreground;
+    selected-urgent-background:  @selected-normal-background;
 }
 window {
     padding:          10;
-    background-color: var(background);
+    background-color: @background;
     border:           2;
 }
 mainbox {
@@ -38,104 +39,101 @@ mainbox {
     border:  0;
 }
 message {
-    padding:      1px ;
-    border-color: var(separatorcolor);
-    border:       1px dash 0px 0px ;
+    padding:      1px;
+    border-color: @separatorcolor;
+    border:       1px dash 0px 0px;
 }
 textbox {
-    text-color: var(foreground);
+    text-color: @foreground;
 }
 listview {
     lines: 10;
-    padding:      10px 0px 10px 0px ;
-    border-color: var(separatorcolor);
-    border:       0px 0px 0px 0px ;
+    padding:      10px 0px 10px 0px;
+    border-color: @separatorcolor;
+    border:       0px 0px 0px 0px;
 }
 element {
     padding: 7px;
     border:  0;
 }
 element normal.normal {
-    background-color: var(normal-background);
-    text-color:       var(normal-foreground);
+    background-color: @normal-background;
 }
 element normal.urgent {
-    background-color: var(urgent-background);
-    text-color:       var(urgent-foreground);
+    background-color: @urgent-background;
 }
 element normal.active {
-    background-color: var(active-background);
-    text-color:       var(active-foreground);
+    background-color: @active-background;
 }
 element selected.normal {
-    background-color: var(selected-normal-background);
-    text-color:       var(selected-normal-foreground);
+    background-color: @selected-normal-background;
 }
 element selected.urgent {
-    background-color: var(selected-urgent-background);
-    text-color:       var(selected-urgent-foreground);
+    background-color: @selected-urgent-background;
 }
 element selected.active {
-    background-color: var(selected-active-background);
-    text-color:       var(selected-active-foreground);
+    background-color: @selected-active-background;
 }
 element alternate.normal {
-    background-color: var(alternate-normal-background);
-    text-color:       var(alternate-normal-foreground);
+    background-color: @alternate-normal-background;
 }
 element alternate.urgent {
-    background-color: var(alternate-urgent-background);
-    text-color:       var(alternate-urgent-foreground);
+    background-color: @alternate-urgent-background;
 }
 element alternate.active {
-    background-color: var(alternate-active-background);
-    text-color:       var(alternate-active-foreground);
+    background-color: @alternate-active-background;
+}
+element-text {
+    text-color: @foreground;
+}
+element-text alternate.active {
+    text-color: red;
 }
 scrollbar {
-    width:        4px ;
+    width:        4px;
     padding:      0;
-    handle-width: 8px ;
+    handle-width: 8px;
     border:       0;
 }
 mode-switcher {
-    padding: 10px 0 0 0;
-    border-color: var(separatorcolor);
-    border:       2px solid 0px 0px ;
+    padding:      10px 0 0 0;
+    border-color: @separatorcolor;
+    border:       2px solid 0px 0px;
 }
 button {
-    font-size: 3;
-    text-color:       var(normal-foreground);
-    padding: 10;
+    font-size:  3;
+    text-color: @normal-foreground;
+    padding:    10;
 }
 button selected {
-    background-color: var(selected-normal-background);
-    text-color:       var(selected-normal-foreground);
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
 }
 inputbar {
-    margin: 4;
-    padding:    1px ;
+    margin:     4;
+    padding:    1px;
     spacing:    0;
-    text-color: var(normal-foreground);
+    text-color: @normal-foreground;
     children:   [ prompt,textbox-prompt-colon,entry,overlay,case-indicator ];
 }
 case-indicator {
     spacing:    0;
-    text-color: var(normal-foreground);
+    text-color: @normal-foreground;
 }
 entry {
-    border: 0 0 1px 0;
-    margin: 0 10 0 10;
+    border:     0 0 1px 0;
+    margin:     0 10 0 10;
     spacing:    0;
-    text-color: var(normal-foreground);
+    text-color: @normal-foreground;
 }
 prompt {
     spacing:    0;
-    text-color: var(normal-foreground);
+    text-color: @normal-foreground;
 }
 textbox-prompt-colon {
-    padding: 5 0 0 0;
-    margin:     0px 0.3000em 0.0000em 0.0000em ;
+    padding:    5 0 0 0;
+    margin:     0px 0.3000em 0.0000em 0.0000em;
     expand:     false;
     str:        ":";
-    text-color: var(normal-foreground);
+    text-color: @normal-foreground;
 }

@@ -43,7 +43,7 @@ font-3 = NotoSansMono Nerd Font:size=15;3
 font-4 = Iosevka:style=light:size=10;3
 
 modules-center = date weather
-modules-right = cpu memory backlight xkeyboard wlan battery power
+modules-right = cpu memory backlight xkeyboard battery power
 
 tray-position = right
 tray-padding = 2

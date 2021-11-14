@@ -8,20 +8,19 @@ USER=$(whoami)
 # Installing some packages for makepkg to work
 sudo pacman -S --needed git binutils make gcc fakeroot patch # consider installing just 'base-devel' package
 
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 # Installing yay
-install_aur_pkg yay
+install_aur_pkg paru
 
 function install_pkg() {
-  yay -S \
-    --needed \
-    --noconfirm \
+  paru -S \
     --removemake \
-    --nodiffmenu \
-    --nocleanmenu \
-    --noeditmenu \
+    --cleanafter \
     $@
   # removing orphans
-  #yay -Rns $(yay -Qtdq) &> /dev/null
+  #paru -Rns $(paru -Qtdq) &> /dev/null
 }
 
 # Setup faster mirrors
@@ -33,7 +32,7 @@ install_pkg gvim alacritty \
   arandr autorandr \
   udisks2 udiskie \
   lightdm lightdm-gtk-greeter \
-  xss-lock bslock \
+  xss-lock \
   xkblayout-state light \
   mesa mesa-libgl \
   xf86-video-vesa \
@@ -48,11 +47,11 @@ install_pkg gvim alacritty \
   syncthing keepassxc \
   paccache
 # Audio
-install_pkg pulseaudio pulseaudio-alsa pavucontrol pasystray \
-  bluez bluez-utils pulseaudio-bluetooth blueman playerctl
+install_pkg pulseaudio pulseaudio-alsa pavucontrol pasystray playerctl \
+  
 # Themes, fonts etc.
-install_pkg noto-fonts noto-fonts-emoji nerd-fonts-noto-sans-mono \
-  ttf-droid ttf-hack ttf-font-awesome ttf-jetbrains-mono ttf-iosevka \
+install_pkg noto-fonts nerd-fonts-noto-sans-mono noto-fonts-emoji \
+  ibm-fonts ttf-font-awesome ttf-iosevka \
   arc-gtk-theme papirus-icon-theme lxappearance qt5ct qt5-styleplugins nitrogen \
   fontpreview-git
 # Printing
@@ -75,7 +74,7 @@ install_pkg ferdi slack-desktop
 install_pkg vlc spotify
 # Development etc.
 install_pkg jdk-openjdk openjdk-doc openjdk-src \
-  jetbrains-toolbox code \
+  code aur/code-marketplace \
   postgresql-libs \
   nodejs npm \
   go \

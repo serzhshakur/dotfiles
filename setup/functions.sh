@@ -11,6 +11,23 @@ function enable_services() {
   done
 }
 
+function ensure_user_exists() {
+  USER=$1
+  if [[ -z $USER ]]; then
+    echo "requires a user name"
+    exit 1
+  fi
+  # Check if user is set up
+  if ! id -u "$USER" &>/dev/null; then
+    echo "setup a user '$USER' first"
+    echo "-------------------------"
+    echo "> useradd -m $USER"
+    echo "> passwd $USER"
+    echo "-------------------------"
+    exit 1
+  fi
+}
+
 function add_user_to_groups() {
   for group in "$@"; do
     echo ""

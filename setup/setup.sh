@@ -3,19 +3,29 @@ set -e
 
 source ./functions.sh
 
-USER=$(whoami)
+USER=sergey
+ensure_user_exists $USER
+
+# Install sudo if necessary
+if ! which sudo &>/dev/null; then
+  pacman -S sudo
+  sudo usermod -aG wheel $USER
+  echo "$USER ALL=(ALL) ALL" >/etc/sudoers.d/1-custom
+  exit 1
+fi
 
 # Installing some packages for makepkg to work
 sudo pacman -S --needed git binutils make gcc fakeroot patch # consider installing just 'base-devel' package
 
 # Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+which rustc || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # Installing yay
 install_aur_pkg paru
 
 function install_pkg() {
   paru -S \
+    --noconfirm \
     --removemake \
     --cleanafter \
     $@
@@ -32,24 +42,26 @@ install_pkg gvim alacritty \
   arandr autorandr \
   udisks2 udiskie \
   lightdm lightdm-gtk-greeter \
-  xss-lock \
+  xss-lock slock \
   xkblayout-state light \
   mesa mesa-libgl \
   xf86-video-vesa \
   networkmanager network-manager-applet openvpn networkmanager-openvpn \
   zsh oh-my-zsh-git \
-  htop bat exa lf fzf tree jq \
-  ncdu \ `# disk usage analyzer`
-  etcher-bin \ `# Flash drive writer`
+  htop bat exa lf-bin fzf tree jq \
+  ncdu \
   dmenu rofi rofi-greenclip \
   dunst \
   picom redshift \
   syncthing keepassxc \
-  paccache
+  pacman-contrib \
+  reflector
+
 # Audio
-# install_pkg pulseaudio pulseaudio-alsa pavucontrol pasystray playerctl \
-install_pkg pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber pavucontrol \
-  
+install_pkg pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber \
+  pavucontrol playerctl \
+  bluez blueman
+
 # Themes, fonts etc.
 install_pkg noto-fonts nerd-fonts-noto-sans-mono noto-fonts-emoji \
   ibm-fonts ttf-font-awesome ttf-iosevka \
@@ -58,32 +70,28 @@ install_pkg noto-fonts nerd-fonts-noto-sans-mono noto-fonts-emoji \
 # Printing
 install_pkg cups cups-pdf cups-pk-helper system-config-printer
 # Some GUI tools
-install_pkg llpp viewnior \
+install_pkg viewnior \
   cbatticon \
   gsimplecal \
-  pcmanfm-gtk3 file-roller ranger \ `# file managers`
+  pcmanfm-gtk3 file-roller ranger \
   flameshot \
   joplin-appimage \
   qalculate-gtk libreoffice-still
-# WM
+## WM
 install_pkg bspwm sxhkd xdo polybar
 # Internet
 install_pkg firefox chromium transmission-gtk
-# Communication
-install_pkg ferdi slack-desktop
 # Entertainment
 install_pkg vlc spotify
 # Development etc.
-install_pkg jdk-openjdk openjdk-doc openjdk-src \
-  code aur/code-marketplace \
+install_pkg code aur/code-marketplace \
   postgresql-libs \
   nodejs npm \
-  go \
   docker docker-compose kubectl kubectx \
   postman-bin
 
 # Move config files
-#cp -r $PWD/../.config/* ~/.config/
+mkdir -p ~/.config && cp -r $PWD/../home/.config/* ~/.config/
 
 # Adding user to necessary groups
 add_user_to_groups docker video storage
@@ -104,11 +112,20 @@ sudo chmod 644 ./system/etc/polkit-1/rules.d/
 
 # Systemd
 enable_services lightdm NetworkManager bluetooth docker
-enable_user_services greenclip.service redshift-gtk mpris-proxy pipewire pipewire-alsa pipewire-pulse wireplumber
+enable_user_services greenclip.service redshift-gtk pipewire pipewire-pulse wireplumber
 
 # Syncthing
 sudo systemctl enable syncthing@$USER.service
 sudo systemctl start syncthing@$USER.service
+
+# Enable time synchronization
+sudo systemctl enable systemd-timesyncd.service
+
+# Enable Scheduled fstrim (only makes sense for SSDs)
+sudo systemctl enable fstrim.timer
+
+# Enable Scheduled Mirrorlist Updates
+sudo systemctl enable reflector.timer
 
 # ZSH syntax highlighting
 git clone https://github.com/zdharma/fast-syntax-highlighting.git \

@@ -1,12 +1,7 @@
 export QT_QPA_PLATFORMTHEME=qt5ct
-export PULSE_LOG_FILE=/tmp/pulse.log
-export PULSE_LOG=4
 
 # nm-applet to appear as a tray icon
 nm-applet &
-
-# Blueman
-blueman-applet &
 
 # Automount volumes
 udiskie &
@@ -18,8 +13,8 @@ nitrogen --restore &
 picom -b &
 
 # Screen locker
-#xss-lock -- bslock &
-light-locker &
+xset s 1200 # set timeout for screen locker to 20 min
+xss-lock -- slock &
 
 # PulseAudio System Tray
 pasystray --notify=none &
@@ -32,3 +27,6 @@ cbatticon &
 
 # Notifications service
 dunst &
+
+# Blueman
+blueman-applet &

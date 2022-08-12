@@ -47,7 +47,8 @@ install_pkg gvim alacritty \
   syncthing keepassxc \
   paccache
 # Audio
-install_pkg pulseaudio pulseaudio-alsa pavucontrol pasystray playerctl \
+# install_pkg pulseaudio pulseaudio-alsa pavucontrol pasystray playerctl \
+install_pkg pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber pavucontrol \
   
 # Themes, fonts etc.
 install_pkg noto-fonts nerd-fonts-noto-sans-mono noto-fonts-emoji \
@@ -103,7 +104,7 @@ sudo chmod 644 ./system/etc/polkit-1/rules.d/
 
 # Systemd
 enable_services lightdm NetworkManager bluetooth docker
-enable_user_services greenclip.service redshift-gtk mpris-proxy
+enable_user_services greenclip.service redshift-gtk mpris-proxy pipewire pipewire-alsa pipewire-pulse wireplumber
 
 # Syncthing
 sudo systemctl enable syncthing@$USER.service

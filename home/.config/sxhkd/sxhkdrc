@@ -43,7 +43,8 @@ super + alt + {q,r}
 super + r
 	~/.config/bspwm/multi-monitors.sh && \
     ~/.config/bspwm/panel.sh && \
-    ~/.config/bspwm/reapply_rules.sh
+    ~/.config/bspwm/reapply_rules.sh && \
+	nitrogen --restore
 
 # close and kill
 super + {_,shift + }w

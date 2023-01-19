@@ -9,7 +9,7 @@ switch_to_monocle() {
 }
 
 monitors=$(xrandr | grep -sw 'connected' | cut -d " " -f 1)
-number_of_monitors=$(xrandr | grep -sw 'connected' | cut -d " " -f 1 | wc -l)
+number_of_monitors=$(echo "$monitors" | wc -l)
 
 case $number_of_monitors in
 3)
@@ -20,7 +20,7 @@ case $number_of_monitors in
 2)
   for mon in $monitors; do
     case $mon in
-    HDMI-* | DP-1)
+    HDMI-* | DP-*)
       bspc monitor "$mon" -d a s d f 1 2 3
       ;;
     eDP-1)

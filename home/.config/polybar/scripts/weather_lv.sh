@@ -1,35 +1,69 @@
 #!/bin/bash
 
-# Nerd font icons should be installed to let icons correctly displayed
+# Either Font Awesome or Nerd font icons should be installed 
+# to get icons correctly displayed
 
 declare -A icons=(
-  [1101]=""
-  [1102]=""
-  [1103]=""
-  [1104]=""
-  [1105]=""
-  [1201]=""
-  [1202]=""
-  [1203]=""
-  [1204]=""
-  [1205]=""
-  [1205]=""
-  [1206]=""
-  [1207]="ﭽ"
-  [1208]=""
-  [1301]=""
-  [1302]=""
-  [1303]=""
-  [1304]=""
-  [1305]=""
-  [1306]=""
-  [1307]=""
-  [1308]=""
-  [1309]=""
-  [1310]=""
-  [1311]=""
-  [1506]=""
-  [2102]=""
+  #
+  # Font Awesome
+  #
+  [1101]=""
+  [1102]=""
+  [1103]=""
+  [1104]=""
+  [1105]=""
+  [1201]=""
+  [1202]=""
+  [1203]=""
+  [1204]=""
+  [1205]=""
+  [1205]=""
+  [1206]=""
+  [1207]=""
+  [1208]=""
+  [1301]=""
+  [1302]=""
+  [1303]=""
+  [1304]=""
+  [1305]=""
+  [1306]=""
+  [1307]=""
+  [1308]=""
+  [1309]=""
+  [1310]=""
+  [1311]=""
+  [1506]=""
+  [2102]=""
+  #
+  # Nerd Fonts
+  #
+  # [1101]=""
+  # [1102]=""
+  # [1103]=""
+  # [1104]=""
+  # [1105]=""
+  # [1201]=""
+  # [1202]=""
+  # [1203]=""
+  # [1204]=""
+  # [1205]=""
+  # [1205]=""
+  # [1206]=""
+  # [1207]="ﭽ"
+  # [1208]=""
+  # [1301]=""
+  # [1302]=""
+  # [1303]=""
+  # [1304]=""
+  # [1305]=""
+  # [1306]=""
+  # [1307]=""
+  # [1308]=""
+  # [1309]=""
+  # [1310]=""
+  # [1311]=""
+  # [1506]=""
+  # [2102]=""
 )
 
 get_time() {
@@ -54,13 +88,25 @@ get_temp() {
   local json=$1
 
   if [[ -n $json ]]; then
-    local curr=$(get_value "$response" "temperatura" | xargs printf "%.0f\n")
     local icon_code=$(get_value "$response" "laika_apstaklu_ikona")
     icon_code=${icon_code%.0} # removing trailing ".0"
-
     local icon=${icons[$icon_code]}
 
-    echo "+$curr°C $icon"
+    local temp=$(get_value "$response" "temperatura")
+
+    # if temperature is outside (-1, 1) round it to whole number
+    if [[ ! "$temp" =~ ^-?0\. ]]; then
+      local temp=$(echo $temp | xargs printf "%.0f\n")
+    fi
+
+    local sign=''
+    local first_char=$(echo $temp | cut -c 1)
+    # prepend with '+' if temperature is positive
+    if [[ $first_char != '-' && $temp != '0' ]]; then
+      local sign='+'
+    fi
+
+    echo "$sign$temp°C $icon"
   fi
 }
 
@@ -101,8 +147,8 @@ response=$(
     --retry 3 --retry-connrefused \
     --connect-timeout 3 \
     --data-urlencode "nosaukums=Rīga" \
-    "https://videscentrs.lvgmc.lv/data/weather_forecast_for_location_hourly" |
-    jq --arg time "$time" '.[] | select(.laiks==$time)'
+    "https://videscentrs.lvgmc.lv/data/weather_forecast_for_location_hourly" \
+    | jq --arg time "$time" '.[] | select(.laiks==$time)'
 )
 
 temp=$(get_temp "$response")

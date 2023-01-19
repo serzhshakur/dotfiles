@@ -3,7 +3,7 @@
 switch_to_monocle() {
   for desktop in "$@"; do
     if bspc query -D --names | grep -q "$desktop"; then
-      bspc desktop "$desktop" -l monocle
+      bspc desktop "$desktop" -l monocle || true
     fi
   done
 }
@@ -20,7 +20,7 @@ case $number_of_monitors in
 2)
   for mon in $monitors; do
     case $mon in
-    HDMI-1 | HDMI-2 | DP-1)
+    HDMI-* | DP-1)
       bspc monitor "$mon" -d a s d f 1 2 3
       ;;
     eDP-1)
@@ -38,6 +38,5 @@ esac
 
 switch_to_monocle a d f u i 1 2 3
 
-# restarting Polybar panel
-
-~/.config/bspwm/panel.sh
+# don't forget to restart Polybar afterwards:
+# ~/.config/bspwm/panel.sh

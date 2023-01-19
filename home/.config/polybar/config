@@ -19,6 +19,7 @@ offset-x = 0
 offset-y = 0
 radius = 0
 fixed-center = true
+wm-restack = bspwm
 
 background = ${colors.bg}
 foreground = ${colors.fg}
@@ -35,11 +36,11 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Iosevka:style=medium:size=12;3
-font-1 = NotoSansMono Nerd Font:style=Regular;3
-font-2 = Font Awesome 5 Free Solid:style=Solid;3
-;; !! the following is used in an external scripts like polybar_monitor.sh
-font-3 = NotoSansMono Nerd Font:size=15;3
+; font-N = <fontconfig pattern>;<vertical offset>
+font-0 = Iosevka:style=medium;3
+font-1 = Font Awesome 6 Free Solid:style=Solid:size=9;3
+font-2 = Font Awesome 6 Free Solid:style=Solid:size=13;3
+font-3 = Font Awesome 6 Free Solid:style=Solid:size=13;3
 font-4 = Iosevka:style=light:size=10;3
 
 modules-center = date weather
@@ -47,7 +48,7 @@ modules-right = cpu memory backlight xkeyboard battery power
 
 tray-position = right
 tray-padding = 2
-tray-maxsize = 24
+tray-maxsize = 20
 ;tray-background = #0063ff
 
 cursor-click = pointer
@@ -71,7 +72,6 @@ modules-left = ewmh herbst-monitors
 type = internal/bspwm
 
 override-redirect = true
-wm-restack = bspwm
 ; Only show workspaces defined on the same output as the bar
 ; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
 ; But if you rename your bspwm monitors with bspc -n this option will no longer
@@ -89,12 +89,13 @@ reverse-scroll = false
 ; Note that the <label> needs to correspond with the bspwm workspace name
 ; Neither <label> nor <icon> can contain a semicolon (;)
 
-ws-icon-0 = a;
+ws-icon-0 = a;
 ws-icon-1 = s;
 ws-icon-2 = d;
 ws-icon-3 = f;
 ws-icon-4 = u;
-ws-icon-5 = i;ﱘ
+ws-icon-5 = i;
+; ws-icon-5 = i;ﱘ
 ws-icon-6 = o;
 ws-icon-default = ﱤ
 
@@ -248,7 +249,8 @@ label = "%{A1:~/scripts/rofi-window.sh &:}%{A4:bspc node -f next.local.!hidden.w
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = %{T4}%{T-}
+format-font = 3
+format-prefix = " "
 format-prefix-foreground = ${colors.fg}
 
 label-layout = %layout%
@@ -287,8 +289,9 @@ label-song-ellipsis = true
 type = internal/backlight
 card = intel_backlight
 enable-scroll = true
-format-prefix = " "
-;enable-scroll = true
+format-font = 3
+format-prefix = " "
+; format-prefix = " "
 
 
 [module/xbacklight]
@@ -388,6 +391,7 @@ format-disconnected =
 [module/date]
 type = internal/date
 interval = 5
+format-font = 3
 
 date =
 date-alt = " %Y-%m-%d"
@@ -395,7 +399,7 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = "%{A1:gsimplecal &:}%{A}"
+format-prefix = "%{A1:gsimplecal &:}%{A}"
 ;;format-foreground = #8FBCBB
 ;;label = %{T1}%date% %{T5}%time%
 label = %date% %time%
@@ -464,26 +468,31 @@ battery = BAT0
 adapter = AC
 full-at = 98
 
-format-charging = <animation-charging> <label-charging>
+format-charging = %{T3}<animation-charging>%{T-} <label-charging>
 format-charging-underline =
 
-format-discharging = <ramp-capacity> <label-discharging>
+format-discharging = %{T3}<ramp-capacity>%{T-} <label-discharging>
 format-discharging-underline =
 
-format-full-prefix = ""
+format-full-font = 3
+format-full-prefix = ""
 format-full-prefix-foreground = ${colors.fg}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-ramp-capacity-5 = 
-ramp-capacity-6 = 
-ramp-capacity-7 = 
-ramp-capacity-8 = 
-ramp-capacity-9 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+
+# ramp-capacity-0 = 
+# ramp-capacity-1 = 
+# ramp-capacity-2 = 
+# ramp-capacity-3 = 
+# ramp-capacity-4 = 
+# ramp-capacity-5 = 
+# ramp-capacity-6 = 
 ramp-capacity-foreground = ${colors.fg}
 ramp-capacity-0-foreground = ${colors.fg-urgent}
 ramp-capacity-1-foreground = ${colors.fg-urgent}
@@ -491,15 +500,19 @@ ramp-capacity-2-foreground = ${colors.fg-warn}
 ramp-capacity-3-foreground = ${colors.fg-warn}
 ramp-capacity-4-foreground = ${colors.fg-warn}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-5 = 
-animation-charging-6 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+
+; animation-charging-0 = 
+; animation-charging-1 = 
+; animation-charging-2 = 
+; animation-charging-3 = 
+; animation-charging-4 = 
+; animation-charging-5 = 
 animation-charging-foreground = ${colors.fg-ok}
-animation-charging-framerate = 750
+animation-charging-framerate = 1250
 
 animation-discharging-0 = 
 animation-discharging-1 = 

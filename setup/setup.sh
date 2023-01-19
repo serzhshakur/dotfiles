@@ -49,6 +49,7 @@ install_pkg gvim alacritty \
   networkmanager network-manager-applet openvpn networkmanager-openvpn \
   zsh oh-my-zsh-git \
   htop bat exa lf-bin fzf tree jq \
+  man-db tealdeer \
   ncdu \
   dmenu rofi rofi-greenclip \
   dunst \
@@ -63,7 +64,7 @@ install_pkg pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber \
   bluez blueman
 
 # Themes, fonts etc.
-install_pkg noto-fonts nerd-fonts-noto-sans-mono noto-fonts-emoji \
+install_pkg noto-fonts noto-fonts-emoji \
   ibm-fonts ttf-font-awesome ttf-iosevka \
   arc-gtk-theme papirus-icon-theme lxappearance qt5ct qt5-styleplugins nitrogen \
   fontpreview-git
@@ -87,7 +88,7 @@ install_pkg vlc spotify
 install_pkg code aur/code-marketplace \
   postgresql-libs \
   nodejs npm \
-  docker docker-compose kubectl kubectx \
+  docker kubectl kubectx \
   postman-bin
 
 # Move config files

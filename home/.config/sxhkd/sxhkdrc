@@ -13,7 +13,7 @@ super + Return
 # program launcher
 F1
 	rofi -sidebar-mode -show
-F2
+F3
     ./scripts/rofi-window.sh
 
 ctrl + shift + p

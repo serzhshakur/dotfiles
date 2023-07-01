@@ -40,8 +40,7 @@ module-margin-right = 2
 font-0 = Iosevka:style=medium;3
 font-1 = Font Awesome 6 Free Solid:style=Solid:size=9;3
 font-2 = Font Awesome 6 Free Solid:style=Solid:size=13;3
-font-3 = Font Awesome 6 Free Solid:style=Solid:size=13;3
-font-4 = Iosevka:style=light:size=10;3
+font-3 = Iosevka:style=light:size=10;3
 
 modules-center = date weather
 modules-right = cpu memory backlight xkeyboard battery power
@@ -233,7 +232,7 @@ label-empty-padding = 1
 [module/bspwm-xwindow]
 
 type = internal/xwindow
-format-font = 5
+format-font = 4
 format-foreground = ${colors.gray-5}
 
 ;; Mouse actions applied for 'label':
@@ -319,8 +318,9 @@ card = intel_backlight
 
 [module/weather]
 type = custom/script
-exec = ~/.config/polybar/scripts/weather_lv.sh
-click-left = ~/.config/eww/scripts/weather-toggle.sh
+exec = "curl -s --retry 4 'wttr.in/Riga?format=%l+%c+%t'"
+; exec = ~/.config/polybar/scripts/weather_lv.sh
+; click-left = ~/.config/eww/scripts/weather-toggle.sh
 format-foreground = ${colors.gray-6}
 ;format-font = 5
 interval = 300
@@ -328,6 +328,7 @@ interval = 300
 [module/cpu]
 type = internal/cpu
 interval = 2
+format-font = 4
 format-prefix = "cpu "
 format-prefix-foreground = ${colors.gray-5}
 ;format-underline = #f90000
@@ -337,6 +338,7 @@ label = %percentage:2%%
 type = internal/memory
 interval = 3
 format = <bar-used>
+format-font = 4
 format-prefix = "mem "
 format-prefix-foreground = ${colors.gray-5}
 ;format-underline = #4bffdc

@@ -48,7 +48,7 @@ install_pkg gvim alacritty \
   xf86-video-vesa \
   networkmanager network-manager-applet openvpn networkmanager-openvpn \
   zsh oh-my-zsh-git \
-  tmux htop bat exa lf-bin fzf tree jq direnv \
+  tmux htop bat exa zoxide lf-bin fzf tree jq direnv \
   man-db tealdeer \
   ncdu \
   dmenu rofi rofi-greenclip \

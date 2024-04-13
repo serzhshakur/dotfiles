@@ -2,9 +2,9 @@
 
 set -eu -o pipefail
 
+SCRIPT_DIR=$(realpath "$(dirname $0)")
 source $SCRIPT_DIR/functions.sh
 
-SCRIPT_DIR=$(realpath "$(dirname $0)")
 LOCAL_BIN=~/.local/bin
 mkdir -p $LOCAL_BIN
 

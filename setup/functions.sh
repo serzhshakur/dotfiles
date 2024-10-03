@@ -94,3 +94,22 @@ function install_vscode_extensions() {
     code --install-extension "$e"
   done
 }
+
+reinstall_gcloud() {
+    local BIN_DIR="$HOME/.local/bin"
+    mkdir -p $BIN_DIR
+    rm -rf $BIN_DIR/google-cloud-sdk || true
+    
+    curl \
+    https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz \
+    -o /tmp/google-cloud-cli-linux-x86_64.tar.gz
+    
+    tar -xf /tmp/google-cloud-cli-linux-x86_64.tar.gz -C $BIN_DIR
+    
+    $BIN_DIR/google-cloud-sdk/install.sh \
+      --usage-reporting=false \
+      --command-completion=true \
+      --install-python=false \
+      --path-update=true \
+      --quiet
+}

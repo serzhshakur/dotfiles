@@ -132,6 +132,9 @@ sudo systemctl enable reflector.timer
 git clone https://github.com/zdharma/fast-syntax-highlighting.git \
   ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
 
+# gcloud
+reinstall_gcloud
+
 echo ""
 echo "------------------------------------"
 echo "System setup successfully completed!"

@@ -1,20 +1,20 @@
 * {
-    font: "Noto 17";
+    font: "Noto 15";
     background-color:            rgba ( 0, 0, 0, 0 % );
     foreground:                  #D8DEE9;
     background:                  #2E3440;
     alternate-normal-foreground: @foreground;
     alternate-normal-background: @background;
     separatorcolor:              #1e2529;
-    border-color:                @foreground;
-    selected-normal-foreground:  @background;
-    selected-normal-background:  #D08770;
+    border-color:                #616e87;
+    selected-normal-foreground:  @foreground;
+    selected-normal-background:  #566178;
     spacing:                     2;
     normal-foreground:           @foreground;
     normal-background:           @background;
 }
 window {
-    width: 200px;
+    width:            200px;
     padding:          10;
     background-color: @background;
     border:           2;
@@ -24,19 +24,22 @@ mainbox {
     border:  0;
 }
 textbox {
-    padding: 10 0;
-    text-color:   @selected-normal-background;
+    padding:    10 0;
+    text-color: @selected-normal-background;
+}
+inputbar {
+    enabled: false;
 }
 listview {
-    padding:      8px 0px 8px 0px;
+    padding:      8px 5px 8px 5px;
     scrollbar:    false;
     border-color: @separatorcolor;
     spacing:      6px;
     fixed-height: false;
-    border:       0px 0px 0px 0px;
+    border:       0;
 }
 element {
-    padding: 8px 5px 15px 5px;
+    padding: 8px 10px 8px 10px;
     border:  0;
 }
 element normal.normal {
@@ -49,27 +52,9 @@ element alternate.normal {
     background-color: @alternate-normal-background;
 }
 element-text {
-    text-color: @normal-foreground;
+    text-color:     @normal-foreground;
+    vertical-align: 0.5;
 }
 element-text selected.normal {
     text-color: @selected-normal-foreground;
-}
-
-scrollbar {
-    width:        4px;
-    padding:      0;
-    handle-width: 8px;
-    border:       0;
-}
-button selected {
-    background-color: @selected-normal-background;
-    text-color:       @selected-normal-foreground;
-}
-inputbar {
-    enabled: false;
-}
-entry {
-    padding: 5;
-    spacing:    0;
-    text-color: @normal-foreground;
 }

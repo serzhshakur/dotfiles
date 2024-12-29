@@ -1,7 +1,7 @@
 #!/bin/bash
 
 theme="power.rasi"
-chosen=$(echo -e "  Lock\n  Suspend\n  Shutdown\n  Reboot" | rofi -dmenu -theme $theme -i)
+chosen=$(echo -e "  Lock\n Suspend\n  Shutdown\n  Reboot" | rofi -dmenu -theme $theme -i)
 confirm_message="Are you sure?"
 confirm_options="  Yes\n  No"
 

@@ -61,12 +61,6 @@ modules-left = bspwm bspwm-xwindow
 
 ;========================================
 
-[bar/herbst-bar]
-inherit = bar/main
-modules-left = ewmh herbst-monitors
-
-;========================================
-
 [module/bspwm]
 type = internal/bspwm
 
@@ -186,65 +180,24 @@ label-empty-padding = 1
 
 ;========================================
 
-[module/ewmh]
-
-type = internal/xworkspaces
-pin-workspaces = false
-enable-click = true
-enable-scroll = true
-reverse-scroll = true
-
-icon-0 = a;
-icon-1 = s;
-icon-2 = d;
-icon-3 = f;
-icon-4 = u;
-icon-5 = i;ﱘ
-icon-6 = o;
-icon-default = 'a'
-
-format = <label-state>
-label-monitor = %name%
-
-label-active = %icon%
-label-active-foreground = ${colors.bg}
-label-active-background = ${colors.orange}
-;label-active-underline = #6790eb
-label-active-padding = 1
-
-label-occupied = %icon%
-label-occupied-foreground = #f4f4f4
-label-occupied-background = ${colors.bg}
-label-occupied-padding = 1
-
-label-urgent = %icon%
-label-urgent-foreground = ${colors.fg-urgent}
-label-urgent-background = ${colors.alert}
-label-urgent-underline = ${colors.alert}
-label-urgent-padding = 1
-
-label-empty = %icon%
-label-empty-foreground = ${colors.gray-5}
-label-empty-padding = 1
-
-;========================================
-
 [module/bspwm-xwindow]
-
+;; https://github.com/polybar/polybar/wiki/Module:-xwindow
 type = internal/xwindow
 format-font = 4
 format-foreground = ${colors.gray-5}
 
 ;; Mouse actions applied for 'label':
-;;;; left click - open rofi windows menu
-;;;; scroll up - bspc next window in current desktop
-;;;; scroll down - bspc previous window in current desktop
+;; https://github.com/polybar/polybar/wiki/Formatting#action-a
+;;;; A1 (left click) - open rofi windows menu
+;;;; А4 (scroll up) - bspc next window in current desktop
+;;;; А5 (scroll down) - bspc previous window in current desktop
 ;;
 label = "%{A1:~/scripts/rofi-window.sh &:}%{A4:bspc node -f next.local.!hidden.window:}%{A5:bspc node -f prev.local.!hidden.window:}%title:0:60:...%%{A}%{A}%{A}"
 
 ;========================================
 
 [module/xkeyboard]
+;; https://github.com/polybar/polybar/wiki/Module:-xkeyboard
 type = internal/xkeyboard
 blacklist-0 = num lock
 
@@ -260,6 +213,7 @@ label-indicator-background = ${colors.alert}
 
 
 [module/filesystem]
+;; https://github.com/polybar/polybar/wiki/Module:-filesystem
 type = internal/fs
 interval = 25
 
@@ -270,21 +224,8 @@ label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.gray-5}
 
 
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
-
-
 [module/backlight]
+;; https://github.com/polybar/polybar/wiki/Module:-backlight
 type = internal/backlight
 card = intel_backlight
 enable-scroll = true
@@ -294,6 +235,7 @@ format-prefix = " "
 
 
 [module/xbacklight]
+;; https://github.com/polybar/polybar/wiki/Module:-xbacklight
 type = internal/xbacklight
 
 format = <label> <bar>
@@ -311,11 +253,6 @@ bar-empty-font = 2
 bar-empty-foreground = ${colors.gray-5}
 
 
-[module/backlight-acpi]
-inherit = module/xbacklight
-type = internal/backlight
-card = intel_backlight
-
 [module/weather]
 type = custom/script
 exec = "curl -s --retry 4 'wttr.in/Riga?format=%l+%c+%t'"
@@ -331,17 +268,16 @@ interval = 2
 format-font = 4
 format-prefix = "cpu "
 format-prefix-foreground = ${colors.gray-5}
-;format-underline = #f90000
 label = %percentage:2%%
 
 [module/memory]
+;; https://github.com/polybar/polybar/wiki/Module:-memory
 type = internal/memory
 interval = 3
 format = <bar-used>
 format-font = 4
 format-prefix = "mem "
 format-prefix-foreground = ${colors.gray-5}
-;format-underline = #4bffdc
 label = %gb_used%/%gb_total%
 
 ; Only applies if <bar-used> is used
@@ -356,6 +292,7 @@ bar-used-empty = ▐
 bar-used-empty-foreground = #444444
 
 [module/wlan]
+;; https://github.com/polybar/polybar/wiki/Module:-network
 type = internal/network
 interface = wlo1
 interval = 5.0
@@ -373,24 +310,8 @@ format-disconnected =
 ramp-signal-0 = 直
 ramp-signal-foreground = ${colors.fg}
 
-[module/eth]
-type = internal/network
-interface = enp0s25
-interval = 3.0
-
-format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.gray-5}
-label-connected = %local_ip%
-
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.gray-5}
-
-
 [module/date]
+;; https://github.com/polybar/polybar/wiki/Module:-date
 type = internal/date
 interval = 5
 format-font = 3
@@ -402,69 +323,11 @@ time = %H:%M
 time-alt = %H:%M:%S
 
 format-prefix = "%{A1:gsimplecal &:}%{A}"
-;;format-foreground = #8FBCBB
-;;label = %{T1}%date% %{T5}%time%
 label = %date% %time%
 
 
-[module/pulseaudio]
-type = internal/pulseaudio
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
-label-volume-foreground = ${root.foreground}
-
-label-muted = 🔇 muted
-label-muted-foreground = #666
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.gray-5}
-
-
-[module/alsa]
-type = internal/alsa
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL
-label-volume-foreground = ${root.foreground}
-
-format-muted-prefix = " "
-format-muted-foreground = ${colors.gray-5}
-label-muted = sound muted
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.gray-5}
-
-
 [module/battery]
+;; https://github.com/polybar/polybar/wiki/Module:-battery
 type = internal/battery
 battery = BAT0
 adapter = AC
@@ -522,23 +385,6 @@ animation-discharging-2 = 
 animation-discharging-foreground = ${colors.gray-5}
 animation-discharging-framerate = 750
 
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
-
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-
-label = %temperature-c%
-label-warn = %temperature-c%
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.gray-5}
 
 [module/power]
 type = custom/text
@@ -547,44 +393,8 @@ content-foreground = ${colors.orange}
 click-left = ~/scripts/power.sh
 
 
-[module/herbst-monitors]
-type = custom/script
-exec = ~/.config/herbstluftwm/scripts/polybar_monitors.sh "%{T4}%{F#eaa560}%{F-}" "%{T4}%{F#969595}%{F-}"
-format-padding = 2
-tail = true
-
-
-[module/powermenu]
-type = custom/menu
-expand-right = true
-format-spacing = 1
-
-label-open = 
-label-open-foreground = ${colors.orange}
-;label-open-padding = 1
-label-close = ﰸ cancel
-label-close-foreground = ${colors.fg-ok}
-label-separator = |
-label-separator-foreground = ${colors.gray-5}
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = systemctl reboot
-
-menu-2-0 = power off
-menu-2-0-exec = systemctl poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
-
-
 [settings]
-screenchange-reload = true
+screenchange-reload = false ;; setting to `false` so to avoid conflicts with atorandr
 ;compositing-background = xor
 ;compositing-background = screen
 ;compositing-foreground = source
@@ -594,5 +404,3 @@ screenchange-reload = true
 [global/wm]
 margin-top = 5
 margin-bottom = 5
-
-; vim:ft=dosini

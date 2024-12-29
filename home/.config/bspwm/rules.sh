@@ -30,8 +30,8 @@ make_floating() {
 ###############################
 
 to_desktop 'a' firefox
-to_desktop 's' alacritty
-to_desktop 'd' jetbrains-idea code Code
+to_desktop 's' Alacritty
+to_desktop 'd' jetbrains-idea code Code code-oss
 to_desktop 'f' Pcmanfm
 to_desktop 'o' KeePassXC
 to_desktop 'i' Spotify

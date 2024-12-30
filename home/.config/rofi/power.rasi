@@ -1,14 +1,14 @@
 * {
-    font: "Noto 15";
-    background-color:            rgba ( 0, 0, 0, 0 % );
-    foreground:                  #D8DEE9;
-    background:                  #2E3440;
+    font:                       "Noto 15";
+    background-color:            transparent;
+    foreground:                #D8DEE9;
+    background:                #2E3440;
     alternate-normal-foreground: @foreground;
     alternate-normal-background: @background;
-    separatorcolor:              #1e2529;
-    border-color:                #616e87;
+    separatorcolor:            #1e2529;
+    border-color:              #616e87;
     selected-normal-foreground:  @foreground;
-    selected-normal-background:  #566178;
+    selected-normal-background: #566178;
     spacing:                     2;
     normal-foreground:           @foreground;
     normal-background:           @background;
@@ -25,7 +25,7 @@ mainbox {
 }
 textbox {
     padding:    10 0;
-    text-color: @selected-normal-background;
+    text-color: @foreground;
 }
 inputbar {
     enabled: false;

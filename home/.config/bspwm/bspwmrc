@@ -54,3 +54,7 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 ############ SUBSCRIPTIONS #########
 
 nohup ~/.config/bspwm/subscriptions.sh > /dev/null 2>&1 &
+
+# create a marker file to inform autorandr that this is a first boot so no need
+# to reload config. For more info see ~/.config/autorandr/postswitch.d/1-bspwm.sh
+touch /tmp/bspwm

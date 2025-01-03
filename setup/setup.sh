@@ -33,9 +33,6 @@ function install_pkg() {
   #paru -Rns $(paru -Qtdq) &> /dev/null
 }
 
-# Setup faster mirrors
-#rank_and_update_mirrors
-
 # Installing necessary packages
 install_pkg gvim alacritty \
   xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb,mkfontscale,xfontsel,xlsfonts} \
@@ -47,8 +44,8 @@ install_pkg gvim alacritty \
   mesa mesa-libgl \
   xf86-video-vesa \
   networkmanager network-manager-applet openvpn networkmanager-openvpn \
-  zsh oh-my-zsh-git \
-  tmux htop bat exa zoxide lf-bin fzf tree jq direnv \
+  zsh oh-my-zsh-git zsh-syntax-highlighting \
+  tmux ripgrep htop bat exa zoxide lf-bin fzf tree jq direnv \
   man-db tealdeer \
   ncdu \
   dmenu rofi rofi-greenclip \
@@ -76,7 +73,6 @@ install_pkg viewnior \
   gsimplecal \
   pcmanfm-gtk3 file-roller ranger \
   flameshot \
-  joplin-appimage \
   qalculate-gtk libreoffice-still
 ## WM
 install_pkg bspwm sxhkd xdo polybar
@@ -85,10 +81,9 @@ install_pkg firefox chromium transmission-gtk
 # Entertainment
 install_pkg vlc spotify
 # Development etc.
-install_pkg code aur/code-marketplace \
-  postgresql-libs \
+install_pkg visual-studio-code-bin \
   nodejs npm \
-  docker kubectl kubectx \
+  docker \
   postman-bin
 
 # Move config files
@@ -127,10 +122,6 @@ sudo systemctl enable fstrim.timer
 
 # Enable Scheduled Mirrorlist Updates
 sudo systemctl enable reflector.timer
-
-# ZSH syntax highlighting
-git clone https://github.com/zdharma/fast-syntax-highlighting.git \
-  ~ZSH_CUSTOM/plugins/fast-syntax-highlighting
 
 # gcloud
 reinstall_gcloud

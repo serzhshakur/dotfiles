@@ -1,0 +1,134 @@
+services:
+  #-------------- [VPN tunnel] -------------#
+  vpn:
+    image: qmcgaw/gluetun:v3
+    container_name: vpn
+    hostname: vpn
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - ${QBITTORRENT_UI_PORT}:${QBITTORRENT_UI_PORT}
+    environment:
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+      - WIREGUARD_PRESHARED_KEY=${WIREGUARD_PRESHARED_KEY}
+      - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
+      - FIREWALL_VPN_INPUT_PORTS=${WIREGUARD_INPUT_PORT}
+      - SERVER_COUNTRIES=${VPN_SERVER_COUNTRIES}
+    volumes:
+      - ${CONFIGS_DIR}/gluetun:/gluetun
+    devices:
+      - /dev/net/tun:/dev/net/tun
+
+  #-------------- [qbittorrent] ---------------#
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    network_mode: "service:vpn"
+    environment: &envz
+      TZ: &TZ TZ=Europe/Riga
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      WEBUI_PORT: ${QBITTORRENT_UI_PORT}
+      TORRENTING_PORT: ${WIREGUARD_INPUT_PORT}
+    volumes:
+      - ${CONFIGS_DIR}/qbittorrent:/config
+      - type: volume
+        source: servarr_data
+        target: /mount/downloads
+        volume:
+          subpath: downloads
+    depends_on: [vpn]
+    restart: unless-stopped
+
+  #------------- [flaresolverr] ------------#
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - *TZ
+    restart: unless-stopped
+
+  #------------- [jellyfin] -------------#
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: ${PUID:-1000}:${PGID:-1000}
+    group_add: ["985"]
+    network_mode: "host"
+    environment:
+      TZ: *TZ
+    volumes:
+      - ${CONFIGS_DIR}/jellyfin/config:/config
+      - ${CONFIGS_DIR}/jellyfin/cache:/cache
+      - type: volume
+        source: servarr_data
+        target: /media
+        volume:
+          subpath: media
+    devices:
+      - /dev/dri:/dev/dri
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  #--------------- [prowlarr] ----------------#
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment: *envz
+    volumes:
+      - ${CONFIGS_DIR}/servarr/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  #--------------- [radarr] -----------------#
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment: *envz
+    volumes:
+      - ${CONFIGS_DIR}/servarr/radarr:/config
+      - servarr_data:/mount
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    depends_on:
+      - prowlarr
+      - qbittorrent
+      - jellyfin
+
+  #--------------- [sonarr] ----------------#
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment: *envz
+    volumes:
+      - ${CONFIGS_DIR}/servarr/sonarr:/config
+      - servarr_data:/mount
+    depends_on:
+      - prowlarr
+      - qbittorrent
+      - jellyfin
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+#-----------------------------------------#
+volumes:
+  servarr_data:
+    name: servarr_data
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${SERVARR_VOLUME_DIR}
+# networks:
+#   servarr:
+#     driver: bridge

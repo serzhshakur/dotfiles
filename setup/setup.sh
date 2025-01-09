@@ -36,6 +36,7 @@ function install_pkg() {
 # Installing necessary packages
 install_pkg gvim alacritty \
   xorg-{server,xinit,xinput,xwininfo,xlogo,xauth,xclock,twm,xrdb,mkfontscale,xfontsel,xlsfonts} \
+  xclip xdg-user-dirs \
   arandr autorandr \
   udisks2 udiskie \
   lightdm lightdm-gtk-greeter \

@@ -5,8 +5,7 @@ services:
     container_name: vpn
     hostname: vpn
     restart: unless-stopped
-    cap_add:
-      - NET_ADMIN
+    cap_add: [NET_ADMIN]
     ports:
       - ${QBITTORRENT_UI_PORT}:${QBITTORRENT_UI_PORT}
     environment:
@@ -36,12 +35,20 @@ services:
     volumes:
       - ${CONFIGS_DIR}/qbittorrent:/config
       - type: volume
-        source: servarr_data
+        source: media_data
         target: /mount/downloads
         volume:
           subpath: downloads
-    depends_on: [vpn]
     restart: unless-stopped
+    depends_on:
+      vpn: &healthy
+        condition: service_healthy
+    healthcheck: &http_healthcheck
+      test: curl -f -s -o /dev/null http://localhost:${QBITTORRENT_UI_PORT}
+      start_period: 3s
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   #------------- [flaresolverr] ------------#
   flaresolverr:
@@ -53,6 +60,58 @@ services:
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
       - *TZ
     restart: unless-stopped
+
+  #--------------- [prowlarr] ----------------#
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment: *envz
+    volumes:
+      - ${CONFIGS_DIR}/servarr/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+    depends_on:
+      qbittorrent: *healthy
+    healthcheck:
+      <<: *http_healthcheck
+      test: curl -f http://localhost:9696/ping
+
+  #--------------- [radarr] -----------------#
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment: *envz
+    volumes:
+      - ${CONFIGS_DIR}/servarr/radarr:/config
+      - media_data:/mount
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+    healthcheck:
+      <<: *http_healthcheck
+      test: curl -f http://localhost:7878/ping
+    depends_on:
+      prowlarr: *healthy
+      qbittorrent: *healthy
+
+  #--------------- [sonarr] ----------------#
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment: *envz
+    volumes:
+      - ${CONFIGS_DIR}/servarr/sonarr:/config
+      - media_data:/mount
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+    healthcheck:
+      <<: *http_healthcheck
+      test: curl -f http://localhost:8989/ping
+    depends_on:
+      prowlarr: *healthy
+      qbittorrent: *healthy
 
   #------------- [jellyfin] -------------#
   jellyfin:
@@ -67,7 +126,7 @@ services:
       - ${CONFIGS_DIR}/jellyfin/config:/config
       - ${CONFIGS_DIR}/jellyfin/cache:/cache
       - type: volume
-        source: servarr_data
+        source: media_data
         target: /media
         volume:
           subpath: media
@@ -76,54 +135,14 @@ services:
     restart: unless-stopped
     extra_hosts:
       - "host.docker.internal:host-gateway"
-
-  #--------------- [prowlarr] ----------------#
-  prowlarr:
-    image: linuxserver/prowlarr:latest
-    container_name: prowlarr
-    environment: *envz
-    volumes:
-      - ${CONFIGS_DIR}/servarr/prowlarr:/config
-    ports:
-      - 9696:9696
-    restart: unless-stopped
-
-  #--------------- [radarr] -----------------#
-  radarr:
-    image: lscr.io/linuxserver/radarr:latest
-    container_name: radarr
-    environment: *envz
-    volumes:
-      - ${CONFIGS_DIR}/servarr/radarr:/config
-      - servarr_data:/mount
-    ports:
-      - 7878:7878
-    restart: unless-stopped
     depends_on:
-      - prowlarr
-      - qbittorrent
-      - jellyfin
-
-  #--------------- [sonarr] ----------------#
-  sonarr:
-    image: lscr.io/linuxserver/sonarr:latest
-    container_name: sonarr
-    environment: *envz
-    volumes:
-      - ${CONFIGS_DIR}/servarr/sonarr:/config
-      - servarr_data:/mount
-    depends_on:
-      - prowlarr
-      - qbittorrent
-      - jellyfin
-    ports:
-      - 8989:8989
-    restart: unless-stopped
+      sonarr: *healthy
+      radarr: *healthy
 
 #-----------------------------------------#
 volumes:
-  servarr_data:
-    name: servarr_data
+  media_data:
+    name: media_data
     driver: local
     driver_opts:
       o: bind

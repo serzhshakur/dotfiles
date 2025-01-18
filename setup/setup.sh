@@ -84,7 +84,7 @@ install_pkg vlc spotify
 # Development etc.
 install_pkg visual-studio-code-bin \
   nodejs npm \
-  docker \
+  docker docker-compose docker-buildx \
   postman-bin
 
 # Move config files

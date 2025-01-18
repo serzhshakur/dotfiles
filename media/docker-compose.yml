@@ -40,6 +40,12 @@ services:
         volume:
           subpath: downloads
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+        reservations:
+          memory: 1G
     depends_on:
       vpn: &healthy
         condition: service_healthy
@@ -133,9 +139,50 @@ services:
     devices:
       - /dev/dri:/dev/dri
     restart: unless-stopped
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    healthcheck:
+      <<: *http_healthcheck
+      test: curl -f http://localhost:8096/System/Ping
     depends_on:
+      sonarr: *healthy
+      radarr: *healthy
+
+  #------------- [jellyseerr] -------------#
+  jellyseerr:
+    image: fallenbagel/jellyseerr:develop
+    container_name: jellyseerr
+    network_mode: "host"
+    ports:
+      - 5055:5055
+    environment:
+      LOG_LEVEL: debug
+      TZ: *TZ
+    volumes:
+      - ${CONFIGS_DIR}/jellyseerr:/app/config
+    devices:
+      - /dev/dri:/dev/dri
+    restart: unless-stopped
+    depends_on:
+      jellyfin: *healthy
+
+  #------------- [sanitarr] -------------#
+  # https://github.com/serzhshakur/sanitarr
+  sanitarr:
+    image: sanitarr:local
+    container_name: sanitarr
+    network_mode: "host"
+    pull_policy: never
+    environment:
+      LOG_LEVEL: debug
+      INTERVAL: 45m
+    volumes:
+      - ${CONFIGS_DIR}/sanitarr-config.toml:/app/config.toml
+    command:
+      - --config
+      - /app/config.toml
+      - --log-level
+      - debug
+    depends_on:
+      jellyfin: *healthy
       sonarr: *healthy
       radarr: *healthy
 

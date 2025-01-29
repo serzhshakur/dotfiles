@@ -9,13 +9,18 @@ services:
     ports:
       - ${QBITTORRENT_UI_PORT}:${QBITTORRENT_UI_PORT}
     environment:
-      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
       - VPN_TYPE=wireguard
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - FIREWALL_VPN_INPUT_PORTS=${FIREWALL_VPN_INPUT_PORT}
       - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
       - WIREGUARD_PRESHARED_KEY=${WIREGUARD_PRESHARED_KEY}
       - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
-      - FIREWALL_VPN_INPUT_PORTS=${WIREGUARD_INPUT_PORT}
-      - SERVER_COUNTRIES=${VPN_SERVER_COUNTRIES}
+      ######### for service provider 'custom' ##########
+      - WIREGUARD_PUBLIC_KEY=${WIREGUARD_PUBLIC_KEY}
+      - WIREGUARD_ENDPOINT_IP=${WIREGUARD_ENDPOINT_IP}
+      - WIREGUARD_ENDPOINT_PORT=${WIREGUARD_ENDPOINT_PORT}
+      ######### for specific service provider ##########
+      # - SERVER_COUNTRIES=${VPN_SERVER_COUNTRIES}
     volumes:
       - ${CONFIGS_DIR}/gluetun:/gluetun
     devices:
@@ -31,7 +36,7 @@ services:
       PUID: ${PUID:-1000}
       PGID: ${PGID:-1000}
       WEBUI_PORT: ${QBITTORRENT_UI_PORT}
-      TORRENTING_PORT: ${WIREGUARD_INPUT_PORT}
+      TORRENTING_PORT: ${FIREWALL_VPN_INPUT_PORT}
     volumes:
       - ${CONFIGS_DIR}/qbittorrent:/config
       - type: volume
@@ -141,7 +146,7 @@ services:
     restart: unless-stopped
     healthcheck:
       <<: *http_healthcheck
-      test: curl -f http://localhost:8096/System/Ping
+      test: curl -X POST -f http://localhost:8096/System/Ping && sleep 2
     depends_on:
       sonarr: *healthy
       radarr: *healthy

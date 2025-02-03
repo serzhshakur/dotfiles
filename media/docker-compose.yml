@@ -147,9 +147,6 @@ services:
     healthcheck:
       <<: *http_healthcheck
       test: curl -X POST -f http://localhost:8096/System/Ping && sleep 2
-    depends_on:
-      sonarr: *healthy
-      radarr: *healthy
 
   #------------- [jellyseerr] -------------#
   jellyseerr:
@@ -168,6 +165,8 @@ services:
     restart: unless-stopped
     depends_on:
       jellyfin: *healthy
+      sonarr: *healthy
+      radarr: *healthy
 
   #------------- [sanitarr] -------------#
   # https://github.com/serzhshakur/sanitarr
@@ -181,11 +180,7 @@ services:
       INTERVAL: 45m
     volumes:
       - ${CONFIGS_DIR}/sanitarr-config.toml:/app/config.toml
-    command:
-      - --config
-      - /app/config.toml
-      - --log-level
-      - debug
+    command: ["--config", "/app/config.toml", "--force-delete"]
     depends_on:
       jellyfin: *healthy
       sonarr: *healthy
